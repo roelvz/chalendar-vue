@@ -56,7 +56,7 @@ export default {
   },
 
   methods: {
-    to(id) { return `/group:${id}`; },
+    to(id) { return `/group/${id}`; },
   },
 
   computed: mapState({

@@ -13,7 +13,7 @@ export default new Router({
       component: Main
     },
     {
-      path: '/group:id',
+      path: '/group/:id',
       name: 'Group',
       component: Group,
     },
