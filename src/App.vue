@@ -42,6 +42,8 @@
       <v-toolbar-title v-if="shouldLogin()">
         <v-btn v-if="shouldLogin()" @click="handleLogin()">Login</v-btn>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-if="!shouldLogin()" @click="handleLogout()">Logout</v-btn>
     </v-toolbar>
 
     <v-content>
