@@ -19,8 +19,24 @@ class GroupApi extends BaseApi {
   }
 
   getGroup(id) {
-    return axios.get(`${this.baseUri}/${id}/${accessToken()}`)
+    return axios.get(`${this.baseUri}/${id}${accessToken()}`)
       .then(result => result.data);
+  }
+
+  getMessages(groupId) {
+    return axios.get(`${this.baseUri}/${groupId}/messages${accessToken()}`)
+      .then(result => result.data);
+  }
+
+  postMessage(groupId, text, creatorId) {
+    return axios({
+      method: 'post',
+      url: `${this.baseUri}/${groupId}/messages${accessToken()}`,
+      data: {
+        text: text,
+        creatorId: creatorId,
+      }
+    }).then(result => result.data);
   }
 }
 

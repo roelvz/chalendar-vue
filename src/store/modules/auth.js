@@ -4,6 +4,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const state = {
   loggedIn: false,
+  userId: "",
 };
 
 const getters = {
@@ -13,10 +14,14 @@ const getters = {
 };
 
 const actions = {
-  login({commit}, credentials) {
+  login({commit, dispatch}, credentials) {
     return (new ChatterApi).login(credentials)
       .then(result => {
         setAccessToken(result.id);
+        commit('setUserId', result.userId);
+        return dispatch('groupStore/initGroups');
+      })
+      .then(result => {
         commit('setLoggedIn');
       })
       .catch(error => {
@@ -37,6 +42,15 @@ const actions = {
 const mutations = {
   setLoggedIn(state) {
     state.loggedIn = true;
+  },
+
+  setUserId(state, userId) {
+    state.userId = userId;
+  },
+
+  reset(state) {
+    state.loggedIn = false;
+    state.userId = "";
   },
 };
 

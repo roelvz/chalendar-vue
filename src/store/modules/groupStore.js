@@ -4,7 +4,9 @@ const groupApi = new GroupApi();
 
 const state = {
   groups: [],
-  loadedGroup: {},
+  loadedGroup: {
+    messages:[],
+  },
 };
 
 const getters = {};
@@ -21,14 +23,33 @@ const actions = {
   },
 
   loadGroup({commit}, id) {
+    let loadedGroup = {};
+
     groupApi.getGroup(id)
-      .then(result => {
-        commit('setLoadedGroup', result)
+      .then(group => {
+        loadedGroup = group;
+        return groupApi.getMessages(group.id)
+      })
+      .then(messages => {
+        loadedGroup.messages = messages;
+        commit('setLoadedGroup', loadedGroup);
       })
       .catch(error => {
         console.error(error.response ? error.response : error);
       });
   },
+
+  postMessage({commit, state, rootState}, text) {
+    if (state.loadedGroup) {
+      groupApi.postMessage(state.loadedGroup.id, text, rootState.auth.userId)
+        .then(message => commit('addMessage', message))
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    } else {
+      console.error("Could not post message: no group loaded");
+    }
+  }
 };
 
 const mutations = {
@@ -40,9 +61,15 @@ const mutations = {
     state.loadedGroup = group;
   },
 
+  addMessage(state, message) {
+    state.loadedGroup.messages.push(message);
+  },
+
   reset(state) {
     state.groups =  [];
-    state.loadedGroup = {};
+    state.loadedGroup = {
+      messages:[],
+    };
   },
 };
 

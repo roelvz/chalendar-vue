@@ -1,8 +1,11 @@
 <template>
   <v-app dark>
+    HALLO
     <login></login>
 
-    <v-navigation-drawer fixed clipped app>
+    <v-navigation-drawer v-model="drawer"
+                         :clipped="$vuetify.breakpoint.mdAndUp"
+                         app>
       <v-toolbar flat>
         <v-list>
           <v-list-tile>
@@ -32,6 +35,15 @@
       </v-list>
     </v-navigation-drawer>
 
+    <v-toolbar app
+               :clipped-left="$vuetify.breakpoint.mdAndUp"
+               fixed>
+      <v-toolbar-title>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <span>Chalendar</span>
+      </v-toolbar-title>
+    </v-toolbar>
+
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -52,6 +64,7 @@ export default {
   components: {Login, Group},
   data () {
     return {
+      drawer: null,
     }
   },
 

@@ -36,8 +36,7 @@ export default {
 
   methods: {
     doLogin() {
-      this.login({email: this.email, password: this.password})
-        .then(this.initGroups());
+      this.login({email: this.email, password: this.password});
     },
 
     ...mapActions('auth', [
