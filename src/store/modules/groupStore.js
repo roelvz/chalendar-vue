@@ -1,6 +1,8 @@
 import GroupApi from "../../api/GroupApi";
+import ChatterApi from "../../api/ChatterApi";
 
 const groupApi = new GroupApi();
+const chatterApi = new ChatterApi();
 
 const state = {
   groups: [],
@@ -24,15 +26,32 @@ const actions = {
 
   loadGroup({commit}, id) {
     let loadedGroup = {};
+    let promises = [];
 
     groupApi.getGroup(id)
       .then(group => {
+        // Retrieve messages for group
         loadedGroup = group;
         return groupApi.getMessages(group.id)
       })
       .then(messages => {
+        // Fill in creator name for each message
+        for(let i = 0; i < messages.length; i++) {
+          let message = messages[i];
+
+          promises.push(chatterApi.getChatter(message.creatorId)
+            .then(chatter => {
+              message.creatorName = `${chatter.firstName}`;
+            }));
+        }
+
         loadedGroup.messages = messages;
-        commit('setLoadedGroup', loadedGroup);
+      })
+      .then(result => {
+        // Save loaded group, including its messages.
+        Promise.all(promises).then(() => {
+          commit('setLoadedGroup', loadedGroup);
+        });
       })
       .catch(error => {
         console.error(error.response ? error.response : error);
