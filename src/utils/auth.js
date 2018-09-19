@@ -1,20 +1,62 @@
+import decode from 'jwt-decode';
+import axios from 'axios';
+import auth0 from 'auth0-js';
 import Router from 'vue-router';
-import ChatterApi from "@/api/ChatterApi";
+import Auth0Lock from 'auth0-lock';
+const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
+const CLIENT_ID = '26K0G3dpKG3JVSMgDUCM2c4OUoxsDZY1';
+const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
+const REDIRECT = 'http://192.168.1.16:8080/callback';
+const SCOPE = 'full_access';
+const AUDIENCE = 'https://chalendar.com/';
+
+var auth = new auth0.WebAuth({
+  clientID: CLIENT_ID,
+  domain: CLIENT_DOMAIN
+});
+
 export function login() {
-  (new ChatterApi).login()
-    .then(result => {
-      setAccessToken(result);
-    });
+  auth.authorize({
+    responseType: 'token id_token',
+    redirectUri: REDIRECT,
+    audience: AUDIENCE,
+    scope: SCOPE
+  });
 }
 
+var router = new Router({
+  mode: 'history',
+});
+
 export function logout() {
+  clearIdToken();
   clearAccessToken();
+  router.go('/');
+}
+
+export function requireAuth(to, from, next) {
+  if (!isLoggedIn()) {
+    next({
+      path: '/',
+      query: { redirect: to.fullPath }
+    });
+  } else {
+    next();
+  }
+}
+
+export function getIdToken() {
+  return localStorage.getItem(ID_TOKEN_KEY);
 }
 
 export function getAccessToken() {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
+
+function clearIdToken() {
+  localStorage.removeItem(ID_TOKEN_KEY);
 }
 
 function clearAccessToken() {
@@ -28,15 +70,21 @@ function getParameterByName(name) {
 }
 
 // Get and store access_token in local storage
-export function setAccessToken(accessToken) {
+export function setAccessToken() {
+  let accessToken = getParameterByName('access_token');
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+}
+
+// Get and store id_token in local storage
+export function setIdToken() {
+  let idToken = getParameterByName('id_token');
+  localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
 export function isLoggedIn() {
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
 }
-
 
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);

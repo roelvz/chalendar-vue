@@ -36,10 +36,10 @@ const actions = {
       })
       .then(messages => {
         // Fill in creator name for each message
-        for(let i = 0; i < messages.length; i++) {
-          let message = messages[i];
-          promises.push(initMessage(message));
-        }
+        // for(let i = 0; i < messages.length; i++) {
+        //   let message = messages[i];
+        //   promises.push(initMessage(message));
+        // }
 
         loadedGroup.messages = messages;
       })
@@ -58,8 +58,9 @@ const actions = {
     if (state.loadedGroup) {
       groupApi.postMessage(state.loadedGroup.id, text, rootState.auth.user.userId)
         .then(message => {
-          initMessage(message)
-            .then(() => commit('addMessage', message))
+          commit('addMessage', message)
+          // initMessage(message)
+          //   .then(() => commit('addMessage', message))
         })
         .catch(error => {
           console.error(error.response ? error.response : error);

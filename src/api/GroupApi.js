@@ -1,12 +1,6 @@
 import BaseApi from "./BaseApi";
 const axios = require('axios');
 
-const ACCESS_TOKEN_KEY = 'access_token';
-
-function accessToken() {
-  return `?access_token=${localStorage.getItem(ACCESS_TOKEN_KEY)}`;
-}
-
 class GroupApi extends BaseApi {
   constructor() {
     super();
@@ -14,24 +8,25 @@ class GroupApi extends BaseApi {
   }
 
   getGroups() {
-    return axios.get(`${this.baseUri}${accessToken()}`)
+    return axios.get(this.baseUri, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
   getGroup(id) {
-    return axios.get(`${this.baseUri}/${id}${accessToken()}`)
+    return axios.get(`${this.baseUri}/${id}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
   getMessages(groupId) {
-    return axios.get(`${this.baseUri}/${groupId}/messages${accessToken()}`)
+    return axios.get(`${this.baseUri}/${groupId}/messages`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
   postMessage(groupId, text, creatorId) {
     return axios({
       method: 'post',
-      url: `${this.baseUri}/${groupId}/messages${accessToken()}`,
+      url: `${this.baseUri}/${groupId}/messages`,
+      headers: BaseApi.buildHeaders(),
       data: {
         text: text,
         creatorId: creatorId,

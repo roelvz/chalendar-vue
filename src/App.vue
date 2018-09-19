@@ -1,8 +1,5 @@
 <template>
   <v-app dark>
-    HALLO
-    <login></login>
-
     <v-navigation-drawer v-model="drawer"
                          :clipped="$vuetify.breakpoint.mdAndUp"
                          app>
@@ -18,7 +15,7 @@
 
       <v-divider></v-divider>
 
-      <v-list dense class="pt-0">
+      <v-list v-if="!shouldLogin()" dense class="pt-0">
         <v-list-tile
           v-for="group in groups"
           :key="group.id"
@@ -42,6 +39,9 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span>Chalendar</span>
       </v-toolbar-title>
+      <v-toolbar-title v-if="shouldLogin()">
+        <v-btn v-if="shouldLogin()" @click="handleLogin()">Login</v-btn>
+      </v-toolbar-title>
     </v-toolbar>
 
     <v-content>
@@ -56,20 +56,44 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import Login from "./components/Login";
+import { isLoggedIn, login, logout } from './utils/auth';
+
 import Group from "./components/Group";
 
 export default {
   name: 'App',
-  components: {Login, Group},
+  components: {Group},
   data () {
     return {
       drawer: null,
     }
   },
 
+  mounted() {
+    if (isLoggedIn()) {
+      this.initGroups();
+    }
+  },
+
   methods: {
+    handleLogin() {
+      login();
+      if (isLoggedIn()) {
+        this.initGroups();
+      }
+    },
+    handleLogout() {
+      logout();
+    },
+    shouldLogin() {
+      return !isLoggedIn();
+    },
+
     to(id) { return `/group/${id}`; },
+
+    ...mapActions('groupStore', [
+      'initGroups',
+    ]),
   },
 
   computed: mapState({
