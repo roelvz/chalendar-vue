@@ -50,7 +50,8 @@ export default {
 
   methods: {
     sendMessage() {
-      this.postMessage(this.inputMessage);
+      this.postMessage(this.inputMessage)
+        .then(this.inputMessage = "");
     },
 
     ...mapActions('groupStore', [

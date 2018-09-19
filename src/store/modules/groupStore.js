@@ -38,11 +38,7 @@ const actions = {
         // Fill in creator name for each message
         for(let i = 0; i < messages.length; i++) {
           let message = messages[i];
-
-          promises.push(chatterApi.getChatter(message.creatorId)
-            .then(chatter => {
-              message.creatorName = `${chatter.firstName}`;
-            }));
+          promises.push(initMessage(message));
         }
 
         loadedGroup.messages = messages;
@@ -60,8 +56,11 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedGroup) {
-      groupApi.postMessage(state.loadedGroup.id, text, rootState.auth.userId)
-        .then(message => commit('addMessage', message))
+      groupApi.postMessage(state.loadedGroup.id, text, rootState.auth.user.userId)
+        .then(message => {
+          initMessage(message)
+            .then(() => commit('addMessage', message))
+        })
         .catch(error => {
           console.error(error.response ? error.response : error);
         });
@@ -70,6 +69,13 @@ const actions = {
     }
   }
 };
+
+function initMessage(message) {
+  return chatterApi.getChatter(message.creatorId)
+    .then(chatter => {
+      message.creatorName = chatter.firstName;
+    });
+}
 
 const mutations = {
   setGroups(state, groups) {
