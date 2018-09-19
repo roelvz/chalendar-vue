@@ -19,7 +19,7 @@ const actions = {
       .then(result => {
         setAccessToken(result.id);
         commit('setUserId', result.userId);
-        return dispatch('groupStore/initGroups');
+        return dispatch('groupStore/initGroups', {}, {root:true});
       })
       .then(result => {
         commit('setLoggedIn');
