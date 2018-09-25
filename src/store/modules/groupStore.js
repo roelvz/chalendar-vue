@@ -35,7 +35,7 @@ const actions = {
         return groupApi.getMessages(group.id)
       })
       .then(messages => {
-        // Fill in creator name for each message
+        // Fill in creator name and picture for each message
         for(let i = 0; i < messages.length; i++) {
           let message = messages[i];
           promises.push(initMessage(message));
@@ -74,6 +74,7 @@ function initMessage(message) {
   return chatterApi.getChatter(message.creatorId)
     .then(chatter => {
       message.creatorName = chatter.firstName;
+      message.creatorPicture = chatter.picture;
     });
 }
 

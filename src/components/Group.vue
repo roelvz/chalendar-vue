@@ -6,6 +6,9 @@
       <v-divider ></v-divider>
       <template v-for="message in loadedGroup.messages">
         <v-list-tile :key="message.id" @click="">
+          <v-list-tile-avatar>
+            <img :src="message.creatorPicture">
+          </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{message.text}}</v-list-tile-title>
             <v-list-tile-sub-title>By {{message.creatorName}}</v-list-tile-sub-title>
