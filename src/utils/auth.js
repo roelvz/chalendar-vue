@@ -36,7 +36,7 @@ var router = new Router({
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  router.go('/');
+  window.location.href = '/';
 }
 
 export function requireAuth(to, from, next) {
