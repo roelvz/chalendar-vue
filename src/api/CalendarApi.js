@@ -20,8 +20,23 @@ class CalendarApi extends BaseApi {
   }
 
   getEvents(calendarId) {
-    return axios.get(`${this.baseUri}/${calendarId}/events`, BaseApi.buildHeaders())
+    return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date"}`, BaseApi.buildHeaders())
       .then(result => result.data);
+  }
+
+  postEvent(calendarId, [name, description, date]) {
+    return axios({
+      method: 'post',
+      url: `${this.baseUri}/${calendarId}/events`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+      data: {
+        name: name,
+        description: description,
+        date: date,
+      }
+    })
   }
 }
 

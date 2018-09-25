@@ -45,7 +45,31 @@ const actions = {
         console.error(error.response ? error.response : error);
       });
   },
+
+  postEvent({commit, state, rootState}, [name, description, date]) {
+    if (state.loadedCalendar) {
+      calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
+        .then(event => {
+          commit('addEvent', event);
+          // initEvent(event)
+          //   .then(() => commit('addEvent'), event);
+        })
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    } else {
+      console.error("Could not post event: no calendar loaded");
+    }
+  },
 };
+
+// function initEvent(event) {
+//   return chatterApi.getChatter(event.creatorId)
+//     .then(chatter => {
+//       message.creatorName = chatter.firstName;
+//       message.creatorPicture = chatter.picture;
+//     });
+// }
 
 const mutations = {
   setCalendars(state, calendars) {
@@ -54,6 +78,10 @@ const mutations = {
 
   setLoadedCalendar(state, calendar) {
     state.loadedCalendar = calendar;
+  },
+
+  addEvent(state, event) {
+    state.loadedCalendar.events.push(event);
   },
 
   reset(state) {
