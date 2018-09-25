@@ -3,6 +3,7 @@ import axios from 'axios';
 import auth0 from 'auth0-js';
 import Router from 'vue-router';
 import Auth0Lock from 'auth0-lock';
+import ChatterApi from '../api/ChatterApi';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
@@ -11,6 +12,8 @@ const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
 const REDIRECT = 'http://localhost:8080/callback';
 const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://chalendar.com/';
+
+const chatterApi = new ChatterApi();
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -84,6 +87,12 @@ export function setIdToken() {
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
     js.$store.commit('userStore/setUserInfo', user);
+
+    console.log(user);
+    chatterApi.putChatter(user)
+      .catch(error => {
+        console.error(error.response ? error.response : error);
+      })
   });
 }
 
