@@ -3,7 +3,7 @@ import {getAccessToken} from "@/utils/auth";
 
 class BaseApi {
   constructor() {
-    this.baseUri = 'http://localhost:3000/api/';
+    this.baseUri = 'https://challendar.herokuapp.com/api/';
   }
 
   static buildHeaders() {
