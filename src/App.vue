@@ -3,23 +3,13 @@
     <v-navigation-drawer v-model="drawer"
                          :clipped="$vuetify.breakpoint.mdAndUp"
                          app>
-      <v-toolbar flat>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-title class="title">
-              Groups
-            </v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>
-
       <v-divider></v-divider>
 
       <v-list v-if="!shouldLogin()" dense class="pt-0">
         <v-list-tile
           v-for="group in groups"
           :key="group.id"
-          :to="to(group.id)"
+          :to="toGroup(group.id)"
           @click="">
           <v-list-tile-action>
             <v-icon>group</v-icon>
@@ -27,6 +17,22 @@
 
           <v-list-tile-content>
             <v-list-tile-title>{{ group.name }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list v-if="!shouldLogin()" dense class="pt-0">
+        <v-list-tile
+          v-for="calendar in calendars"
+          :key="calendar.id"
+          :to="toCalendar(calendar.id)"
+          @click="">
+          <v-list-tile-action>
+            <v-icon>calendar_today</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ calendar.name }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -81,6 +87,7 @@ export default {
     if (isLoggedIn()) {
       setUserInfo(this);
       this.initGroups();
+      this.initCalendars();
     }
   },
 
@@ -90,6 +97,7 @@ export default {
       if (isLoggedIn()) {
         setUserInfo(this);
         this.initGroups();
+        this.initCalendars();
       }
     },
     handleLogout() {
@@ -99,16 +107,23 @@ export default {
       return !isLoggedIn();
     },
 
-    to(id) { return `/group/${id}`; },
+    toGroup(id) { return `/group/${id}`; },
+
+    toCalendar(id) { return `/calendar/${id}`; },
 
     ...mapActions('groupStore', [
       'initGroups',
     ]),
+
+    ...mapActions('calendarStore', [
+      'initCalendars',
+    ]),
   },
 
   computed: mapState({
-    groups: state => state.groupStore.groups,
     userInfo: state => state.userStore.userInfo,
+    groups: state => state.groupStore.groups,
+    calendars: state => state.calendarStore.calendars,
   }),
 }
 
