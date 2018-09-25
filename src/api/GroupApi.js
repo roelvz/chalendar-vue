@@ -23,7 +23,7 @@ class GroupApi extends BaseApi {
       .then(result => result.data);
   }
 
-  postMessage(groupId, text, creatorId) {
+  postMessage(groupId, text) {
     return axios({
       method: 'post',
       url: `${this.baseUri}/${groupId}/messages`,
@@ -32,7 +32,6 @@ class GroupApi extends BaseApi {
       },
       data: {
         text: text,
-        creatorId: creatorId,
       }
     }).then(result => result.data);
   }

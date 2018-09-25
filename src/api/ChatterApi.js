@@ -1,4 +1,5 @@
 import BaseApi from "./BaseApi";
+import {getAccessToken} from "@/utils/auth";
 const axios = require('axios');
 
 class ChatterApi extends BaseApi {
@@ -21,7 +22,9 @@ class ChatterApi extends BaseApi {
     return axios({
       method: "post",
       url: `${this.baseUri}`,
-      headers: BaseApi.buildHeaders(),
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
       data: {
         "id": sub,
         "email": email,
@@ -36,7 +39,9 @@ class ChatterApi extends BaseApi {
     return axios({
       method: "put",
       url: `${this.baseUri}`,
-      headers: BaseApi.buildHeaders(),
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
       data: {
         "id": sub,
         "email": email,
