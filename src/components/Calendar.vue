@@ -2,12 +2,12 @@
   <v-container fluid>
     <h1>{{loadedCalendar.name}}</h1>
 
-    <v-btn :to="to()">Add event</v-btn>
+    <v-btn :to="toAddEvent()">Add event</v-btn>
 
     <v-list>
       <v-divider ></v-divider>
       <template v-for="event in loadedCalendar.events">
-        <v-list-tile :key="event.id" @click="">
+        <v-list-tile :key="event.id" :to="toEvent(event.id)">
           <v-list-tile-content>
             <v-list-tile-title>{{new Date(event.date).toDateString()}}: {{event.name}}</v-list-tile-title>
           </v-list-tile-content>
@@ -16,7 +16,7 @@
       </template>
     </v-list>
 
-    <v-btn :to="to()">Add event</v-btn>
+    <v-btn :to="toAddEvent()">Add event</v-btn>
 
   </v-container>
 </template>
@@ -32,8 +32,12 @@ export default {
   },
 
   methods: {
-    to() {
+    toAddEvent() {
       return `/calendar/${this.$route.params.id}/event/add`;
+    },
+
+    toEvent(id) {
+      return `/calendar/${this.$route.params.id}/event/${id}`;
     },
 
     ...mapActions('calendarStore', [

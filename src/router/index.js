@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Group from '@/components/Group'
 import Calendar from '@/components/Calendar'
+import Event from '@/components/Event'
 import AddEvent from '@/components/AddEvent'
 import Callback from '@/components/callback'
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/calendar/:calendarId/event/add',
       name: 'AddEvent',
       component: AddEvent,
+    },
+    {
+      path: '/calendar/:calendarId/event/:id',
+      name: 'Event',
+      component: Event,
     }
   ]
 })

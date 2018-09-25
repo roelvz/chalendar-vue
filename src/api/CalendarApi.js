@@ -1,6 +1,5 @@
 import BaseApi from "./BaseApi";
 import {getAccessToken} from "@/utils/auth";
-import GroupApi from "@/api/GroupApi";
 const axios = require('axios');
 
 class CalendarApi extends BaseApi {
