@@ -1,4 +1,5 @@
 import BaseApi from "./BaseApi";
+import {getAccessToken} from "@/utils/auth";
 const axios = require('axios');
 
 class GroupApi extends BaseApi {
@@ -26,7 +27,9 @@ class GroupApi extends BaseApi {
     return axios({
       method: 'post',
       url: `${this.baseUri}/${groupId}/messages`,
-      headers: BaseApi.buildHeaders(),
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
       data: {
         text: text,
         creatorId: creatorId,

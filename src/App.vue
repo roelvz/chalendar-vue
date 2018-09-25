@@ -40,9 +40,15 @@
         <span>Chalendar</span>
       </v-toolbar-title>
       <v-toolbar-title v-if="shouldLogin()">
-        <v-btn v-if="shouldLogin()" @click="handleLogin()">Login</v-btn>
+        <v-btn @click="handleLogin()">Login</v-btn>
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
+      <v-toolbar-title v-if="userInfo">
+        <v-avatar :tile="false" size="56px" color="grey lighten-4">
+          <img :src="userInfo.picture" alt="avatar">
+        </v-avatar>
+      </v-toolbar-title>
       <v-btn v-if="!shouldLogin()" @click="handleLogout()">Logout</v-btn>
     </v-toolbar>
 
@@ -58,7 +64,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import { isLoggedIn, login, logout } from './utils/auth';
+import { isLoggedIn, login, logout, getAccessToken, getIdToken, setUserInfo } from './utils/auth';
 
 import Group from "./components/Group";
 
@@ -73,6 +79,7 @@ export default {
 
   mounted() {
     if (isLoggedIn()) {
+      setUserInfo(this);
       this.initGroups();
     }
   },
@@ -81,6 +88,7 @@ export default {
     handleLogin() {
       login();
       if (isLoggedIn()) {
+        setUserInfo(this);
         this.initGroups();
       }
     },
@@ -100,6 +108,7 @@ export default {
 
   computed: mapState({
     groups: state => state.groupStore.groups,
+    userInfo: state => state.userStore.userInfo,
   }),
 }
 

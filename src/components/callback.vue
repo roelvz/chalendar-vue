@@ -1,7 +1,7 @@
 <template>
 </template>
 <script>
-import { setIdToken, setAccessToken } from '../utils/auth';
+  import {setIdToken, setAccessToken, setUserInfo} from '../utils/auth';
 
 export default {
   name: '',
@@ -10,9 +10,9 @@ export default {
     this.$nextTick(() => {
       setAccessToken();
       setIdToken();
-
-      window.location.href = '/';
+      setUserInfo(this);
     });
+    window.location.href = '/';
   },
 };
 </script>

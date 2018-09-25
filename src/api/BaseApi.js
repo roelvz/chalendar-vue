@@ -3,7 +3,7 @@ import {getAccessToken} from "@/utils/auth";
 
 class BaseApi {
   constructor() {
-    this.baseUri = 'http://192.168.1.16:3000/api/';
+    this.baseUri = 'http://localhost:3000/api/';
   }
 
   static buildHeaders() {
