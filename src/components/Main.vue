@@ -1,4 +1,29 @@
 <template>
+  <v-container fluid>
+    <h1>Checklist</h1>
+
+    <v-checkbox v-model="checked" label="Login" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Post messages in chat" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Post events in Calendar" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Post messages on events" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Desktop and mobile" readonly></v-checkbox>
+    <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
+    <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
+    <v-checkbox label="Notifications" readonly></v-checkbox>
+    <v-checkbox label="Going/Not going" readonly></v-checkbox>
+    <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
+    <v-checkbox label="Realtime chat (someone is typing ...)" readonly></v-checkbox>
+    <v-checkbox label="Likes" readonly></v-checkbox>
+    <v-checkbox label="Edit messages" readonly></v-checkbox>
+    <v-checkbox label="Edit events" readonly></v-checkbox>
+    <v-checkbox label="Event locations" readonly></v-checkbox>
+    <v-checkbox label="Create new chats" readonly></v-checkbox>
+    <v-checkbox label="Create new calendars" readonly></v-checkbox>
+    <v-checkbox label="Rate passed events" readonly></v-checkbox>
+    <v-checkbox label="User profile management" readonly></v-checkbox>
+    <v-checkbox label="Native andriod app" readonly></v-checkbox>
+    <v-checkbox label="Native iOS app" readonly></v-checkbox>
+  </v-container>
 </template>
 
 <script>
@@ -8,6 +33,12 @@ import Group from "./Group";
 export default {
   name: 'Main',
   components: {Group},
+
+  data() {
+    return {
+      checked: true,
+    }
+  },
 
   methods: {
     ...mapActions('auth', [
