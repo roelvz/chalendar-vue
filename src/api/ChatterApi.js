@@ -36,6 +36,16 @@ class ChatterApi extends BaseApi {
   }
 
   putChatter({sub, email, given_name, family_name, picture}) {
+    if (!given_name) {
+      if (family_name) {
+        given_name = family_name;
+      } else if (email) {
+        given_name = email;
+      } else {
+        given_name = 'Unknown';
+      }
+    }
+
     return axios({
       method: "put",
       url: `${this.baseUri}`,
