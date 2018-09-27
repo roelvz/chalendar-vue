@@ -11,6 +11,8 @@
     <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox label="Notifications" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
+    <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
+    <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
     <v-checkbox label="Realtime chat (someone is typing ...)" readonly></v-checkbox>
     <v-checkbox label="Likes" readonly></v-checkbox>

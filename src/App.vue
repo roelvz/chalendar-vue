@@ -43,7 +43,7 @@
                fixed>
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span>Chalendar</span>
+        <span><a href="/">Chalendar</a></span>
       </v-toolbar-title>
       <v-toolbar-title v-if="shouldLogin()">
         <v-btn @click="handleLogin()">Login</v-btn>
@@ -128,3 +128,9 @@ export default {
 }
 
 </script>
+<style scoped>
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+</style>
