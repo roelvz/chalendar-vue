@@ -48,7 +48,6 @@ export default {
   },
 
   created() {
-    TimeAgo.locale(en);
     this.loadGroup(this.$route.params.id);
   },
 
