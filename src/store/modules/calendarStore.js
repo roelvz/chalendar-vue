@@ -93,6 +93,9 @@ const actions = {
     if (state.loadedCalendar) {
       calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
         .then(event => {
+          // TODO: bakcend should create chat automatically
+          eventApi.postChat(event.id);
+
           commit('addEvent', event);
           // initEvent(event)
           //   .then(() => commit('addEvent'), event);

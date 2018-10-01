@@ -36,6 +36,7 @@ class CalendarApi extends BaseApi {
         date: date,
       }
     })
+      .then(result => result.data);
   }
 }
 
