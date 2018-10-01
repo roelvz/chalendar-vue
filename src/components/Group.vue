@@ -11,7 +11,7 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{message.text}}</v-list-tile-title>
-            <v-list-tile-sub-title>{{getSubtitle(message)}}</v-list-tile-sub-title>
+            <v-list-tile-sub-title><timeago :datetime="message.creationDate"></timeago></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider ></v-divider>
@@ -36,9 +36,6 @@
 </template>
 
 <script>
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
-
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -56,11 +53,6 @@ export default {
   },
 
   methods: {
-    getSubtitle(message) {
-      let timeAgo = new TimeAgo('en-US');
-      return `${timeAgo.format(new Date(message.creationDate))} by ${message.creatorName}`;
-    },
-
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(this.inputMessage = "");

@@ -6,8 +6,19 @@ import router from './router'
 import store from './store';
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import VueTimeago from 'vue-timeago'
 
 Vue.use(Vuetify);
+
+Vue.use(VueTimeago, {
+  name: 'Timeago', // Component name, `Timeago` by default
+  locale: 'en', // Default locale
+  // We use `date-fns` under the hood
+  // So you can use all locales from it
+  locales: {
+    'en-US': require('date-fns/locale/en'),
+  }
+});
 
 Vue.config.productionTip = false;
 
