@@ -56,7 +56,7 @@ export default {
     },
 
     addToGroup() {
-      this.addChatterToGroup([this.selectedGroup.id, this.selectedChatter.id]);
+      this.addChatterToGroup([this.selectedGroup, this.selectedChatter]);
     },
 
     addToCalendar() {
