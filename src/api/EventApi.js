@@ -20,8 +20,13 @@ class EventApi extends BaseApi {
   }
 
   postChat(eventId) {
-    return axios.post(`${this.baseUri}/${eventId}/chat`, BaseApi.buildHeaders())
-      .then(result => result.data);
+    return axios({
+      method: 'post',
+      url: `${this.baseUri}/${eventId}/chat`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      }
+    }).then(result => result.data);
   }
 }
 
