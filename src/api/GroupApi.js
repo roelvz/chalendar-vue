@@ -18,22 +18,9 @@ class GroupApi extends BaseApi {
       .then(result => result.data);
   }
 
-  getMessages(groupId) {
-    return axios.get(`${this.baseUri}/${groupId}/messages`, BaseApi.buildHeaders())
+  getChat(groupId) {
+    return axios.get(`${this.baseUri}/${groupId}/chat`, BaseApi.buildHeaders())
       .then(result => result.data);
-  }
-
-  postMessage(groupId, text) {
-    return axios({
-      method: 'post',
-      url: `${this.baseUri}/${groupId}/messages`,
-      headers: {
-        authorization: `Bearer ${getAccessToken()}`,
-      },
-      data: {
-        text: text,
-      }
-    }).then(result => result.data);
   }
 }
 

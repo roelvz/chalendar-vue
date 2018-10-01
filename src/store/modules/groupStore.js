@@ -1,12 +1,15 @@
 import GroupApi from "../../api/GroupApi";
 import ChatterApi from "../../api/ChatterApi";
+import ChatApi from "../../api/ChatApi";
 
 const groupApi = new GroupApi();
 const chatterApi = new ChatterApi();
+const chatApi = new ChatApi();
 
 const state = {
   groups: [],
   loadedGroup: {
+    chatId: undefined,
     messages:[],
   },
 };
@@ -32,9 +35,15 @@ const actions = {
       .then(group => {
         // Retrieve messages for group
         loadedGroup = group;
-        return groupApi.getMessages(group.id)
+        return groupApi.getChat(group.id);
+      })
+      .then(chat => {
+        loadedGroup.chatId = chat.id;
+        return chatApi.getMessages(chat.id);
       })
       .then(messages => {
+
+
         // Fill in creator name and picture for each message
         for(let i = 0; i < messages.length; i++) {
           let message = messages[i];
@@ -56,7 +65,7 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedGroup) {
-      groupApi.postMessage(state.loadedGroup.id, text)
+      chatApi.postMessage(state.loadedGroup.chatId, text)
         .then(message => {
           initMessage(message)
             .then(() => commit('addMessage', message))
@@ -94,6 +103,7 @@ const mutations = {
   reset(state) {
     state.groups =  [];
     state.loadedGroup = {
+      chatId: undefined,
       messages:[],
     };
   },

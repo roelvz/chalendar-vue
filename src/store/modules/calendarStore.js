@@ -1,10 +1,12 @@
 import CalendarApi from "@/api/CalendarApi";
 import EventApi from "@/api/EventApi";
 import ChatterApi from "@/api/ChatterApi";
+import ChatApi from "@/api/ChatApi";
 
 const calendarApi = new CalendarApi();
 const eventApi = new EventApi();
 const chatterApi = new ChatterApi();
+const chatApi = new ChatApi();
 
 const state = {
   calendars: [],
@@ -12,6 +14,7 @@ const state = {
     events: [],
   },
   loadedEvent: {
+    chatId: undefined,
     messages: []
   },
 };
@@ -60,7 +63,11 @@ const actions = {
     return eventApi.getEvent(id)
       .then(event => {
         loadedEvent = event;
-        return eventApi.getMessages(event.id);
+        return eventApi.getChat(event.id);
+      })
+      .then(chat => {
+        loadedEvent.chatId = chat.id;
+        return chatApi.getMessages(chat.id);
       })
       .then(messages => {
         // Fill in creator name and picture for each message
@@ -100,7 +107,7 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedEvent) {
-      eventApi.postMessage(state.loadedEvent.id, text)
+      chatApi.postMessage(state.loadedEvent.chatId, text)
         .then(message => {
           initMessage(message)
             .then(() => commit('addMessage', message))
@@ -158,6 +165,7 @@ const mutations = {
       events: [],
     };
     state.loadedEvent = {
+      chatId: undefined,
       messages: [],
     };
   },

@@ -10,13 +10,16 @@
     <v-checkbox v-model="checked" label="Make sure app can be tested locally" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: when switching between events, messages from the previous event are shown briefly" readonly></v-checkbox>
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
+    <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
+    <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
 
-    <v-checkbox label="Introduce Chat model" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Introduce Chat model" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
     <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
+    <v-checkbox label="Notifications" readonly></v-checkbox>
     <v-checkbox label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
 
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
-    <v-checkbox label="Notifications" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
@@ -33,7 +36,7 @@
     <v-checkbox label="Create new calendars" readonly></v-checkbox>
     <v-checkbox label="Rate passed events" readonly></v-checkbox>
     <v-checkbox label="User profile management" readonly></v-checkbox>
-    <v-checkbox label="Native andriod app" readonly></v-checkbox>
+    <v-checkbox label="Native android app" readonly></v-checkbox>
     <v-checkbox label="Native iOS app" readonly></v-checkbox>
   </v-container>
 </template>
