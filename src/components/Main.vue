@@ -17,7 +17,7 @@
     <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
     <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox label="Notifications" readonly></v-checkbox>
-    <v-checkbox label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
 
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>

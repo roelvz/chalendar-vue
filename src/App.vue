@@ -37,7 +37,7 @@
         </v-list-tile>
       </v-list>
 
-      <v-list v-if="isAdmin()">
+      <v-list v-if="isAdmin()" dense class="pt-0">
         <v-list-tile to="/admin">
           <v-list-tile-action>
             <v-icon>settings</v-icon>
