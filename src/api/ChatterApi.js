@@ -13,8 +13,23 @@ class ChatterApi extends BaseApi {
       .then(result => result.data);
   }
 
+  getChatters() {
+    return axios.get(`${this.baseUri}`, BaseApi.buildHeaders())
+      .then(result => result.data);
+  }
+
   getChatter(id) {
     return axios.get(`${this.baseUri}/${id}`, BaseApi.buildHeaders())
+      .then(result => result.data);
+  }
+
+  getGroups(chatterId) {
+    return axios.get(`${this.baseUri}/${chatterId}/groups`, BaseApi.buildHeaders())
+      .then(result => result.data);
+  }
+
+  getCalendars(chatterId) {
+    return axios.get(`${this.baseUri}/${chatterId}/calendars`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
@@ -32,7 +47,7 @@ class ChatterApi extends BaseApi {
         "lastName": family_name,
         "picture": picture,
       }
-    })
+    }).then(result => result.data);
   }
 
   putChatter({sub, email, given_name, family_name, picture}) {

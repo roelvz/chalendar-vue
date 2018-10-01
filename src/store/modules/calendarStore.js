@@ -9,6 +9,7 @@ const chatterApi = new ChatterApi();
 const chatApi = new ChatApi();
 
 const state = {
+  allCalendars: [],
   calendars: [],
   loadedCalendar: {
     events: [],
@@ -22,8 +23,18 @@ const state = {
 const getters = {};
 
 const actions = {
-  initCalendars({commit}) {
+  initAllCalendars({commit}) {
     calendarApi.getCalendars()
+      .then(result => {
+        commit('setAllCalendars', result);
+      })
+      .catch(error => {
+        console.error(error.response ? error.response : error);
+      });
+  },
+
+  initCalendars({commit}, userInfo) {
+    chatterApi.getCalendars(userInfo.sub)
       .then(result => {
         commit('setCalendars', result);
       })
@@ -121,7 +132,16 @@ const actions = {
     } else {
       console.error("Could not post message: no event loaded");
     }
-  }
+  },
+
+  addChatterToCalendar({commit}, [calendarId, chatterId]) {
+    if (calendarId && chatterId) {
+      calendarApi.addMember(calendarId, chatterId)
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    }
+  },
 };
 
 // TODO: refactor with groupStore
@@ -142,6 +162,10 @@ function initMessage(message) {
 // }
 
 const mutations = {
+  setAllCalendars(state, calendars) {
+    state.allCalendars = calendars;
+  },
+
   setCalendars(state, calendars) {
     state.calendars = calendars;
   },

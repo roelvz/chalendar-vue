@@ -22,6 +22,16 @@ class GroupApi extends BaseApi {
     return axios.get(`${this.baseUri}/${groupId}/chat`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
+
+  addMember(groupId, chatterId) {
+    return axios({
+      method: "put",
+      url: `${this.baseUri}/${groupId}/members/rel/${chatterId}`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+    }).then(result => result.data);
+  }
 }
 
 export default GroupApi;

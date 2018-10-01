@@ -7,6 +7,7 @@ const chatterApi = new ChatterApi();
 const chatApi = new ChatApi();
 
 const state = {
+  allGroups: [],
   groups: [],
   loadedGroup: {
     chatId: undefined,
@@ -17,8 +18,18 @@ const state = {
 const getters = {};
 
 const actions = {
-  initGroups({commit}) {
+  initAllGroups({commit}) {
     groupApi.getGroups()
+      .then(result => {
+        commit('setAllGroups', result);
+      })
+      .catch(error => {
+        console.error(error.response ? error.response : error);
+      });
+  },
+
+  initGroups({commit, state}, userInfo) {
+    chatterApi.getGroups(userInfo.sub)
       .then(result => {
         commit('setGroups', result);
       })
@@ -76,7 +87,16 @@ const actions = {
     } else {
       console.error("Could not post message: no group loaded");
     }
-  }
+  },
+
+  addChatterToGroup({commit}, [groupId, chatterId]) {
+    if (groupId && chatterId) {
+      groupApi.addMember(groupId, chatterId)
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    }
+  },
 };
 
 function initMessage(message) {
@@ -88,6 +108,10 @@ function initMessage(message) {
 }
 
 const mutations = {
+  setAllGroups(state, groups) {
+    state.allGroups = groups;
+  },
+
   setGroups(state, groups) {
     state.groups = groups;
   },
@@ -101,6 +125,7 @@ const mutations = {
   },
 
   reset(state) {
+    allGroups: [],
     state.groups =  [];
     state.loadedGroup = {
       chatId: undefined,

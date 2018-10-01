@@ -5,6 +5,7 @@ import Group from '@/components/Group'
 import Calendar from '@/components/Calendar'
 import Event from '@/components/Event'
 import AddEvent from '@/components/AddEvent'
+import Admin from '@/components/Admin'
 import Callback from '@/components/callback'
 
 Vue.use(Router);
@@ -41,6 +42,11 @@ export default new Router({
       path: '/calendar/:calendarId/event/:id',
       name: 'Event',
       component: Event,
-    }
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin,
+    },
   ]
 })

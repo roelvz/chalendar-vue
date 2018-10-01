@@ -38,6 +38,16 @@ class CalendarApi extends BaseApi {
     })
       .then(result => result.data);
   }
+
+  addMember(calendarId, chatterId) {
+    return axios({
+      method: "put",
+      url: `${this.baseUri}/${calendarId}/members/rel/${chatterId}`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+    }).then(result => result.data);
+  }
 }
 
 export default CalendarApi;

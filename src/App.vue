@@ -16,7 +16,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ group.name }}</v-list-tile-title>
+            <v-list-tile-title>{{group.name}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -32,7 +32,19 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ calendar.name }}</v-list-tile-title>
+            <v-list-tile-title>{{calendar.name}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list v-if="isAdmin()">
+        <v-list-tile to="/admin">
+          <v-list-tile-action>
+            <v-icon>settings</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Admin</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -86,8 +98,6 @@ export default {
   mounted() {
     if (isLoggedIn()) {
       setUserInfo(this);
-      this.initGroups();
-      this.initCalendars();
     }
   },
 
@@ -96,8 +106,6 @@ export default {
       login();
       if (isLoggedIn()) {
         setUserInfo(this);
-        this.initGroups();
-        this.initCalendars();
       }
     },
     handleLogout() {
@@ -105,6 +113,10 @@ export default {
     },
     shouldLogin() {
       return !isLoggedIn();
+    },
+
+    isAdmin() {
+      return this.userInfo && this.userInfo.sub === 'facebook|10217066011620498';
     },
 
     toGroup(id) { return `/group/${id}`; },
@@ -125,6 +137,15 @@ export default {
     groups: state => state.groupStore.groups,
     calendars: state => state.calendarStore.calendars,
   }),
+
+  watch: {
+    userInfo: function(val) {
+      if (val) {
+        this.initGroups(this.userInfo);
+        this.initCalendars(this.userInfo);
+      }
+    },
+  }
 }
 
 </script>
