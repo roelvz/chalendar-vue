@@ -7,9 +7,17 @@
     <v-list>
       <v-divider ></v-divider>
       <template v-for="event in loadedCalendar.events">
-        <v-list-tile :key="event.id" :to="toEvent(event.id)">
+        <v-list-tile avatar :key="event.id" :to="toEvent(event.id)">
           <v-list-tile-content>
-            <v-list-tile-title>{{new Date(event.date).toDateString()}}: {{event.name}}</v-list-tile-title>
+            <v-badge color="red" v-if="event.newMessages > 0">
+              <span slot="badge">{{event.newMessages}}</span>
+              <v-list-tile-title>
+                {{printEvent(event)}}
+              </v-list-tile-title>
+            </v-badge>
+            <v-list-tile-title v-else>
+              {{printEvent(event)}}
+            </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider ></v-divider>
@@ -28,7 +36,8 @@ export default {
   name: "Calendar",
 
   created() {
-    this.loadCalendar(this.$route.params.id);
+    this.loadCalendar(this.$route.params.id)
+      .then(result => this.initCalendars(this.userInfo));
   },
 
   methods: {
@@ -36,16 +45,22 @@ export default {
       return `/calendar/${this.$route.params.id}/event/add`;
     },
 
+    printEvent(event) {
+      return `${new Date(event.date).toDateString()}: ${event.name}`
+    },
+
     toEvent(id) {
       return `/calendar/${this.$route.params.id}/event/${id}`;
     },
 
     ...mapActions('calendarStore', [
+      'initCalendars',
       'loadCalendar',
     ]),
   },
 
   computed: mapState({
+    userInfo: state => state.userStore.userInfo,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
 }

@@ -32,7 +32,11 @@
           :to="toCalendar(calendar.id)"
           @click="">
           <v-list-tile-action>
-            <v-icon>calendar_today</v-icon>
+            <v-badge color="red" v-if="calendar.newMessages > 0">
+              <span slot="badge">{{calendar.newMessages}}</span>
+              <v-icon>calendar_today</v-icon>
+            </v-badge>
+            <v-icon v-else>calendar_today</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>

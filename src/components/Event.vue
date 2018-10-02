@@ -48,7 +48,8 @@ export default {
 
   created() {
     this.setLoadedEvent(undefined);
-    this.loadEvent(this.$route.params.id);
+    this.loadEvent(this.$route.params.id)
+      .then(result => this.initCalendars(this.userInfo));
   },
 
   methods: {
@@ -58,6 +59,7 @@ export default {
     },
 
     ...mapActions('calendarStore', [
+      'initCalendars',
       'loadEvent',
       'postMessage',
     ]),
@@ -68,6 +70,7 @@ export default {
   },
 
   computed: mapState({
+    userInfo: state => state.userStore.userInfo,
     loadedEvent: state => state.calendarStore.loadedEvent,
   })
 }
