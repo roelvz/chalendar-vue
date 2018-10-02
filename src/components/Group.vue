@@ -48,7 +48,8 @@ export default {
   },
 
   created() {
-    this.loadGroup(this.$route.params.id);
+    this.loadGroup(this.$route.params.id)
+      .then(result => this.initGroups(this.userInfo));
   },
 
   methods: {
@@ -58,12 +59,14 @@ export default {
     },
 
     ...mapActions('groupStore', [
+      'initGroups',
       'loadGroup',
       'postMessage',
     ]),
   },
 
   computed: mapState({
+    userInfo: state => state.userStore.userInfo,
     loadedGroup: state => state.groupStore.loadedGroup,
   }),
 }

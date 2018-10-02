@@ -38,11 +38,11 @@ const actions = {
       });
   },
 
-  loadGroup({commit}, id) {
+  loadGroup({state, commit}, id) {
     let loadedGroup = {};
     let promises = [];
 
-    groupApi.getGroup(id)
+    return groupApi.getGroup(id)
       .then(group => {
         // Retrieve messages for group
         loadedGroup = group;
@@ -53,14 +53,11 @@ const actions = {
         return chatApi.getMessages(chat.id);
       })
       .then(messages => {
-
-
         // Fill in creator name and picture for each message
         for(let i = 0; i < messages.length; i++) {
           let message = messages[i];
           promises.push(initMessage(message));
         }
-
         loadedGroup.messages = messages;
       })
       .then(result => {

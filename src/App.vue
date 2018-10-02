@@ -12,7 +12,11 @@
           :to="toGroup(group.id)"
           @click="">
           <v-list-tile-action>
-            <v-icon>group</v-icon>
+            <v-badge color="red" v-if="group.newMessages > 0">
+              <span slot="badge">{{group.newMessages}}</span>
+              <v-icon>group</v-icon>
+            </v-badge>
+            <v-icon v-else>group</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
