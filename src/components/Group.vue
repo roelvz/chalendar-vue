@@ -11,7 +11,7 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{message.text}}</v-list-tile-title>
-            <v-list-tile-sub-title><timeago :datetime="message.creationDate"></timeago></v-list-tile-sub-title>
+            <v-list-tile-sub-title><timeago :datetime="message.creationDate"></timeago> by {{message.creatorName}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider ></v-divider>

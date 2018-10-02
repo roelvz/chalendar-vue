@@ -2,6 +2,8 @@
   <v-container fluid>
     <h1>Checklist</h1>
 
+    <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Login" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Post messages in chat" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Post events in Calendar" readonly></v-checkbox>
@@ -9,16 +11,13 @@
     <v-checkbox v-model="checked" label="Desktop and mobile" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Make sure app can be tested locally" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: when switching between events, messages from the previous event are shown briefly" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Introduce Chat model" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
-
-    <v-checkbox v-model="checked" label="Introduce Chat model" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
-    <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
+    <v-checkbox label="Show # of unread items per event" readonly></v-checkbox>
     <v-checkbox label="Notifications" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
-
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
