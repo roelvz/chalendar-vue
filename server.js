@@ -10,34 +10,21 @@ app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
 
 // Check OneSignal SDK files and make sure they are not redirected to index file
-app.get("*manifest.json", (req, res) => {
+app.get("/manifest.json", (req, res) => {
   console.log('manifest');
   res.sendFile(path.resolve(__dirname, "public", "manifest.json"));
 });
-app.get("*OneSingalSDKWorker.js", (req, res) => {
+app.get("/OneSingalSDKWorker.js", (req, res) => {
   console.log('OneSingalSDKWorker');
   res.sendFile(path.resolve(__dirname, "public", "OneSingalSDKWorker.js"));
 });
-app.get("*OneSignalSDKUpdaterWorker.js", (req, res) => {
+app.get("/OneSignalSDKUpdaterWorker.js", (req, res) => {
   console.log('OneSignalSDKUpdaterWorker');
   res.sendFile(path.resolve(__dirname, "public", "OneSignalSDKUpdaterWorker.js"));
 });
 // Catch all other routes and redirect to the index file
 app.get('*', function (req, res) {
   console.log('*');
-  console.log('REQ');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log(req);
-
-  console.log('RES');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log('===========================================');
-  console.log(res);
   console.log(__dirname);
 
   res.sendFile(__dirname + '/dist/index.html')
