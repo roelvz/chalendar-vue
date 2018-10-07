@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
-    "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
+    "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then cp ./OneSignalSDK* ./dist/ && cp manifest.json ./dist/ && npm run build ; fi ",
     "start": "node server.js"
   },
   "dependencies": {
