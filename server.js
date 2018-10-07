@@ -10,6 +10,16 @@ app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
 
 // Check OneSignal SDK files and make sure they are not redirected to index file
+app.get("manifest.json", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "/dist/manifest.json"));
+});
+app.get("OneSingalSDKWorker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "/dist/OneSingalSDKWorker.js"));
+});
+app.get("OneSignalSDKUpdaterWorker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "/dist/OneSignalSDKUpdaterWorker.js"));
+});
+// Check OneSignal SDK files and make sure they are not redirected to index file
 app.get("/manifest.json", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "/dist/manifest.json"));
 });
