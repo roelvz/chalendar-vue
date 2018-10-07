@@ -2,7 +2,13 @@
   <v-container fluid>
     <h1>Checklist</h1>
 
+    <v-checkbox label="Notifications" readonly></v-checkbox>
+    <v-checkbox label="Going/Not going" readonly></v-checkbox>
+    <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
+    <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
+    <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Show # of unread items per event" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Login" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Post messages in chat" readonly></v-checkbox>
@@ -13,17 +19,12 @@
     <v-checkbox v-model="checked" label="Bug: when switching between events, messages from the previous event are shown briefly" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Introduce Chat model" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Chats: add date to messages" readonly></v-checkbox>
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
-    <v-checkbox label="Show # of unread items per event" readonly></v-checkbox>
-    <v-checkbox label="Notifications" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
-    <v-checkbox label="Going/Not going" readonly></v-checkbox>
-    <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
-    <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
-    <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Chats: add date to messages" readonly></v-checkbox>
+    <v-checkbox label="Create a nice icon" readonly></v-checkbox>
     <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
     <v-checkbox label="Realtime chat (someone is typing ...)" readonly></v-checkbox>
     <v-checkbox label="Likes" readonly></v-checkbox>
