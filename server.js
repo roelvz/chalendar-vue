@@ -25,6 +25,19 @@ app.get("*OneSignalSDKUpdaterWorker.js", (req, res) => {
 // Catch all other routes and redirect to the index file
 app.get('*', function (req, res) {
   console.log('*');
+  console.log('REQ');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log(req);
+
+  console.log('RES');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log('===========================================');
+  console.log(res);
   console.log(__dirname);
 
   res.sendFile(__dirname + '/dist/index.html')
