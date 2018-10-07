@@ -13,6 +13,9 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
+import NotificationApi from "../api/NotificationApi";
+const notificationApi = new NotificationApi();
+
 export default {
   name: "AddEvent",
 
@@ -28,9 +31,13 @@ export default {
     addEvent() {
       // TODO: check if required fields are filled in
       this.postEvent([this.name, this.description, this.date])
-        .then(() => this.$router.push({
-          path: this.toCalendar(),
-        }));
+        .then(() => {
+          notificationApi.sendNotification(`New event: ${this.name}`, this.userInfo);
+
+          this.$router.push({
+            path: this.toCalendar(),
+          })
+        });
     },
 
     toCalendar() {
@@ -43,6 +50,7 @@ export default {
   },
 
   computed: mapState({
+    userInfo: state => state.userStore.userInfo,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
 }

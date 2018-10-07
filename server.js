@@ -9,14 +9,24 @@ app = express();
 // create middleware to handle the serving the app
 app.use(serveStatic(path.join(__dirname, 'dist')));
 
-// Catch all routes and redirect to the index file
+// Check OneSignal SDK files and make sure they are not redirected to index file
+app.get("/manifest.json", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "manifest.json"));
+});
+app.get("/OneSingalSDKWorker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "OneSingalSDKWorker.js"));
+});
+app.get("/OneSignalSDKUpdaterWorker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "OneSignalSDKUpdaterWorker.js"));
+});
+// Catch all other routes and redirect to the index file
 app.get('*', function (req, res) {
   res.sendFile(__dirname + '/dist/index.html')
-})
+});
 
 // Create default port to serve the app on
 const port = process.env.PORT || 5000;
 app.listen(port);
 
 // Log to feedback that this is actually running
-console.log('server started '+ port);
+console.log('server started at port '+ port);

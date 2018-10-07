@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Chalendar</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+
+    <!-- Start of OneSignal code -->
+    <link rel="manifest" href="/manifest.json" />
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: '<%= process.env.ONESIGNAL_APP_ID %>',
+          notifyButton: {
+            enable: true,
+            position: 'bottom-left',
+          }
+        });
+      });
+    </script>
+    <!-- End of OneSignal code -->
   </head>
   <body>
     <div id="app"></div>

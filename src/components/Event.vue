@@ -37,6 +37,9 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
+import NotificationApi from "../api/NotificationApi";
+const notificationApi = new NotificationApi();
+
 export default {
   name: "Event",
 
@@ -55,7 +58,10 @@ export default {
   methods: {
     sendMessage() {
       this.postMessage(this.inputMessage)
-        .then(this.inputMessage = "");
+        .then(() => {
+          notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.userInfo);
+          this.inputMessage = "";
+        });
     },
 
     ...mapActions('calendarStore', [

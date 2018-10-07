@@ -1,7 +1,6 @@
-import BaseApi from "./BaseApi";
-import {getAccessToken} from "@/utils/auth";
-import GroupApi from "@/api/GroupApi";
 const axios = require('axios');
+import {getAccessToken} from "@/utils/auth";
+import BaseApi from "./BaseApi";
 
 class ChatApi extends BaseApi {
   constructor() {

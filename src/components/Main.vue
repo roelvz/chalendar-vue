@@ -2,8 +2,9 @@
   <v-container fluid>
     <h1>Checklist</h1>
 
-    <v-checkbox label="Notifications" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Notifications" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
+    <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
@@ -24,10 +25,12 @@
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
+    <v-checkbox label="Notifications: better info in notification" readonly></v-checkbox>
+    <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
     <v-checkbox label="Create a nice icon" readonly></v-checkbox>
     <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
-    <v-checkbox label="Realtime chat (someone is typing ...)" readonly></v-checkbox>
+    <v-checkbox label="Chat: show if someone is typing" readonly></v-checkbox>
     <v-checkbox label="Likes" readonly></v-checkbox>
     <v-checkbox label="Edit messages" readonly></v-checkbox>
     <v-checkbox label="Edit events" readonly></v-checkbox>

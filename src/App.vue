@@ -149,6 +149,11 @@ export default {
   watch: {
     userInfo: function(val) {
       if (val) {
+        let temp = this;
+        OneSignal.push(function() {
+          OneSignal.sendTag("chalendar_user", temp.userInfo.sub);
+        });
+
         this.initGroups(this.userInfo);
         this.initCalendars(this.userInfo);
       }
