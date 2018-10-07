@@ -20,7 +20,7 @@
     <v-checkbox v-model="checked" label="Introduce Chat model" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: add date to messages" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Build website on server instead of locally" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Build website only on server instead of locally" readonly></v-checkbox>
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
