@@ -18,7 +18,7 @@
       </template>
     </v-list>
 
-    <v-form class="pt-3">
+    <v-form class="pt-3" @submit="">
       <v-layout column>
         <v-layout>
           <v-textarea rows="1"
@@ -26,8 +26,9 @@
                       box
                       label="Enter your message ..."
                       name="inputMessage"
+                      v-on:keyup="textAreaKeyUp"
                       v-model="inputMessage"></v-textarea>
-          <v-btn @click="sendMessage()">Send</v-btn>
+          <v-btn type="submit" @click="sendMessage()">Send</v-btn>
         </v-layout>
       </v-layout>
     </v-form>
@@ -56,6 +57,13 @@ export default {
   },
 
   methods: {
+    textAreaKeyUp(e) {
+      // Send message on enter but not on shift-enter.
+      if (e.key === 'Enter' && !e.shiftKey) {
+        this.sendMessage();
+      }
+    },
+
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {

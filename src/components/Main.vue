@@ -8,6 +8,7 @@
     <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per event" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
@@ -22,9 +23,9 @@
     <v-checkbox v-model="checked" label="Test API without having to login each time" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: add date to messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Build website only on server instead of locally" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Bugfix: users receive notifications for their own messages" readonly></v-checkbox>
     <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
-    <v-checkbox label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
