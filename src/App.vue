@@ -166,8 +166,6 @@ export default {
               given_name = 'Unknown';
             }
           }
-          console.log('given name: ' + given_name);
-          console.log(temp.userInfo);
           if (given_name) {
             OneSignal.sendTag("chalendar_name", given_name);
           }
