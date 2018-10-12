@@ -18,7 +18,7 @@ class NotificationApi {
         app_id: process.env.ONESIGNAL_APP_ID,
         contents: { "en": message, },
         "filters": [
-          {"field": "tag", "key": "chalendar_id", "relation": "!=", "value": userInfo.sub},
+          {"field": "tag", "key": "chalendar_user", "relation": "!=", "value": userInfo.sub},
         ],
       },
     }).then(result => result.data);
