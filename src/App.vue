@@ -153,6 +153,7 @@ export default {
         OneSignal.push(function() {
           OneSignal.sendTag("chalendar_user", temp.userInfo.sub);
 
+          // TODO: refactor
           let given_name = temp.userInfo.given_name;
           if (!temp.userInfo.given_name) {
             if (temp.userInfo.family_name) {
@@ -163,6 +164,8 @@ export default {
               given_name = 'Unknown';
             }
           }
+          console.log('given name: ' + given_name);
+          console.log(temp.userInfo);
           if (given_name) {
             OneSignal.sendTag("chalendar_username", given_name);
           }
