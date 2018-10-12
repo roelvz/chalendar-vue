@@ -152,6 +152,20 @@ export default {
         let temp = this;
         OneSignal.push(function() {
           OneSignal.sendTag("chalendar_user", temp.userInfo.sub);
+
+          let given_name = temp.userInfo.given_name;
+          if (!temp.userInfo.given_name) {
+            if (temp.userInfo.family_name) {
+              given_name = temp.userInfo.family_name;
+            } else if (email) {
+              given_name = temp.userInfo.email;
+            } else {
+              given_name = 'Unknown';
+            }
+          }
+          if (given_name) {
+            OneSignal.sendTag("chalendar_username", given_name);
+          }
         });
 
         this.initGroups(this.userInfo);
