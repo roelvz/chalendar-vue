@@ -63,6 +63,15 @@ export default {
     userInfo: state => state.userStore.userInfo,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
+
+  watch:{
+    $route (to, from){
+      if (from.path !== to.path) {
+        this.loadCalendar(this.$route.params.id)
+          .then(result => this.initCalendars(this.userInfo));
+      }
+    }
+  }
 }
 </script>
 

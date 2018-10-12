@@ -83,6 +83,15 @@ export default {
     userInfo: state => state.userStore.userInfo,
     loadedGroup: state => state.groupStore.loadedGroup,
   }),
+
+  watch:{
+    $route (to, from){
+      if (from.path !== to.path) {
+        this.loadGroup(this.$route.params.id)
+          .then(result => this.initGroups(this.userInfo));
+      }
+    }
+  }
 }
 </script>
 
