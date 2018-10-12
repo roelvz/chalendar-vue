@@ -105,7 +105,10 @@ export default {
 
   mounted() {
     if (isLoggedIn()) {
+      console.log('logged in at startup');
       setUserInfo(this);
+    } else {
+      console.log('not logged in at startup');
     }
   },
 
@@ -171,7 +174,9 @@ export default {
           }
         });
 
+        console.log('initGroups for ' + this.userInfo.sub);
         this.initGroups(this.userInfo);
+        console.log('initCalendars for ' + this.userInfo.sub);
         this.initCalendars(this.userInfo);
       }
     },
