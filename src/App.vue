@@ -106,7 +106,6 @@ export default {
   mounted() {
     if (isLoggedIn()) {
       setUserInfo(this);
-    } else {
     }
   },
 
