@@ -27,7 +27,10 @@ class ChatterApi extends BaseApi {
     console.log("getGroups: " + chatterId);
 
     return axios.get(`${this.baseUri}/${chatterId}/groups`, BaseApi.buildHeaders())
-      .then(result => result.data);
+      .then(result => {
+        console.log(result);
+        return result.data
+      });
   }
 
   getCalendars(chatterId) {
