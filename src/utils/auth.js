@@ -86,6 +86,11 @@ export function setIdToken() {
 
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
+    // TODO: find out why user isn't always set even if loggedIn is true and access token is set.
+    if(!user) {
+      login();
+    }
+
     js.$store.commit('userStore/setUserInfo', user);
     chatterApi.putChatter(user)
       .catch(error => {
