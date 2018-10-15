@@ -67,7 +67,7 @@ const actions = {
       });
   },
 
-  loadEvent({commit}, id) {
+  loadEvent({commit}, {id, limit}) {
     let loadedEvent = {};
     let promises = [];
 
@@ -78,7 +78,13 @@ const actions = {
       })
       .then(chat => {
         loadedEvent.chatId = chat.id;
-        return chatApi.getMessages(chat.id);
+
+        promises.push(chatApi.getMessageCount(chat.id)
+          .then(count => {
+            loadedEvent.messageCount = count;
+          }));
+
+        return chatApi.getMessages(chat.id, limit);
       })
       .then(messages => {
         // Fill in creator name and picture for each message
@@ -183,7 +189,8 @@ const mutations = {
   },
 
   addMessage(state, message) {
-    state.loadedEvent.messages.push(message);
+    // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
+    state.loadedEvent.messages.unshift(message);
   },
 
   reset(state) {

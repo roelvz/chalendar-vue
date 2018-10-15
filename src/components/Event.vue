@@ -2,9 +2,13 @@
   <v-container fluid v-if="loadedEvent">
     <h1>{{new Date(loadedEvent.date).toLocaleDateString()}}: {{loadedEvent.name}}</h1>
 
+    <v-layout row justify-space-around>
+      <v-btn small v-if="loadedEvent.messageCount > loadedEvent.messages.length" @click="loadOlderMessages">Older</v-btn>
+    </v-layout>
+
     <v-list>
       <v-divider ></v-divider>
-      <template v-for="message in loadedEvent.messages">
+      <template v-for="message in loadedEvent.messages.slice().reverse()">
         <v-list-tile :key="message.id" @click="">
           <v-list-tile-avatar>
             <img :src="message.creatorPicture">
@@ -52,24 +56,30 @@ export default {
 
   created() {
     this.setLoadedEvent(undefined);
-    this.loadEvent(this.$route.params.id)
+    this.loadEvent({id: this.$route.params.id})
       .then(result => this.initCalendars(this.userInfo));
   },
 
   methods: {
-    textAreaKeyUp(e) {
-      // Send message on enter but not on shift-enter.
-      if (e.key === 'Enter' && !e.shiftKey) {
-        this.sendMessage();
-      }
-    },
-
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
           notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.userInfo);
           this.inputMessage = "";
         });
+    },
+
+    loadOlderMessages() {
+      // TODO: constant for # of loaded messages
+      this.loadEvent({id: this.$route.params.id, limit: this.loadedEvent.messages.length + 20})
+        .then(result => this.initCalendars(this.userInfo));
+    },
+
+    textAreaKeyUp(e) {
+      // Send message on enter but not on shift-enter.
+      if (e.key === 'Enter' && !e.shiftKey) {
+        this.sendMessage();
+      }
     },
 
     ...mapActions('calendarStore', [
@@ -86,7 +96,16 @@ export default {
   computed: mapState({
     userInfo: state => state.userStore.userInfo,
     loadedEvent: state => state.calendarStore.loadedEvent,
-  })
+  }),
+
+  watch:{
+    $route (to, from){
+      if (from.path !== to.path) {
+        this.loadEvent({id: this.$route.params.id})
+          .then(result => this.initCalendars(this.userInfo));
+      }
+    }
+  }
 }
 </script>
 

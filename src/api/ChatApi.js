@@ -8,9 +8,20 @@ class ChatApi extends BaseApi {
     this.baseUri += "Chats";
   }
 
-  getMessages(chatId) {
-    return axios.get(`${this.baseUri}/${chatId}/messages`, BaseApi.buildHeaders())
+  getMessages(chatId, limit = 20) {
+    return axios.get(`${this.baseUri}/${chatId}/messages?filter={"limit": ${limit}, "order":"creationDate DESC"}`, BaseApi.buildHeaders())
       .then(result => result.data);
+  }
+
+  getMessageCount(chatId) {
+    return axios.get(`${this.baseUri}/${chatId}/messages/count`, BaseApi.buildHeaders())
+      .then(result => {
+        try {
+          return parseInt(result.data.count);
+        } catch (e) {
+          return 0;
+        }
+      });
   }
 
   postMessage(chatId, text) {

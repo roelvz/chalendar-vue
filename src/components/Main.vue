@@ -7,7 +7,7 @@
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
-    <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per event" readonly></v-checkbox>

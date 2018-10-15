@@ -31,9 +31,6 @@ const actions = {
   initGroups({commit, state}, userInfo) {
     chatterApi.getGroups(userInfo.sub)
       .then(result => {
-        console.log('retrieved groups:');
-        console.log(result);
-
         commit('setGroups', result);
       })
       .catch(error => {
@@ -41,7 +38,7 @@ const actions = {
       });
   },
 
-  loadGroup({state, commit}, id) {
+  loadGroup({state, commit}, {id, limit}) {
     let loadedGroup = {};
     let promises = [];
 
@@ -53,7 +50,13 @@ const actions = {
       })
       .then(chat => {
         loadedGroup.chatId = chat.id;
-        return chatApi.getMessages(chat.id);
+
+        promises.push(chatApi.getMessageCount(chat.id)
+          .then(count => {
+            loadedGroup.messageCount = count;
+          }));
+
+        return chatApi.getMessages(chat.id, limit);
       })
       .then(messages => {
         // Fill in creator name and picture for each message
@@ -121,7 +124,8 @@ const mutations = {
   },
 
   addMessage(state, message) {
-    state.loadedGroup.messages.push(message);
+    // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
+    state.loadedGroup.messages.unshift(message);
   },
 
   reset(state) {
