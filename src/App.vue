@@ -172,6 +172,8 @@ export default {
           }
         });
 
+        console.log("initiating groups for");
+        console.log(this.userInfo);
         this.initGroups(this.userInfo);
         this.initCalendars(this.userInfo);
       }
