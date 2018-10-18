@@ -36,9 +36,10 @@ const actions = {
   },
 
   initCalendars({commit}, userInfo) {
-    chatterApi.getCalendars(userInfo.sub)
+    return chatterApi.getCalendars(userInfo.sub)
       .then(result => {
         commit('setCalendars', result);
+        return result;
       })
       .catch(error => {
         console.error(error.response ? error.response : error);
