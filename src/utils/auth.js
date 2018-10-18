@@ -91,8 +91,10 @@ export function setUserInfo(js) {
       login();
     }
 
-    js.$store.commit('userStore/setUserInfo', user);
     chatterApi.putChatter(user)
+      .then(chatter => {
+        js.$store.commit('userStore/setChatter', chatter);
+      })
       .catch(error => {
         console.error(error.response ? error.response : error);
       })

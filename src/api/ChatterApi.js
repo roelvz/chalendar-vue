@@ -76,7 +76,7 @@ class ChatterApi extends BaseApi {
         "lastName": family_name,
         "picture": picture,
       }
-    })
+    }).then(result => result.data);
   }
 }
 

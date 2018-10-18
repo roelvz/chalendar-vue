@@ -32,7 +32,7 @@ export default {
       // TODO: check if required fields are filled in
       this.postEvent([this.name, this.description, this.date])
         .then(() => {
-          notificationApi.sendNotification(`New event: ${this.name}`, this.loadedCalendar, this.userInfo);
+          notificationApi.sendNotification(`New event: ${this.name}`, this.loadedCalendar, this.chatter);
 
           this.$router.push({
             path: this.toCalendar(),
@@ -50,7 +50,7 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
 }

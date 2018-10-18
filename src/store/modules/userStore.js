@@ -4,7 +4,7 @@ const chatterApi = new ChatterApi();
 
 const state = {
   allChatters: [],
-  userInfo: undefined,
+  chatter: undefined,
 };
 
 const actions = {
@@ -24,13 +24,13 @@ const mutations = {
     state.allChatters = chatters;
   },
 
-  setUserInfo(state, userInfo) {
-    state.userInfo = userInfo;
+  setChatter(state, chatter) {
+    state.chatter = chatter;
   },
 
   reset(state) {
     state.allChatters = [];
-    state.userInfo = undefined;
+    state.chatter = undefined;
   },
 };
 

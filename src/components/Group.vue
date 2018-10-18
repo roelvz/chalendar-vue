@@ -59,15 +59,17 @@ export default {
   },
 
   created() {
-    this.loadGroup({id: this.$route.params.id})
-      .then(result => this.initGroups(this.userInfo));
+    if (this.chatter) {
+      this.loadGroup({id: this.$route.params.id})
+        .then(result => this.initGroups(this.chatter));
+    }
   },
 
   methods: {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`New message in ${this.loadedGroup.name}: ${this.inputMessage}`, this.loadedGroup.members, this.userInfo);
+          notificationApi.sendNotification(`New message in ${this.loadedGroup.name}: ${this.inputMessage}`, this.loadedGroup.members, this.chatter);
           this.inputMessage = "";
         });
     },
@@ -75,7 +77,7 @@ export default {
     loadOlderMessages() {
       // TODO: constant for # of loaded messages
       this.loadGroup({id: this.$route.params.id, limit: this.loadedGroup.messages.length + 20})
-        .then(result => this.initGroups(this.userInfo));
+        .then(result => this.initGroups(this.chatter));
     },
 
     textAreaKeyUp(e) {
@@ -93,7 +95,7 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     loadedGroup: state => state.groupStore.loadedGroup,
   }),
 
@@ -101,9 +103,16 @@ export default {
     $route (to, from){
       if (from.path !== to.path) {
         this.loadGroup({id: this.$route.params.id})
-          .then(result => this.initGroups(this.userInfo));
+          .then(result => this.initGroups(this.chatter));
       }
-    }
+    },
+
+    chatter(val) {
+      if (val) {
+        this.loadGroup({id: this.$route.params.id})
+          .then(result => this.initGroups(this.chatter));
+      }
+    },
   }
 }
 </script>

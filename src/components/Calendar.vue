@@ -36,8 +36,10 @@ export default {
   name: "Calendar",
 
   created() {
-    this.loadCalendar(this.$route.params.id)
-      .then(result => this.initCalendars(this.userInfo));
+    if (this.chatter) {
+      this.loadCalendar(this.$route.params.id)
+        .then(result => this.initCalendars(this.chatter));
+    }
   },
 
   methods: {
@@ -60,17 +62,24 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
 
   watch:{
-    $route (to, from){
+    $route(to, from){
       if (from.path !== to.path) {
         this.loadCalendar(this.$route.params.id)
-          .then(result => this.initCalendars(this.userInfo));
+          .then(result => this.initCalendars(this.chatter));
       }
-    }
+    },
+
+    chatter(val) {
+      if (val) {
+        this.loadCalendar(this.$route.params.id)
+          .then(result => this.initCalendars(this.chatter));
+      }
+    },
   }
 }
 </script>

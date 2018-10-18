@@ -35,8 +35,8 @@ const actions = {
       });
   },
 
-  initCalendars({commit}, userInfo) {
-    return chatterApi.getCalendars(userInfo.sub)
+  initCalendars({commit}, chatter) {
+    return chatterApi.getCalendars(chatter.id)
       .then(result => {
         commit('setCalendars', result);
         return result;

@@ -30,8 +30,8 @@ const actions = {
       });
   },
 
-  initGroups({commit, state}, userInfo) {
-    return chatterApi.getGroups(userInfo.sub)
+  initGroups({commit, state}, chatter) {
+    return chatterApi.getGroups(chatter.id)
       .then(result => {
         commit('setGroups', result);
         return result;

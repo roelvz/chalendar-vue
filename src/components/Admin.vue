@@ -52,7 +52,7 @@ export default {
 
   methods: {
     isAdmin() {
-      return this.userInfo && this.userInfo.sub === 'facebook|10217066011620498';
+      return this.chatter && this.chatter.id === 'facebook|10217066011620498';
     },
 
     addToGroup() {
@@ -79,7 +79,7 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     allChatters: state => state.userStore.allChatters,
     allGroups: state => state.groupStore.allGroups,
     allCalendars: state => state.calendarStore.allCalendars,

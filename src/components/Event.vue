@@ -59,14 +59,14 @@ export default {
   created() {
     this.setLoadedEvent(undefined);
     this.loadEvent({id: this.$route.params.id})
-      .then(result => this.initCalendars(this.userInfo));
+      .then(result => this.initCalendars(this.chatter));
   },
 
   methods: {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.loadedCalendar.members, this.userInfo);
+          notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.loadedCalendar.members, this.chatter);
           this.inputMessage = "";
         });
     },
@@ -74,7 +74,7 @@ export default {
     loadOlderMessages() {
       // TODO: constant for # of loaded messages
       this.loadEvent({id: this.$route.params.id, limit: this.loadedEvent.messages.length + 20})
-        .then(result => this.initCalendars(this.userInfo));
+        .then(result => this.initCalendars(this.chatter));
     },
 
     textAreaKeyUp(e) {
@@ -96,7 +96,7 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     loadedEvent: state => state.calendarStore.loadedEvent,
     loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
@@ -105,7 +105,7 @@ export default {
     $route (to, from){
       if (from.path !== to.path) {
         this.loadEvent({id: this.$route.params.id})
-          .then(result => this.initCalendars(this.userInfo));
+          .then(result => this.initCalendars(this.chatter));
       }
     }
   }

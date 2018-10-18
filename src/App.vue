@@ -78,9 +78,9 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-toolbar-title v-if="userInfo">
+      <v-toolbar-title v-if="chatter">
         <v-avatar :tile="false" size="56px" color="grey lighten-4">
-          <img :src="userInfo.picture" alt="avatar">
+          <img :src="chatter.picture" alt="avatar">
         </v-avatar>
       </v-toolbar-title>
       <v-btn v-if="!shouldLogin()" @click="handleLogout()">Logout</v-btn>
@@ -134,7 +134,7 @@ export default {
     },
 
     isAdmin() {
-      return this.userInfo && this.userInfo.sub === 'facebook|10217066011620498';
+      return this.chatter && this.chatter.id === 'facebook|10217066011620498';
     },
 
     toGroup(id) { return `/group/${id}`; },
@@ -151,42 +151,31 @@ export default {
   },
 
   computed: mapState({
-    userInfo: state => state.userStore.userInfo,
+    chatter: state => state.userStore.chatter,
     groups: state => state.groupStore.groups,
     calendars: state => state.calendarStore.calendars,
   }),
 
   watch: {
-    userInfo: function(val) {
+    chatter: function(val) {
       if (val) {
         let temp = this;
         OneSignal.push(function() {
-          OneSignal.sendTag("chalendar_user", temp.userInfo.sub);
+          OneSignal.sendTag("chalendar_user", temp.chatter.id);
         });
 
         OneSignal.push(function() {
-          // TODO: refactor
-          let given_name = temp.userInfo.given_name;
-          if (!temp.userInfo.given_name) {
-            if (temp.userInfo.family_name) {
-              given_name = temp.userInfo.family_name;
-            } else if (temp.userInfo.email) {
-              given_name = temp.userInfo.email;
-            } else {
-              given_name = 'Unknown';
-            }
-          }
-          if (given_name) {
-            OneSignal.sendTag("chalendar_name", given_name);
+          if (temp.chatter.firstName) {
+            OneSignal.sendTag("chalendar_name", temp.chatter.firstName);
           }
         });
 
         this.loadingGroups = true;
-        this.initGroups(this.userInfo)
+        this.initGroups(this.chatter)
           .then(() => { this.loadingGroups = false });
 
         this.loadingCalendars = true;
-        this.initCalendars(this.userInfo)
+        this.initCalendars(this.chatter)
           .then(() => { this.loadingCalendars = false });
       }
     },
