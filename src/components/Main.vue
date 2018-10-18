@@ -27,7 +27,7 @@
     <v-checkbox v-model="checked" label="Build website only on server instead of locally" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bugfix: users receive notifications for their own messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Bug: cannot enter enters in messages" readonly></v-checkbox>
+    <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
