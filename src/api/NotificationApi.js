@@ -1,5 +1,3 @@
-import BaseApi from "@/api/BaseApi";
-
 const axios = require('axios');
 
 class NotificationApi {
@@ -7,7 +5,7 @@ class NotificationApi {
     this.baseUri = 'https://onesignal.com/api/v1/notifications';
   }
 
-  sendNotification(message, members, userInfo) {
+  sendNotification(message, members, chatter) {
     let filters = [];
 
     // Send messages only to members
@@ -17,7 +15,7 @@ class NotificationApi {
       let member = members[i];
 
       // Exclude the user sending the message
-      if (member.id !== userInfo.sub) {
+      if (member.id !== chatter.id) {
         if (includeOperator) {
           filters.push({"operator": "OR"});
         }
@@ -32,7 +30,7 @@ class NotificationApi {
       method: 'post',
       url: this.baseUri,
       headers: {
-        authorization: 'Basic OTczOTk5MTktM2NmMC00NDdlLThmOGQtMGMyNjI3OWYyMmNl',
+        authorization: `Basic ${process.env.ONESIGNAL_API_KEY}`,
       },
       data: {
         app_id: process.env.ONESIGNAL_APP_ID,
