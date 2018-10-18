@@ -5,7 +5,7 @@
                          app>
       <v-divider></v-divider>
 
-      <v-list v-if="!shouldLogin()" dense class="pt-0">
+      <v-list v-if="!shouldLogin() && !loadingGroups" dense class="pt-0">
         <v-list-tile
           v-for="group in groups"
           :key="group.id"
@@ -24,8 +24,11 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <template v-if="loadingGroups">
+        <div>Loading groups...</div>
+      </template>
 
-      <v-list v-if="!shouldLogin()" dense class="pt-0">
+      <v-list v-if="!shouldLogin() && !loadingCalendars" dense class="pt-0">
         <v-list-tile
           v-for="calendar in calendars"
           :key="calendar.id"
@@ -44,6 +47,9 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <template v-if="loadingCalendars">
+        <div>Loading calendars...</div>
+      </template>
 
       <v-list v-if="isAdmin()" dense class="pt-0">
         <v-list-tile to="/admin">
@@ -99,6 +105,8 @@ export default {
   components: {Group},
   data () {
     return {
+      loadingGroups: false,
+      loadingCalendars: false,
       drawer: null,
     }
   },
@@ -173,8 +181,14 @@ export default {
 
         console.log("initiating groups for");
         console.log(this.userInfo);
-        this.initGroups(this.userInfo);
-        this.initCalendars(this.userInfo);
+
+        this.loadingGroups = true;
+        this.initGroups(this.userInfo)
+          .then(() => { this.loadingGroups = false });
+
+        this.loadingCalendars = true;
+        this.initCalendars(this.userInfo)
+          .then(() => { this.loadingCalendars = false });
       }
     },
   }
