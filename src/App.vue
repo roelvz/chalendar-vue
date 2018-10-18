@@ -25,7 +25,8 @@
         </v-list-tile>
       </v-list>
       <template v-if="loadingGroups">
-        <div>Loading groups...</div>
+        <span>Loading groups...</span>
+        <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
       </template>
 
       <v-list v-if="!shouldLogin() && !loadingCalendars" dense class="pt-0">
@@ -48,7 +49,8 @@
         </v-list-tile>
       </v-list>
       <template v-if="loadingCalendars">
-        <div>Loading calendars...</div>
+        <span>Loading calendars...</span>
+        <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
       </template>
 
       <v-list v-if="isAdmin()" dense class="pt-0">
