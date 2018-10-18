@@ -69,7 +69,7 @@ export default {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`New message in ${this.loadedGroup.name}: ${this.inputMessage}`, this.loadedGroup.members, this.chatter);
+          notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.loadedGroup.members, this.chatter);
           this.inputMessage = "";
         });
     },

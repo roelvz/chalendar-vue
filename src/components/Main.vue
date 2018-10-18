@@ -29,7 +29,7 @@
     <v-checkbox v-model="checked" label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
-    <v-checkbox label="Notifications: better info in notification" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
     <v-checkbox label="Create a nice Favicon" readonly></v-checkbox>
@@ -46,6 +46,7 @@
     <v-checkbox label="Chats: add @ pointers to people" readonly></v-checkbox>
     <v-checkbox label="Create new chats" readonly></v-checkbox>
     <v-checkbox label="Create new calendars" readonly></v-checkbox>
+    <v-checkbox label="Merge multiple messages from the same person" readonly></v-checkbox>
     <v-checkbox label="Rate passed events" readonly></v-checkbox>
     <v-checkbox label="User profile management" readonly></v-checkbox>
     <v-checkbox label="Native android app" readonly></v-checkbox>
