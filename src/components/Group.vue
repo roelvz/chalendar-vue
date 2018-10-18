@@ -1,26 +1,29 @@
 <template>
-  <v-container fluid>
+  <v-container fluid grid-list-md>
     <h1>{{loadedGroup.name}}</h1>
 
     <v-layout row justify-space-around>
       <v-btn small v-if="loadedGroup.messageCount > loadedGroup.messages.length" @click="loadOlderMessages">Older</v-btn>
     </v-layout>
 
-    <v-list>
-      <v-divider ></v-divider>
-      <template v-for="message in loadedGroup.messages.slice().reverse()">
-        <v-list-tile :key="message.id" @click="">
-          <v-list-tile-avatar>
-            <img :src="message.creatorPicture">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>{{message.text}}</v-list-tile-title>
-            <v-list-tile-sub-title><timeago :datetime="message.creationDate"></timeago> by {{message.creatorName}}</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider ></v-divider>
-      </template>
-    </v-list>
+
+    <template v-for="message in loadedGroup.messages.slice().reverse()">
+      <v-card>
+        <v-layout row class="">
+          <v-flex>
+            <v-avatar>
+              <img :src="message.creatorPicture">
+            </v-avatar>
+          </v-flex>
+          <v-flex xs12>
+            <v-layout column>
+              <v-flex>{{message.text}}</v-flex>
+              <v-flex><span class="grey--text"><timeago :datetime="message.creationDate"></timeago> by {{message.creatorName}}</span></v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </template>
 
     <v-form class="pt-3" @submit="">
       <v-layout column>
