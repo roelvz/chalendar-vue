@@ -14,7 +14,7 @@ class CalendarApi extends BaseApi {
   }
 
   getCalendar(id) {
-    return axios.get(`${this.baseUri}/${id}`, BaseApi.buildHeaders())
+    return axios.get(`${this.baseUri}/${id}?filter={"include":"members"}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

@@ -181,9 +181,6 @@ export default {
           }
         });
 
-        console.log("initiating groups for");
-        console.log(this.userInfo);
-
         this.loadingGroups = true;
         this.initGroups(this.userInfo)
           .then(() => { this.loadingGroups = false });

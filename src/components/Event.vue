@@ -66,7 +66,7 @@ export default {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.userInfo);
+          notificationApi.sendNotification(`New message in ${this.loadedEvent.name}: ${this.inputMessage}`, this.loadedCalendar.members, this.userInfo);
           this.inputMessage = "";
         });
     },
@@ -98,6 +98,7 @@ export default {
   computed: mapState({
     userInfo: state => state.userStore.userInfo,
     loadedEvent: state => state.calendarStore.loadedEvent,
+    loadedCalendar: state => state.calendarStore.loadedCalendar,
   }),
 
   watch:{

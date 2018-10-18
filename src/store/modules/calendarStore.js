@@ -12,11 +12,13 @@ const state = {
   allCalendars: [],
   calendars: [],
   loadedCalendar: {
+    members: [],
     events: [],
   },
   loadedEvent: {
     chatId: undefined,
-    messages: []
+    messageCount: 0,
+    messages: [],
   },
 };
 
@@ -191,15 +193,18 @@ const mutations = {
   addMessage(state, message) {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
     state.loadedEvent.messages.unshift(message);
+    state.loadedEvent.messageCount++;
   },
 
   reset(state) {
     state.calendars = [];
     state.loadedCalendar = {
+      members: [],
       events: [],
     };
     state.loadedEvent = {
       chatId: undefined,
+      messageCount: 0,
       messages: [],
     };
   },

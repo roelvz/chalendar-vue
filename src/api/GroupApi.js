@@ -14,7 +14,8 @@ class GroupApi extends BaseApi {
   }
 
   getGroup(id) {
-    return axios.get(`${this.baseUri}/${id}`, BaseApi.buildHeaders())
+    // TODO: also include messages
+    return axios.get(`${this.baseUri}/${id}?filter={"include":"members"}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

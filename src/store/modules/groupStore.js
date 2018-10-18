@@ -11,6 +11,8 @@ const state = {
   groups: [],
   loadedGroup: {
     chatId: undefined,
+    members: [],
+    messageCount: 0,
     messages:[],
   },
 };
@@ -129,6 +131,7 @@ const mutations = {
   addMessage(state, message) {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
     state.loadedGroup.messages.unshift(message);
+    state.loadedGroup.messageCount++;
   },
 
   reset(state) {
@@ -136,6 +139,8 @@ const mutations = {
     state.groups =  [];
     state.loadedGroup = {
       chatId: undefined,
+      members: [],
+      messageCount: 0,
       messages:[],
     };
   },

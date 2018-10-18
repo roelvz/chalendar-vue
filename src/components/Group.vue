@@ -67,8 +67,7 @@ export default {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`New message in ${this.loadedGroup.name}: ${this.inputMessage}`, this.userInfo);
-          this.loadedGroup.messageCount++; // TODO: increasing count should not be necessary
+          notificationApi.sendNotification(`New message in ${this.loadedGroup.name}: ${this.inputMessage}`, this.loadedGroup.members, this.userInfo);
           this.inputMessage = "";
         });
     },
