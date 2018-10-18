@@ -170,7 +170,7 @@ export default {
           if (!temp.userInfo.given_name) {
             if (temp.userInfo.family_name) {
               given_name = temp.userInfo.family_name;
-            } else if (email) {
+            } else if (temp.userInfo.email) {
               given_name = temp.userInfo.email;
             } else {
               given_name = 'Unknown';
