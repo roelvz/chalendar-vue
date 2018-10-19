@@ -5,7 +5,7 @@ class NotificationApi {
     this.baseUri = 'https://onesignal.com/api/v1/notifications';
   }
 
-  sendNotification(message, members, chatter) {
+  sendNotification(message, members, chatter, pageUrl = './') {
     let filters = [];
 
     // Send messages only to members
@@ -36,6 +36,7 @@ class NotificationApi {
         data: {
           app_id: process.env.ONESIGNAL_APP_ID,
           contents: {"en": message,},
+          url: pageUrl,
           "filters": filters,
         },
       }).then(result => result.data);
