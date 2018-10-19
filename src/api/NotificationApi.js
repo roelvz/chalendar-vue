@@ -26,18 +26,20 @@ class NotificationApi {
       }
     }
 
-    axios({
-      method: 'post',
-      url: this.baseUri,
-      headers: {
-        authorization: `Basic ${process.env.ONESIGNAL_API_KEY}`,
-      },
-      data: {
-        app_id: process.env.ONESIGNAL_APP_ID,
-        contents: { "en": message, },
-        "filters": filters,
-      },
-    }).then(result => result.data);
+    if (filters.length > 0) { // Don't try send notification if there are no receivers.
+      axios({
+        method: 'post',
+        url: this.baseUri,
+        headers: {
+          authorization: `Basic ${process.env.ONESIGNAL_API_KEY}`,
+        },
+        data: {
+          app_id: process.env.ONESIGNAL_APP_ID,
+          contents: {"en": message,},
+          "filters": filters,
+        },
+      }).then(result => result.data);
+    }
   }
 }
 
