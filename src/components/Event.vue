@@ -66,7 +66,7 @@ export default {
     sendMessage() {
       this.postMessage(this.inputMessage)
         .then(() => {
-          notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.loadedCalendar.members, this.chatter);
+          notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.loadedCalendar.members, this.chatter, this.$route.path);
           this.inputMessage = "";
         });
     },
