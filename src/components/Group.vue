@@ -35,7 +35,7 @@
                       name="inputMessage"
                       v-on:keyup="textAreaKeyUp"
                       v-model="inputMessage"></v-textarea>
-          <v-btn type="submit" @click="sendMessage()">Send</v-btn>
+          <v-btn @click="sendMessage()">Send</v-btn>
         </v-layout>
       </v-layout>
     </v-form>

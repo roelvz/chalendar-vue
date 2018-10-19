@@ -4,13 +4,18 @@
 
     <v-checkbox v-model="checked" label="Notifications" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
+    <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't abbreviate messages" readonly></v-checkbox>
-    <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
+    <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
+    <v-checkbox label="Keep users logged in for a longer period" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Bug: page is reloaded (sometimes) after sending a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Only send notifications to people in that group/calendar" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default, but not on mobile devices" readonly></v-checkbox>
+    <v-checkbox label="Scroll to bottom message after loading the page" readonly></v-checkbox>
+    <v-checkbox label="Scroll to bottom after posting a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per event" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
@@ -29,6 +34,7 @@
     <v-checkbox v-model="checked" label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
+    <v-checkbox label="Show URL info in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
@@ -41,12 +47,11 @@
     <v-checkbox label="Edit messages" readonly></v-checkbox>
     <v-checkbox label="Edit events" readonly></v-checkbox>
     <v-checkbox label="Edit events: move messages between events" readonly></v-checkbox>
-    <v-checkbox label="Show URL info in messages" readonly></v-checkbox>
     <v-checkbox label="Event locations" readonly></v-checkbox>
     <v-checkbox label="Chats: add @ pointers to people" readonly></v-checkbox>
     <v-checkbox label="Create new chats" readonly></v-checkbox>
     <v-checkbox label="Create new calendars" readonly></v-checkbox>
-    <v-checkbox label="Merge multiple messages from the same person" readonly></v-checkbox>
+    <v-checkbox label="Merge multiple consecutive messages from the same person" readonly></v-checkbox>
     <v-checkbox label="Rate passed events" readonly></v-checkbox>
     <v-checkbox label="User profile management" readonly></v-checkbox>
     <v-checkbox label="Native android app" readonly></v-checkbox>
