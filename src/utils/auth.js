@@ -21,11 +21,20 @@ var auth = new auth0.WebAuth({
 });
 
 export function login() {
-  auth.authorize({
+  console.log("checkSession");
+  auth.checkSession({
     responseType: 'token id_token',
     redirectUri: REDIRECT,
     audience: AUDIENCE,
     scope: SCOPE
+  }, function(err, authResult) {
+    console.log("checkSession failed: authorize");
+    auth.authorize({
+      responseType: 'token id_token',
+      redirectUri: REDIRECT,
+      audience: AUDIENCE,
+      scope: SCOPE
+    });
   });
 }
 
