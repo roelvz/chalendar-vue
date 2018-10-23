@@ -25,7 +25,7 @@
         </v-list-tile>
       </v-list>
       <div v-if="loadingGroups">
-        <span>Loading groups...</span>
+        <span>Loading groups ...</span>
         <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
       </div>
 
@@ -49,7 +49,7 @@
         </v-list-tile>
       </v-list>
       <div v-if="loadingCalendars">
-        <span>Loading calendars...</span>
+        <span>Loading calendars ...</span>
         <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
       </div>
 
@@ -78,10 +78,14 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-toolbar-title v-if="chatter">
-        <v-avatar :tile="false" size="56px" color="grey lighten-4">
+      <v-toolbar-title v-if="!shouldLogin()">
+        <v-avatar v-if="chatter" :tile="false" size="56px" color="grey lighten-4">
           <img :src="chatter.picture" alt="avatar">
         </v-avatar>
+        <div v-else>
+          <span>Logging in ...</span>
+          <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
+        </div>
       </v-toolbar-title>
       <v-btn v-if="!shouldLogin()" @click="handleLogout()">Logout</v-btn>
     </v-toolbar>

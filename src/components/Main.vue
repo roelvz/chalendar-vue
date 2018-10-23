@@ -3,12 +3,12 @@
     <h1>Checklist</h1>
 
     <v-checkbox v-model="checked" label="Notifications" readonly></v-checkbox>
+    <v-checkbox label="Keep users logged in for a longer period" readonly></v-checkbox>
     <v-checkbox label="Going/Not going" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't abbreviate messages" readonly></v-checkbox>
     <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
-    <v-checkbox label="Keep users logged in for a longer period" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: page is reloaded (sometimes) after sending a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Only send notifications to people in that group/calendar" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't show old messages" readonly></v-checkbox>
@@ -33,10 +33,11 @@
     <v-checkbox v-model="checked" label="Bugfix: users receive notifications for their own messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
+    <v-checkbox label="Show red 'bubble' when a new event has been created" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
-    <v-checkbox label="Show URL info in messages" readonly></v-checkbox>
+    <v-checkbox label="Show URL preview in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
-    <v-checkbox label="Notifications: Go directly to correct page" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
     <v-checkbox label="Create a nice Favicon" readonly></v-checkbox>
     <v-checkbox label="Create a nice icon" readonly></v-checkbox>
