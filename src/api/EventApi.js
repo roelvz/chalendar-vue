@@ -10,7 +10,7 @@ class EventApi extends BaseApi {
   }
 
   getEvent(id) {
-    return axios.get(`${this.baseUri}/${id}`, BaseApi.buildHeaders())
+    return axios.get(`${this.baseUri}/${id}?filter={"include": {"attendees":"chatter"}}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

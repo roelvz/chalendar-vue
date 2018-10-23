@@ -2,11 +2,13 @@ import CalendarApi from "@/api/CalendarApi";
 import EventApi from "@/api/EventApi";
 import ChatterApi from "@/api/ChatterApi";
 import ChatApi from "@/api/ChatApi";
+import AttendeeApi from "@/api/AttendeeApi";
 
 const calendarApi = new CalendarApi();
 const eventApi = new EventApi();
 const chatterApi = new ChatterApi();
 const chatApi = new ChatApi();
+const attendeeApi = new AttendeeApi();
 
 const state = {
   allCalendars: [],
@@ -19,10 +21,25 @@ const state = {
     chatId: undefined,
     messageCount: 0,
     messages: [],
+    attendees: [],
   },
 };
 
-const getters = {};
+const getters = {
+  // TODO: constants for attendance state
+  going(state) {
+    return state.loadedEvent ? state.loadedEvent.attendees.filter(a => a.attendance === 'going') : [];
+  },
+  maybe(state) {
+    return state.loadedEvent ? state.loadedEvent.attendees.filter(a => a.attendance === 'maybe') : [];
+  },
+  cannotGo(state) {
+    return state.loadedEvent ? state.loadedEvent.attendees.filter(a => a.attendance === 'cannot_go') : [];
+  },
+  notGoing(state) {
+    return state.loadedEvent ? state.loadedEvent.attendees.filter(a => a.attendance === 'not_going') : [];
+  },
+};
 
 const actions = {
   initAllCalendars({commit}) {
@@ -128,6 +145,28 @@ const actions = {
     }
   },
 
+  setAttendance({commit}, [chatterId, attendance]) {
+    if (state.loadedEvent) {
+      let newAttendee;
+      attendeeApi.putAttendee(state.loadedEvent.id, chatterId, attendance)
+        .then(attendee => {
+          newAttendee = attendee;
+          console.log("ATTENDEE");
+          console.log(attendee);
+          return chatterApi.getChatter(attendee.chatterId);
+        })
+        .then(chatter => {
+          console.log("CHATTER");
+          console.log(chatter);
+          newAttendee.chatter = chatter;
+          commit('updateEventAttendance', newAttendee);
+        })
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    }
+  },
+
   postMessage({commit, state, rootState}, text) {
     if (state.loadedEvent) {
       chatApi.postMessage(state.loadedEvent.chatId, text)
@@ -197,6 +236,20 @@ const mutations = {
     state.loadedEvent.messageCount++;
   },
 
+  updateEventAttendance(state, attendee) {
+    let current = state.loadedEvent.attendees.find(a => a.chatterId === attendee.chatterId);
+    if (current) {
+      console.log('updating current attendance');
+      console.log(current.attendance);
+      console.log(attendee.attendance);
+      current.attendance = attendee.attendance;
+    } else {
+      console.log('adding new attendance');
+      console.log(attendee);
+      state.loadedEvent.attendees.push(attendee);
+    }
+  },
+
   reset(state) {
     state.calendars = [];
     state.loadedCalendar = {
@@ -207,6 +260,7 @@ const mutations = {
       chatId: undefined,
       messageCount: 0,
       messages: [],
+      attendees: [],
     };
   },
 };
