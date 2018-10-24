@@ -255,13 +255,8 @@ const mutations = {
   updateEventAttendance(state, attendee) {
     let current = state.loadedEvent.attendees.find(a => a.chatterId === attendee.chatterId);
     if (current) {
-      console.log('updating current attendance');
-      console.log(current.attendance);
-      console.log(attendee.attendance);
       current.attendance = attendee.attendance;
     } else {
-      console.log('adding new attendance');
-      console.log(attendee);
       state.loadedEvent.attendees.push(attendee);
     }
   },
