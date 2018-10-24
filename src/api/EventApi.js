@@ -28,6 +28,40 @@ class EventApi extends BaseApi {
       }
     }).then(result => result.data);
   }
+
+  getAttendee(eventId, chatterId) {
+    // There is an issue with composite PK's in loopback. Construct one manually.
+    let id = `${eventId}|${chatterId}`;
+
+    return axios.get(`${this.baseUri}/${eventId}/attendees/${id}`)
+      .then(result => result.data);
+  }
+
+  postAttendee(eventId, chatterId, attendance) {
+    let id = `${eventId}|${chatterId}`;
+
+    return axios({
+      method: 'post',
+      url: `${this.baseUri}/${eventId}/attendees`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+      data: {id, chatterId, attendance},
+    }).then(result => result.data);
+  }
+
+  putAttendee(eventId, chatterId, attendance) {
+    let id = `${eventId}|${chatterId}`;
+
+    return axios({
+      method: 'put',
+      url: `${this.baseUri}/${eventId}/attendees/${id}`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+      data: {attendance},
+    }).then(result => result.data);
+  }
 }
 
 export default EventApi;

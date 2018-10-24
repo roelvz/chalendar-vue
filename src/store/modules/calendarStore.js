@@ -148,21 +148,37 @@ const actions = {
   setAttendance({commit}, [chatterId, attendance]) {
     if (state.loadedEvent) {
       let newAttendee;
-      attendeeApi.putAttendee(state.loadedEvent.id, chatterId, attendance)
-        .then(attendee => {
-          newAttendee = attendee;
-          console.log("ATTENDEE");
-          console.log(attendee);
-          return chatterApi.getChatter(attendee.chatterId);
+      let promises = [];
+
+      // There's an issue with composite PK's in loopback. This is a workaround: check if attendee exists.
+      // PUT if it does, POST if error.
+      eventApi.getAttendee(state.loadedEvent.id, chatterId)
+        .then(() => {
+          // TODO: refactor code
+          eventApi.putAttendee(state.loadedEvent.id, chatterId, attendance)
+            .then((attendee) => {
+              return chatterApi.getChatter(attendee.chatterId)
+                .then(chatter => {
+                  attendee.chatter = chatter;
+                  commit('updateEventAttendance', attendee);
+                })
+            })
+            .catch(error => {
+              console.error(error.response ? error.response : error);
+            });
         })
-        .then(chatter => {
-          console.log("CHATTER");
-          console.log(chatter);
-          newAttendee.chatter = chatter;
-          commit('updateEventAttendance', newAttendee);
-        })
-        .catch(error => {
-          console.error(error.response ? error.response : error);
+        .catch(() => {
+          eventApi.postAttendee(state.loadedEvent.id, chatterId, attendance)
+            .then((attendee) => {
+              return chatterApi.getChatter(attendee.chatterId)
+                .then(chatter => {
+                  attendee.chatter = chatter;
+                  commit('updateEventAttendance', attendee);
+                })
+            })
+            .catch(error => {
+              console.error(error.response ? error.response : error);
+            });
         });
     }
   },

@@ -175,7 +175,16 @@ export default {
         this.loadEvent({id: this.$route.params.id})
           .then(result => this.initCalendars(this.chatter));
       }
-    }
+    },
+
+    loadedEvent (event) {
+      if (event) {
+        let attendee = event.attendees.find(a => a.chatterId === this.chatter.id);
+        if (attendee) {
+          this.attendanceLocal = attendee.attendance;
+        }
+      }
+    },
   }
 }
 </script>
