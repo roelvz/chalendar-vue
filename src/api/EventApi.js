@@ -33,7 +33,7 @@ class EventApi extends BaseApi {
     // There is an issue with composite PK's in loopback. Construct one manually.
     let id = `${eventId}|${chatterId}`;
 
-    return axios.get(`${this.baseUri}/${eventId}/attendees/${id}`)
+    return axios.get(`${this.baseUri}/${eventId}/attendees/${id}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
