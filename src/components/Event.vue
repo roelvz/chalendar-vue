@@ -26,7 +26,22 @@
           </v-flex>
           <v-flex xs12>
             <v-layout column>
-              <v-flex>{{message.text}}</v-flex>
+              <v-flex v-if="!isLink(message.text)">{{message.text}}</v-flex>
+              <v-flex v-else>
+                <link-prevue :url="getUrl(message.text)">
+                  <template slot-scope="props">
+                    <div class="card" style="width: 20rem;">
+                      <img v-if=""props.img height="100"  class="card-img-top" :src="props.img" :alt="props.title">
+                      <div class="card-block">
+                        <h4 class="card-title">{{props.title}}</h4>
+                        <p class="card-text">{{props.description}}</p>
+                        <a v-bind:href="props.url" class="btn btn-primary">More</a>
+                      </div>
+                    </div>
+                    <div v-if="message.text !== getUrl(message.text)">{{message.text}}</div>
+                  </template>
+                </link-prevue>
+              </v-flex>
               <v-flex><span class="grey--text"><timeago :datetime="message.creationDate"></timeago> by {{message.creatorName}}</span></v-flex>
             </v-layout>
           </v-flex>
@@ -53,12 +68,15 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import LinkPrevue from 'link-prevue'
 
 import NotificationApi from "../api/NotificationApi";
 const notificationApi = new NotificationApi();
 
 export default {
   name: "Event",
+  components: {LinkPrevue},
+
   data() {
     return {
       inputMessage: "",
@@ -132,6 +150,24 @@ export default {
         result += name;
       }
       return result;
+    },
+
+    isLink(text) {
+      return text.indexOf('http') > -1;
+    },
+
+    getUrl(text) {
+      let httpIndex = text.indexOf('http');
+      if (httpIndex > -1) {
+        let spaceIndex = text.indexOf(" ", httpIndex);
+        if (spaceIndex > -1) {
+          return text.substr(httpIndex, spaceIndex-httpIndex);
+        } else {
+          return text.substr(httpIndex);
+        }
+      } else {
+        return "";
+      }
     },
 
     ...mapGetters('calendarStore', [
