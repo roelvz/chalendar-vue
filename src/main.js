@@ -7,6 +7,7 @@ import store from './store';
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueTimeago from 'vue-timeago'
+import linkify from 'vue-linkify'
 
 Vue.use(Vuetify);
 
@@ -19,6 +20,8 @@ Vue.use(VueTimeago, {
     'en-US': require('date-fns/locale/en'),
   }
 });
+
+Vue.directive('linkified', linkify)
 
 Vue.config.productionTip = false;
 

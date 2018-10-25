@@ -36,7 +36,8 @@
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Show red 'bubble' when a new event has been created" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
-    <v-checkbox label="Show URL preview in messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Linkify url's in messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Show URL preview in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>

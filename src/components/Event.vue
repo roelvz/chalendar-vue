@@ -38,7 +38,7 @@
                         <a v-bind:href="props.url" class="btn btn-primary">More</a>
                       </div>
                     </div>
-                    <div v-if="message.text !== getUrl(message.text)">{{message.text}}</div>
+                    <div v-if="message.text !== getUrl(message.text)" v-linkified>{{message.text}}</div>
                   </template>
                 </link-prevue>
               </v-flex>
