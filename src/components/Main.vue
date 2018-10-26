@@ -8,7 +8,7 @@
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Notifications for iPhone don't work (for both Safari and Chrome)" readonly></v-checkbox>
+    <v-checkbox label="Notifications for iPhone don't work (for both Safari and Chrome)" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't abbreviate messages" readonly></v-checkbox>
     <v-checkbox label="Images and multimedia in messages (incl drag & drop)" readonly></v-checkbox>
     <v-checkbox label="Emoticons in messages" readonly></v-checkbox>
