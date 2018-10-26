@@ -8,8 +8,10 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueTimeago from 'vue-timeago'
 import linkify from 'vue-linkify'
+import VueCookies from 'vue-cookies'
 
 Vue.use(Vuetify);
+Vue.use(VueCookies);
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default
@@ -21,7 +23,7 @@ Vue.use(VueTimeago, {
   }
 });
 
-Vue.directive('linkified', linkify)
+Vue.directive('linkified', linkify);
 
 Vue.config.productionTip = false;
 

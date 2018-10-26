@@ -102,7 +102,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import { isLoggedIn, login, logout, getAccessToken, getIdToken, setUserInfo } from './utils/auth';
+import { setVue, isLoggedIn, login, logout, getAccessToken, getIdToken, setUserInfo } from './utils/auth';
 
 import Group from "./components/Group";
 
@@ -118,6 +118,8 @@ export default {
   },
 
   mounted() {
+    this.$cookies.config('30d');
+    setVue(this);
     if (isLoggedIn()) {
       setUserInfo(this);
     }

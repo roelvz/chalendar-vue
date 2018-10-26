@@ -20,22 +20,19 @@ var auth = new auth0.WebAuth({
   domain: CLIENT_DOMAIN
 });
 
+var vue;
+// TODO: this should not be necessary, find out the correct wy to do this
+export function setVue(vueArg) {
+  vue = vueArg;
+}
+
 export function login() {
-  // console.log("checkSession");
-  // auth.checkSession({
-  //   responseType: 'token id_token',
-  //   redirectUri: REDIRECT,
-  //   audience: AUDIENCE,
-  //   scope: SCOPE
-  // }, function(err, authResult) {
-  //   console.log("checkSession failed: authorize");
-    auth.authorize({
-      responseType: 'token id_token',
-      redirectUri: REDIRECT,
-      audience: AUDIENCE,
-      scope: SCOPE
-    });
-  // });
+  auth.authorize({
+    responseType: 'token id_token',
+    redirectUri: REDIRECT,
+    audience: AUDIENCE,
+    scope: SCOPE
+  });
 }
 
 var router = new Router({
@@ -60,19 +57,19 @@ export function requireAuth(to, from, next) {
 }
 
 export function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
+  return vue.$cookies.get(ID_TOKEN_KEY)
 }
 
 export function getAccessToken() {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
+  return vue.$cookies.get(ACCESS_TOKEN_KEY)
 }
 
 function clearIdToken() {
-  localStorage.removeItem(ID_TOKEN_KEY);
+  vue.$cookies.remove(ID_TOKEN_KEY);
 }
 
 function clearAccessToken() {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
+  vue.$cookies.remove(ACCESS_TOKEN_KEY);
 }
 
 // Helper function that will allow us to extract the access_token and id_token
@@ -84,22 +81,19 @@ function getParameterByName(name) {
 // Get and store access_token in local storage
 export function setAccessToken() {
   let accessToken = getParameterByName('access_token');
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+  // TODO: should be encrypted
+  vue.$cookies.set(ACCESS_TOKEN_KEY, accessToken);
 }
 
 // Get and store id_token in local storage
 export function setIdToken() {
   let idToken = getParameterByName('id_token');
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
+  // TODO: should be encrypted
+  vue.$cookies.set(ID_TOKEN_KEY, idToken);
 }
 
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
-    // TODO: find out why user isn't always set even if loggedIn is true and access token is set.
-    if(!user) {
-      login();
-    }
-
     chatterApi.putChatter(user)
       .then(chatter => {
         js.$store.commit('userStore/setChatter', chatter);
@@ -111,6 +105,7 @@ export function setUserInfo(js) {
 }
 
 export function isLoggedIn() {
+  if (!vue) { return false; }
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
 }
