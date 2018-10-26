@@ -7,14 +7,20 @@
     <v-checkbox v-model="checked" label="Going/Not going" readonly></v-checkbox>
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
+    <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications for iPhone don't work (for both Safari and Chrome)" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't abbreviate messages" readonly></v-checkbox>
-    <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
+    <v-checkbox label="Images and multimedia in messages (incl drag & drop)" readonly></v-checkbox>
+    <v-checkbox label="Emoticons in messages" readonly></v-checkbox>
+    <v-checkbox label="Likes" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Linkify url's in messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Show URL preview in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: page is reloaded (sometimes) after sending a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Only send notifications to people in that group/calendar" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default, but not on mobile devices" readonly></v-checkbox>
+    <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Scroll to bottom message after loading the page" readonly></v-checkbox>
     <v-checkbox label="Scroll to bottom after posting a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
@@ -33,11 +39,7 @@
     <v-checkbox v-model="checked" label="Build website only on server instead of locally" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bugfix: users receive notifications for their own messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
-    <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox label="Show red 'bubble' when a new event has been created" readonly></v-checkbox>
-    <v-checkbox label="Images and multimedia in messages" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Linkify url's in messages" readonly></v-checkbox>
-    <v-checkbox v-model="checked" label="Show URL preview in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: better info in notification" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications: Go directly to correct page" readonly></v-checkbox>
     <v-checkbox label="Choose a catchy name :)" readonly></v-checkbox>
@@ -46,7 +48,6 @@
     <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
     <v-checkbox label="Make chats and messages look nicer" readonly></v-checkbox>
     <v-checkbox label="Chat: show if someone is typing" readonly></v-checkbox>
-    <v-checkbox label="Likes" readonly></v-checkbox>
     <v-checkbox label="Edit messages" readonly></v-checkbox>
     <v-checkbox label="Edit events" readonly></v-checkbox>
     <v-checkbox label="Edit events: move messages between events" readonly></v-checkbox>
