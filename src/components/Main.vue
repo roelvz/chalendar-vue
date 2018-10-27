@@ -8,8 +8,8 @@
     <v-checkbox v-model="checked" label="Post messages on events" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Desktop and mobile" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Make sure app can be tested locally" readonly></v-checkbox>
-
-    <v-checkbox label="Bug: when switching between events, messages from the preveious event are shown briefly" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Bug: when switching between events, messages from the previous event are shown briefly" readonly></v-checkbox>
+    <v-checkbox label="Bug: chat/calendar items on the left sometimes not shown" readonly></v-checkbox>
 
     <v-checkbox label="Introduce Chat model" readonly></v-checkbox>
     <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
@@ -21,7 +21,7 @@
     <v-checkbox label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox label="Chats: don't show old messages" readonly></v-checkbox>
     <v-checkbox label="Chats: don't abbreviate messages" readonly></v-checkbox>
-    <v-checkbox label="Chats: add date to messages" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Chats: add date to messages" readonly></v-checkbox>
     <v-checkbox label="Make calendar events look nicer" readonly></v-checkbox>
     <v-checkbox label="Realtime chat (someone is typing ...)" readonly></v-checkbox>
     <v-checkbox label="Likes" readonly></v-checkbox>
