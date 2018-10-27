@@ -48,8 +48,12 @@ export default {
   },
 
   created() {
-    this.loadEvent(this.$route.params.id);
-    this.loaded = true;
+    console.log('loading: ' + this.loaded);
+    this.loadEvent(this.$route.params.id)
+      .then(() => {
+        this.loaded = true;
+        console.log('loaded: ' + this.loaded);
+      });
   },
 
   methods: {

@@ -57,7 +57,7 @@ const actions = {
     let loadedEvent = {};
     let promises = [];
 
-    eventApi.getEvent(id)
+    return eventApi.getEvent(id)
       .then(event => {
         loadedEvent = event;
         return eventApi.getMessages(event.id);
