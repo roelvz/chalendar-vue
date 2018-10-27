@@ -9,7 +9,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = '26K0G3dpKG3JVSMgDUCM2c4OUoxsDZY1';
 const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
-const REDIRECT = `https://challendar-ui.herokuapp.com/callback`;
+const REDIRECT = process.env.LOGIN_CALLBACK_URI;
 const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://chalendar.com/';
 
