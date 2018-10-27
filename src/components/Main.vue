@@ -7,8 +7,10 @@
     <v-checkbox v-model="checked" label="Post events in Calendar" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Post messages on events" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Desktop and mobile" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Make sure app can be tested locally" readonly></v-checkbox>
 
-    <v-checkbox label="Make sure app can be tested locally" readonly></v-checkbox>
+    <v-checkbox label="Bug: when switching between events, messages from the preveious event are shown briefly" readonly></v-checkbox>
+
     <v-checkbox label="Introduce Chat model" readonly></v-checkbox>
     <v-checkbox label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>
