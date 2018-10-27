@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid v-if="loaded">
+  <v-container fluid v-if="loaded && loadedEvent">
     <h1>{{new Date(loadedEvent.date).toLocaleDateString()}}: {{loadedEvent.name}}</h1>
 
     <v-list>
@@ -48,10 +48,11 @@ export default {
   },
 
   created() {
+    this.setLoadedEvent(undefined);
+    this.loaded = true;
     console.log('loading: ' + this.loaded);
     this.loadEvent(this.$route.params.id)
       .then(() => {
-        this.loaded = true;
         console.log('loaded: ' + this.loaded);
       });
   },
@@ -65,6 +66,10 @@ export default {
     ...mapActions('calendarStore', [
       'loadEvent',
       'postMessage',
+    ]),
+
+    ...mapMutations('calendarStore', [
+      'setLoadedEvent',
     ]),
   },
 
