@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid v-if="loaded && loadedEvent">
+  <v-container fluid v-if="loadedEvent">
     <h1>{{new Date(loadedEvent.date).toLocaleDateString()}}: {{loadedEvent.name}}</h1>
 
     <v-list>
@@ -42,19 +42,13 @@ export default {
 
   data() {
     return {
-      loaded: false,
       inputMessage: "",
     }
   },
 
   created() {
     this.setLoadedEvent(undefined);
-    this.loaded = true;
-    console.log('loading: ' + this.loaded);
-    this.loadEvent(this.$route.params.id)
-      .then(() => {
-        console.log('loaded: ' + this.loaded);
-      });
+    this.loadEvent(this.$route.params.id);
   },
 
   methods: {
