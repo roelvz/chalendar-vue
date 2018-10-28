@@ -93,8 +93,9 @@ export function setIdToken() {
 }
 
 export function setUserInfo(js) {
-  console.log("getAccessToken():" + getAccessToken());
+
   auth.client.userInfo(getAccessToken(), function(err, user) {
+    console.log("getAccessToken():" + getAccessToken());
     console.log('user:');
     console.log(user);
 
