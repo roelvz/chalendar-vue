@@ -94,6 +94,9 @@ export function setIdToken() {
 
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
+    console.log('user:');
+    console.log(user);
+
     chatterApi.putChatter(user)
       .then(chatter => {
         js.$store.commit('userStore/setChatter', chatter);
