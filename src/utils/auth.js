@@ -97,7 +97,12 @@ export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
       console.log('checkSession');
-      auth.checkSession({}, function (err, authResult) {
+      auth.checkSession({
+        responseType: 'token id_token',
+        redirectUri: REDIRECT,
+        audience: AUDIENCE,
+        scope: SCOPE
+      }, function (err, authResult) {
         // err if automatic parseHash fails
         console.log(err);
       });
