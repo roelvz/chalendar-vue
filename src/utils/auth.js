@@ -103,9 +103,25 @@ export function setIdToken() {
   vue.$cookies.set(ID_TOKEN_KEY, idToken);
 }
 
+function renewToken() {
+  console.log('Renew token');
+  auth.checkSession({},
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        setAccessToken();
+        setIdToken();
+        setUserInfo(vue);
+      }
+    }
+  );
+}
+
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
+      renewToken();
     } else {
       // console.log(err);
       // console.log("getAccessToken():" + getAccessToken());
