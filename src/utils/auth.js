@@ -31,7 +31,8 @@ export function login() {
     responseType: 'token id_token',
     redirectUri: REDIRECT,
     audience: AUDIENCE,
-    scope: SCOPE
+    scope: SCOPE,
+    prompt: 'none',
   });
 }
 
