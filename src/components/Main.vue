@@ -6,7 +6,7 @@
     <v-checkbox label="Keep users logged in for a longer period" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Going/Not going" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Calendar: don't show old events" readonly></v-checkbox>
-    <v-checkbox label="Calendar: allow to show older events" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Calendar: allow to show older events" readonly></v-checkbox>
     <v-checkbox label="Auto refresh chat when someone else sends a message" readonly></v-checkbox>
     <v-checkbox label="Don't send notifications to active users" readonly></v-checkbox>
     <v-checkbox label="Notifications for iPhone don't work (for both Safari and Chrome)" readonly></v-checkbox>

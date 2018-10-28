@@ -63,7 +63,7 @@ const actions = {
       });
   },
 
-  loadCalendar({commit}, id) {
+  loadCalendar({commit}, [id, loadOldEvents]) {
     let loadedCalendar = {};
     let promises = [];
 
@@ -71,7 +71,7 @@ const actions = {
       .then(calendar => {
         // Retrieve events for calendar
         loadedCalendar = calendar;
-        return calendarApi.getEvents(calendar.id)
+        return calendarApi.getEvents(calendar.id, loadOldEvents)
       })
       .then(events => {
         loadedCalendar.events = events;

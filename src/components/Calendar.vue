@@ -4,6 +4,11 @@
 
     <v-btn :to="toAddEvent()">Add event</v-btn>
 
+    <v-layout row justify-space-around>
+      <!--<v-btn small v-if="entity.messageCount > entity.messages.length" @click="loadOlderMessages">Older</v-btn>-->
+      <v-btn small @click="switchShowOldEvents">{{loadOldEvents ? 'Hide older' : 'Show older'}}</v-btn>
+    </v-layout>
+
     <v-list>
       <v-divider ></v-divider>
       <template v-for="event in loadedCalendar.events">
@@ -40,14 +45,29 @@ import { isDateOlderThanToday } from '@/utils/utils';
 export default {
   name: "Calendar",
 
+  data() {
+    return {
+      loadOldEvents: false,
+    }
+  },
+
   created() {
     if (this.chatter) {
-      this.loadCalendar(this.$route.params.id)
-        .then(result => this.initCalendars(this.chatter));
+      this.reloadCalendar();
     }
   },
 
   methods: {
+    switchShowOldEvents() {
+      this.loadOldEvents = !this.loadOldEvents;
+      this.reloadCalendar();
+    },
+
+    reloadCalendar() {
+      this.loadCalendar([this.$route.params.id, this.loadOldEvents])
+        .then(result => this.initCalendars(this.chatter));
+    },
+
     toAddEvent() {
       return `/calendar/${this.$route.params.id}/event/add`;
     },
@@ -79,15 +99,13 @@ export default {
   watch:{
     $route(to, from){
       if (from.path !== to.path) {
-        this.loadCalendar(this.$route.params.id)
-          .then(result => this.initCalendars(this.chatter));
+        this.reloadCalendar();
       }
     },
 
     chatter(val) {
       if (val) {
-        this.loadCalendar(this.$route.params.id)
-          .then(result => this.initCalendars(this.chatter));
+        this.reloadCalendar();
       }
     },
   }

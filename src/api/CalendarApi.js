@@ -19,11 +19,16 @@ class CalendarApi extends BaseApi {
       .then(result => result.data);
   }
 
-  getEvents(calendarId) {
-    let yesterday = roundDate(Date.now() - 2*86400000);
-    // Events from yesterday are also included
-    return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date", "where":{"date":{"gt":"${yesterday}"}}}`, BaseApi.buildHeaders())
-      .then(result => result.data);
+  getEvents(calendarId, loadOldEvents) {
+    if (loadOldEvents) {
+      return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date"}`, BaseApi.buildHeaders())
+        .then(result => result.data);
+    } else {
+      let yesterday = roundDate(Date.now() - 2 * 86400000);
+      // Events from yesterday are also included
+      return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date", "where":{"date":{"gt":"${yesterday}"}}}`, BaseApi.buildHeaders())
+        .then(result => result.data);
+    }
   }
 
   postEvent(calendarId, [name, description, date]) {
