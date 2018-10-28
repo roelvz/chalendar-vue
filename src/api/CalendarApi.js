@@ -1,5 +1,6 @@
 import BaseApi from "./BaseApi";
 import {getAccessToken} from "@/utils/auth";
+import { roundDate } from '@/utils/utils';
 const axios = require('axios');
 
 class CalendarApi extends BaseApi {
@@ -19,7 +20,9 @@ class CalendarApi extends BaseApi {
   }
 
   getEvents(calendarId) {
-    return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date"}`, BaseApi.buildHeaders())
+    let yesterday = roundDate(Date.now() - 2*86400000);
+    // Events from yesterday are also included
+    return axios.get(`${this.baseUri}/${calendarId}/events?filter={"order": "date", "where":{"date":{"gt":"${yesterday}"}}}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

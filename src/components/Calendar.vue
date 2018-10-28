@@ -12,11 +12,15 @@
             <v-badge color="red" v-if="event.newMessages > 0">
               <span slot="badge">{{event.newMessages}}</span>
               <v-list-tile-title>
+              <span :style="getEventStyle(event)">
                 {{printEvent(event)}}
+              </span>
               </v-list-tile-title>
             </v-badge>
             <v-list-tile-title v-else>
-              {{printEvent(event)}}
+              <span :style="getEventStyle(event)">
+                {{printEvent(event)}}
+              </span>
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -30,7 +34,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex';
+import { isDateOlderThanToday } from '@/utils/utils';
 
 export default {
   name: "Calendar",
@@ -45,6 +50,11 @@ export default {
   methods: {
     toAddEvent() {
       return `/calendar/${this.$route.params.id}/event/add`;
+    },
+
+    getEventStyle(event) {
+      // new Date(event.date) is necessary because it is in JSON format.
+      return `color:${isDateOlderThanToday(new Date(event.date)) ? 'grey' : 'white'}`;
     },
 
     printEvent(event) {
