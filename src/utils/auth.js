@@ -6,6 +6,7 @@ import Auth0Lock from 'auth0-lock';
 import ChatterApi from '../api/ChatterApi';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
+const USER_KEY = 'user_info';
 
 const CLIENT_ID = '26K0G3dpKG3JVSMgDUCM2c4OUoxsDZY1';
 const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
@@ -42,6 +43,7 @@ var router = new Router({
 export function logout() {
   clearIdToken();
   clearAccessToken();
+  clearUserInfo();
   vue.$session.destroy();
   window.location.href = '/';
 }
@@ -65,12 +67,20 @@ export function getAccessToken() {
   return vue.$cookies.get(ACCESS_TOKEN_KEY)
 }
 
+export function getUserInfo() {
+  return vue.$cookies.get(USER_KEY)
+}
+
 function clearIdToken() {
   vue.$cookies.remove(ID_TOKEN_KEY);
 }
 
 function clearAccessToken() {
   vue.$cookies.remove(ACCESS_TOKEN_KEY);
+}
+
+function clearUserInfo() {
+  vue.$cookies.remove(USER_KEY);
 }
 
 // Helper function that will allow us to extract the access_token and id_token
@@ -94,15 +104,23 @@ export function setIdToken() {
 }
 
 export function setUserInfo(js) {
-
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
+      let user = getUserInfo();
+      chatterApi.getChatter(user.sub)
+        .then(chatter => {
+          js.$store.commit('userStore/setChatter', chatter);
+        })
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        })
     } else {
       // console.log(err);
       // console.log("getAccessToken():" + getAccessToken());
       console.log('user0:');
       console.log(user);
       if (user) {
+        vue.$cookies.set(USER_KEY, user);
         chatterApi.putChatter(user)
           .then(chatter => {
             js.$store.commit('userStore/setChatter', chatter);
