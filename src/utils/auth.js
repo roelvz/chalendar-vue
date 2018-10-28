@@ -106,10 +106,6 @@ export function setIdToken() {
 export function setUserInfo(js) {
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
-      // TODO: this looks like cheating ... fix login
-      let chatter = getUserInfo();
-      js.$store.commit('userStore/setChatter', chatter);
-      chatterApi.putChatter(user);
     } else {
       // console.log(err);
       // console.log("getAccessToken():" + getAccessToken());
@@ -118,7 +114,6 @@ export function setUserInfo(js) {
       if (user) {
         chatterApi.putChatter(user)
           .then(chatter => {
-            vue.$cookies.set(USER_KEY, chatter);
             js.$store.commit('userStore/setChatter', chatter);
           })
           .catch(error => {
