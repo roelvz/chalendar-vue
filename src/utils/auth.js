@@ -96,14 +96,6 @@ export function setUserInfo(js) {
 
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
-      console.log('authorize');
-      auth.authorize({
-        responseType: 'token id_token',
-        redirectUri: REDIRECT,
-        audience: AUDIENCE,
-        scope: SCOPE,
-        prompt: 'none',
-      });
     } else {
       // console.log(err);
       // console.log("getAccessToken():" + getAccessToken());
