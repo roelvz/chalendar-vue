@@ -31,8 +31,7 @@ export function login() {
     responseType: 'token id_token',
     redirectUri: REDIRECT,
     audience: AUDIENCE,
-    scope: SCOPE,
-    prompt: 'none',
+    scope: SCOPE
   });
 }
 
@@ -97,15 +96,13 @@ export function setUserInfo(js) {
 
   auth.client.userInfo(getAccessToken(), function(err, user) {
     if (err) {
-      console.log('checkSession');
-      auth.checkSession({
+      console.log('authorize');
+      auth.authorize({
         responseType: 'token id_token',
         redirectUri: REDIRECT,
         audience: AUDIENCE,
-        scope: SCOPE
-      }, function (err, authResult) {
-        // err if automatic parseHash fails
-        console.log(err);
+        scope: SCOPE,
+        prompt: 'none',
       });
     } else {
       // console.log(err);
