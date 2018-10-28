@@ -13,7 +13,9 @@ import VueSession from 'vue-session';
 
 Vue.use(Vuetify);
 Vue.use(VueCookies);
-Vue.use(VueSession);
+Vue.use(VueSession, {
+  persist: true,
+});
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default
