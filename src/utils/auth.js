@@ -105,7 +105,11 @@ export function setIdToken() {
 
 function renewToken() {
   console.log('Renew token');
-  auth.checkSession({},
+  auth.checkSession({
+      responseType: 'code',
+      audience: AUDIENCE,
+      scope: SCOPE
+    },
     function(err, result) {
       if (err) {
         console.log(err);
