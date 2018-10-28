@@ -95,6 +95,7 @@ export function setIdToken() {
 export function setUserInfo(js) {
 
   auth.client.userInfo(getAccessToken(), function(err, user) {
+    console.log(err);
     console.log("getAccessToken():" + getAccessToken());
     console.log('user:');
     console.log(user);
@@ -110,11 +111,11 @@ export function setUserInfo(js) {
 }
 
 export function isLoggedIn() {
-  console.log("vue: " + vue);
+  // console.log("vue: " + vue);
   if (!vue) { return false; }
   const idToken = getIdToken();
   console.log("idToken: " + idToken);
-  console.log("isTokenExpired(idToken): " + isTokenExpired(idToken));
+  // console.log("isTokenExpired(idToken): " + isTokenExpired(idToken));
   return !!idToken && !isTokenExpired(idToken);
 }
 
