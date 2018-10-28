@@ -95,18 +95,27 @@ export function setIdToken() {
 export function setUserInfo(js) {
 
   auth.client.userInfo(getAccessToken(), function(err, user) {
-    console.log(err);
-    console.log("getAccessToken():" + getAccessToken());
-    console.log('user:');
-    console.log(user);
-
-    chatterApi.putChatter(user)
-      .then(chatter => {
-        js.$store.commit('userStore/setChatter', chatter);
-      })
-      .catch(error => {
-        console.error(error.response ? error.response : error);
-      })
+    if (err) {
+      console.log('checkSession');
+      auth.checkSession({}, function (err, authResult) {
+        // err if automatic parseHash fails
+        console.log(err);
+      });
+    } else {
+      // console.log(err);
+      // console.log("getAccessToken():" + getAccessToken());
+      console.log('user0:');
+      console.log(user);
+      if (user) {
+        chatterApi.putChatter(user)
+          .then(chatter => {
+            js.$store.commit('userStore/setChatter', chatter);
+          })
+          .catch(error => {
+            console.error(error.response ? error.response : error);
+          })
+      }
+    }
   });
 }
 
