@@ -42,6 +42,7 @@ var router = new Router({
 export function logout() {
   clearIdToken();
   clearAccessToken();
+  vue.$session.destroy();
   window.location.href = '/';
 }
 
@@ -115,12 +116,12 @@ export function setUserInfo(js) {
 }
 
 export function isLoggedIn() {
-  // console.log("vue: " + vue);
   if (!vue) { return false; }
   const idToken = getIdToken();
-  console.log("idToken: " + idToken);
-  // console.log("isTokenExpired(idToken): " + isTokenExpired(idToken));
-  return !!idToken && !isTokenExpired(idToken);
+
+  console.log(vue.$session.getAll());
+
+  return vue.$session.exists() && !!idToken && !isTokenExpired(idToken);
 }
 
 function getTokenExpirationDate(encodedToken) {

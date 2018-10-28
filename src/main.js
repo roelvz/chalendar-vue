@@ -9,9 +9,11 @@ import 'vuetify/dist/vuetify.min.css'
 import VueTimeago from 'vue-timeago'
 import linkify from 'vue-linkify'
 import VueCookies from 'vue-cookies'
+import VueSession from 'vue-session';
 
 Vue.use(Vuetify);
 Vue.use(VueCookies);
+Vue.use(VueSession);
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default
