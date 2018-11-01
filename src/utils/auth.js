@@ -8,7 +8,7 @@ const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 const USER_KEY = 'user_info';
 
-const CLIENT_ID = '26K0G3dpKG3JVSMgDUCM2c4OUoxsDZY1';
+const CLIENT_ID = '4gNCBvd1oFgbDVMCNsi3wYKifhwlWpq6';
 const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
 const REDIRECT = process.env.LOGIN_CALLBACK_URI;
 const SCOPE = 'openid profile email';
