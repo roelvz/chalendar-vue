@@ -140,7 +140,7 @@ export default {
     },
 
     isAdmin() {
-      return this.chatter && this.chatter.id === 'facebook|10217066011620498';
+      return this.chatter && (this.chatter.id === 'facebook|10217066011620498' || this.chatter.id === 'facebook|10217386796239913');
     },
 
     toGroup(id) { return `/group/${id}`; },
