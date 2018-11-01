@@ -90,32 +90,31 @@ function getParameterByName(name) {
 }
 
 // Get and store access_token in local storage
-export function setAccessToken() {
-  let accessToken = getParameterByName('access_token');
+export function setAccessToken(accessToken) {
   // TODO: should be encrypted
-  vue.$cookies.set(ACCESS_TOKEN_KEY, accessToken);
+  vue.$cookies.set(ACCESS_TOKEN_KEY, accessToken ? accessToken : getParameterByName('access_token'));
 }
 
 // Get and store id_token in local storage
-export function setIdToken() {
-  let idToken = getParameterByName('id_token');
+export function setIdToken(idToken) {
   // TODO: should be encrypted
-  vue.$cookies.set(ID_TOKEN_KEY, idToken);
+  vue.$cookies.set(ID_TOKEN_KEY, idToken ? idToken : getParameterByName('id_token'));
 }
 
-function renewToken() {
+export function renewToken() {
   console.log('Renew token');
   auth.checkSession({
       responseType: 'token id_token',
+      redirectUri: REDIRECT,
       audience: AUDIENCE,
       scope: SCOPE
     },
     function(err, result) {
       if (err) {
-        console.log(err);
+        console.error(err);
       } else {
-        setAccessToken();
-        setIdToken();
+        setAccessToken(result.accessToken);
+        setIdToken(result.idToken);
         setUserInfo(vue);
       }
     }
@@ -144,6 +143,11 @@ export function isLoggedIn() {
   if (!vue) { return false; }
   const idToken = getIdToken();
   const accessToken = getAccessToken();
+
+  if (accessToken && isTokenExpired(accessToken)) {
+    renewToken();
+  }
+
   return !!idToken && !isTokenExpired(idToken) && !isTokenExpired(accessToken);
 }
 

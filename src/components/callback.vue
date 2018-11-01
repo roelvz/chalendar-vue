@@ -8,7 +8,6 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      this.$session.start();
       setAccessToken();
       setIdToken();
       setUserInfo(this);
