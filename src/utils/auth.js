@@ -6,7 +6,6 @@ import Auth0Lock from 'auth0-lock';
 import ChatterApi from '../api/ChatterApi';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
-const USER_KEY = 'user_info';
 
 const CLIENT_ID = '4gNCBvd1oFgbDVMCNsi3wYKifhwlWpq6';
 const CLIENT_DOMAIN = 'chalendar.eu.auth0.com';
@@ -43,7 +42,6 @@ var router = new Router({
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  clearUserInfo();
   vue.$session.destroy();
   window.location.href = '/';
 }
@@ -60,27 +58,19 @@ export function requireAuth(to, from, next) {
 }
 
 export function getIdToken() {
-  return vue.$cookies.get(ID_TOKEN_KEY);
+  return isSafari() ? localStorage.getItem(ID_TOKEN_KEY) : vue.$cookies.get(ID_TOKEN_KEY);
 }
 
 export function getAccessToken() {
-  return vue.$cookies.get(ACCESS_TOKEN_KEY);
-}
-
-export function getUserInfo() {
-  return vue.$cookies.get(USER_KEY)
+  return isSafari() ? localStorage.getItem(ACCESS_TOKEN_KEY) : vue.$cookies.get(ACCESS_TOKEN_KEY);
 }
 
 function clearIdToken() {
-  vue.$cookies.remove(ID_TOKEN_KEY);
+  isSafari() ? localStorage.removeItem(ID_TOKEN_KEY) : vue.$cookies.remove(ID_TOKEN_KEY);
 }
 
 function clearAccessToken() {
-  vue.$cookies.remove(ACCESS_TOKEN_KEY);
-}
-
-function clearUserInfo() {
-  vue.$cookies.remove(USER_KEY);
+  isSafari() ? localStorage.removeItem(ACCESS_TOKEN_KEY) : vue.$cookies.remove(ACCESS_TOKEN_KEY);
 }
 
 // Helper function that will allow us to extract the access_token and id_token
@@ -91,14 +81,22 @@ function getParameterByName(name) {
 
 // Get and store access_token in local storage
 export function setAccessToken(accessToken) {
-  // TODO: should be encrypted
-  vue.$cookies.set(ACCESS_TOKEN_KEY, accessToken ? accessToken : getParameterByName('access_token'));
+  if (isSafari()) {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken ? accessToken : getParameterByName('access_token'));
+  } else {
+    // TODO: should be encrypted
+    vue.$cookies.set(ACCESS_TOKEN_KEY, accessToken ? accessToken : getParameterByName('access_token'));
+  }
 }
 
 // Get and store id_token in local storage
 export function setIdToken(idToken) {
-  // TODO: should be encrypted
-  vue.$cookies.set(ID_TOKEN_KEY, idToken ? idToken : getParameterByName('id_token'));
+  if (isSafari()) {
+    localStorage.setItem(ID_TOKEN_KEY, idToken ? idToken : getParameterByName('id_token'));
+  } else {
+    // TODO: should be encrypted
+    vue.$cookies.set(ID_TOKEN_KEY, idToken ? idToken : getParameterByName('id_token'));
+  }
 }
 
 export function renewToken() {
@@ -166,4 +164,9 @@ function isTokenExpired(token) {
   console.log(expirationDate);
   console.log("expired: " + (expirationDate < new Date()));
   return expirationDate < new Date();
+}
+
+function isSafari() {
+  var ua = navigator.userAgent.toLowerCase();
+  return (ua.indexOf('safari') !== -1) && (ua.indexOf('chrome') <= -1);
 }

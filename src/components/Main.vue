@@ -3,7 +3,7 @@
     <h1>Checklist</h1>
 
     <v-checkbox v-model="checked" label="Notifications" readonly></v-checkbox>
-    <v-checkbox label="Keep users logged in for a longer period" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Keep users logged in for a longer period" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Going/Not going" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Calendar: don't show old events" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Calendar: allow to show older events" readonly></v-checkbox>
