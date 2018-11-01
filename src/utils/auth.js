@@ -64,9 +64,7 @@ export function getIdToken() {
 }
 
 export function getAccessToken() {
-  let result = vue.$cookies.get(ACCESS_TOKEN_KEY);
-  console.log("ACCESS TOKEN: " + result);
-  return result;
+  return vue.$cookies.get(ACCESS_TOKEN_KEY);
 }
 
 export function getUserInfo() {
@@ -145,7 +143,8 @@ export function setUserInfo(js) {
 export function isLoggedIn() {
   if (!vue) { return false; }
   const idToken = getIdToken();
-  return !!idToken && !isTokenExpired(idToken);
+  const accessToken = getAccessToken();
+  return !!idToken && !isTokenExpired(idToken) && !isTokenExpired(accessToken);
 }
 
 function getTokenExpirationDate(encodedToken) {
