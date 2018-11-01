@@ -60,13 +60,13 @@ export function requireAuth(to, from, next) {
 }
 
 export function getIdToken() {
-  let result = vue.$cookies.get(ID_TOKEN_KEY);
-  console.log("ID TOKEN: " + result);
-  return result;
+  return vue.$cookies.get(ID_TOKEN_KEY);
 }
 
 export function getAccessToken() {
-  return vue.$cookies.get(ACCESS_TOKEN_KEY)
+  let result = vue.$cookies.get(ACCESS_TOKEN_KEY);
+  console.log("ACCESS TOKEN: " + result);
+  return result;
 }
 
 export function getUserInfo() {
