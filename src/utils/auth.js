@@ -60,7 +60,9 @@ export function requireAuth(to, from, next) {
 }
 
 export function getIdToken() {
-  return vue.$cookies.get(ID_TOKEN_KEY)
+  let result = vue.$cookies.get(ID_TOKEN_KEY);
+  console.log("ID TOKEN: " + result);
+  return result;
 }
 
 export function getAccessToken() {
@@ -127,10 +129,6 @@ export function setUserInfo(js) {
     if (err) {
       renewToken();
     } else {
-      // console.log(err);
-      // console.log("getAccessToken():" + getAccessToken());
-      console.log('user0:');
-      console.log(user);
       if (user) {
         chatterApi.putChatter(user)
           .then(chatter => {
@@ -147,9 +145,6 @@ export function setUserInfo(js) {
 export function isLoggedIn() {
   if (!vue) { return false; }
   const idToken = getIdToken();
-
-  console.log(vue.$session.getAll());
-
   return vue.$session.exists() && !!idToken && !isTokenExpired(idToken);
 }
 
