@@ -145,7 +145,7 @@ export function setUserInfo(js) {
 export function isLoggedIn() {
   if (!vue) { return false; }
   const idToken = getIdToken();
-  return vue.$session.exists() && !!idToken && !isTokenExpired(idToken);
+  return !!idToken && !isTokenExpired(idToken);
 }
 
 function getTokenExpirationDate(encodedToken) {
