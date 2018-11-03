@@ -31,9 +31,12 @@ const actions = {
   },
 
   initGroups({commit, state}, chatter) {
+    console.log(new Date() + ': getGroups');
     return chatterApi.getGroups(chatter.id)
       .then(result => {
+        console.log(new Date() + ': setGroups');
         commit('setGroups', result);
+        console.log(new Date() + ': done');
         return result;
       })
       .catch(error => {
