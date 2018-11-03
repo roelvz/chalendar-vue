@@ -42,7 +42,6 @@ var router = new Router({
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  vue.$session.destroy();
   window.location.href = '/';
 }
 
@@ -100,7 +99,6 @@ export function setIdToken(idToken) {
 }
 
 export function renewToken() {
-  console.log('Renew token');
   auth.checkSession({
       responseType: 'token id_token',
       redirectUri: REDIRECT,
@@ -161,8 +159,6 @@ function getTokenExpirationDate(encodedToken) {
 
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
-  console.log(expirationDate);
-  console.log("expired: " + (expirationDate < new Date()));
   return expirationDate < new Date();
 }
 
