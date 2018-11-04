@@ -1,6 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
     <h1>{{loadedGroup.name}}</h1>
+    <h1 v-if="this.chatter.id === 'facebook|10217066011620498' || this.chatter.id === 'facebook|10217386796239913'">{{new Date().toJSON()}}</h1>
 
     <chat :entity="loadedGroup"
           :members="loadedGroup.members"
@@ -20,14 +21,16 @@ export default {
   components: {Chat},
 
   created() {
-    console.log(new Date() + ': created');
+    console.log(new Date().toTimeString() +': created');
     if (this.chatter) {
-      console.log(new Date() + ': loading group');
+      console.log(new Date().toTimeString() +': loading group');
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
-          console.log(new Date() + ': loaded group, initiating groups');
+          console.log(new Date().toTimeString() +': loaded group, initiating groups');
           return this.initGroups(this.chatter)
-            .then(() => new Date() + ': initiated groups');
+            .then(() => {
+              console.log(new Date().toTimeString() +': initiated groups');
+            });
         });
     }
   },
@@ -48,24 +51,28 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
-        console.log(new Date() + ': loading group for route');
+        console.log(new Date().toJSON() +': loading group for route');
         this.loadGroup({id: this.$route.params.id})
           .then(result => {
-            console.log(new Date() + ': loaded group for route, initiating groups');
-            this.initGroups(this.chatter)
-              .then(() => new Date() + ': initiated groups for route');
+            console.log(new Date().toJSON() +': loaded group for route, initiating groups');
+            // this.initGroups(this.chatter)
+            //   .then(() => {
+            //     console.log(new Date().toJSON() +': initiated groups for route');
+            //   });
           });
       }
     },
 
     chatter(val) {
       if (val) {
-        console.log(new Date() + ': loading group for chatter');
+        console.log(new Date().toJSON() +': loading group for chatter');
         this.loadGroup({id: this.$route.params.id})
           .then(result => {
-            console.log(new Date() + ': loaded group for chatter, initiating groups');
-            this.initGroups(this.chatter)
-              .then(() => new Date() + ': initiated groups for chatter');
+            console.log(new Date().toJSON() +': loaded group for chatter, initiating groups');
+            // this.initGroups(this.chatter)
+            //   .then(() => {
+            //     console.log(new Date().toJSON() +': initiated groups for chatter');
+            //   });
           });
       }
     },
