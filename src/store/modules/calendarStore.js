@@ -170,7 +170,7 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedEvent) {
-      chatApi.postMessage(state.loadedEvent.chatId, text)
+      chatApi.postMessage(state.loadedEvent.chat.id, text)
         .then(message => {
           initMessage(message)
             .then(() => commit('addMessage', message))
