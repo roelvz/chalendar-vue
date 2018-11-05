@@ -122,8 +122,7 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
-        this.loadEvent({id: this.$route.params.id})
-          .then(result => this.initCalendars(this.chatter));
+        this.loadEvent({id: this.$route.params.id});
       }
     },
 
