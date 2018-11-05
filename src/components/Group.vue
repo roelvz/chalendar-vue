@@ -21,16 +21,10 @@ export default {
   components: {Chat},
 
   created() {
-    console.log(new Date().toTimeString() +': created');
     if (this.chatter) {
-      console.log(new Date().toTimeString() +': loading group');
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
-          console.log(new Date().toTimeString() +': loaded group, initiating groups');
-          return this.initGroups(this.chatter)
-            .then(() => {
-              console.log(new Date().toTimeString() +': initiated groups');
-            });
+          return this.initGroups(this.chatter);
         });
     }
   },
@@ -51,29 +45,13 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
-        console.log(new Date().toJSON() +': loading group for route');
-        this.loadGroup({id: this.$route.params.id})
-          .then(result => {
-            console.log(new Date().toJSON() +': loaded group for route, initiating groups');
-            // this.initGroups(this.chatter)
-            //   .then(() => {
-            //     console.log(new Date().toJSON() +': initiated groups for route');
-            //   });
-          });
+        this.loadGroup({id: this.$route.params.id});
       }
     },
 
     chatter(val) {
       if (val) {
-        console.log(new Date().toJSON() +': loading group for chatter');
-        this.loadGroup({id: this.$route.params.id})
-          .then(result => {
-            console.log(new Date().toJSON() +': loaded group for chatter, initiating groups');
-            // this.initGroups(this.chatter)
-            //   .then(() => {
-            //     console.log(new Date().toJSON() +': initiated groups for chatter');
-            //   });
-          });
+        this.loadGroup({id: this.$route.params.id});
       }
     },
   }
