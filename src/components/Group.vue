@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
     <h1>{{loadedGroup.name}}</h1>
-    <h1 v-if="this.chatter.id === 'facebook|10217066011620498' || this.chatter.id === 'facebook|10217386796239913'">{{new Date().toJSON()}}</h1>
+    <h1 v-if="this.chatter && (this.chatter.id === 'facebook|10217066011620498' || this.chatter.id === 'facebook|10217386796239913')">{{new Date().toJSON()}}</h1>
 
     <chat :entity="loadedGroup"
           :members="loadedGroup.members"

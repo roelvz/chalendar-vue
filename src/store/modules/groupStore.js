@@ -10,10 +10,11 @@ const state = {
   allGroups: [],
   groups: [],
   loadedGroup: {
-    chatId: undefined,
+    chat: {
+      messageCount: 0,
+      messages: [],
+    },
     members: [],
-    messageCount: 0,
-    messages:[],
   },
 };
 
@@ -31,12 +32,9 @@ const actions = {
   },
 
   initGroups({commit, state}, chatter) {
-    console.log(new Date().toJSON() + ': getGroups');
     return chatterApi.getGroups(chatter.id)
       .then(result => {
-        console.log(new Date().toJSON() +': setGroups');
         commit('setGroups', result);
-        console.log(new Date().toJSON() +': done');
         return result;
       })
       .catch(error => {
@@ -48,32 +46,16 @@ const actions = {
     let loadedGroup = {};
     let promises = [];
 
-    return groupApi.getGroup(id)
+    return groupApi.getGroup(id, limit)
       .then(group => {
-        // Retrieve messages for group
         loadedGroup = group;
-        return groupApi.getChat(group.id);
-      })
-      .then(chat => {
-        loadedGroup.chatId = chat.id;
 
-        promises.push(chatApi.getMessageCount(chat.id)
+        promises.push(chatApi.getMessageCount(loadedGroup.chat.id)
           .then(count => {
-            loadedGroup.messageCount = count;
+            loadedGroup.chat.messageCount = count;
           }));
-
-        return chatApi.getMessages(chat.id, limit);
-      })
-      .then(messages => {
-        // Fill in creator name and picture for each message
-        for(let i = 0; i < messages.length; i++) {
-          let message = messages[i];
-          promises.push(initMessage(message));
-        }
-        loadedGroup.messages = messages;
       })
       .then(result => {
-        // Save loaded group, including its messages.
         Promise.all(promises).then(() => {
           commit('setLoadedGroup', loadedGroup);
         });
@@ -85,7 +67,7 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedGroup) {
-      chatApi.postMessage(state.loadedGroup.chatId, text)
+      chatApi.postMessage(state.loadedGroup.chat.id, text)
         .then(message => {
           initMessage(message)
             .then(() => commit('addMessage', message))
@@ -111,8 +93,7 @@ const actions = {
 function initMessage(message) {
   return chatterApi.getChatter(message.creatorId)
     .then(chatter => {
-      message.creatorName = chatter.firstName;
-      message.creatorPicture = chatter.picture;
+      message.creator = chatter;
     });
 }
 
@@ -131,18 +112,19 @@ const mutations = {
 
   addMessage(state, message) {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
-    state.loadedGroup.messages.unshift(message);
-    state.loadedGroup.messageCount++;
+    state.loadedGroup.chat.messages.unshift(message);
+    state.loadedGroup.chat.messageCount++;
   },
 
   reset(state) {
     allGroups: [],
     state.groups =  [];
     state.loadedGroup = {
-      chatId: undefined,
+      chat: {
+        messageCount: 0,
+        messages:[],
+      },
       members: [],
-      messageCount: 0,
-      messages:[],
     };
   },
 };

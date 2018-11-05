@@ -1,6 +1,6 @@
 import BaseApi from "./BaseApi";
 import {getAccessToken} from "@/utils/auth";
-import CalendarApi from "@/api/CalendarApi";
+import {messageLimit} from "@/utils/constants";
 const axios = require('axios');
 
 class EventApi extends BaseApi {
@@ -9,8 +9,37 @@ class EventApi extends BaseApi {
     this.baseUri += "Events";
   }
 
-  getEvent(id) {
-    return axios.get(`${this.baseUri}/${id}?filter={"include": {"attendees":"chatter"}}`, BaseApi.buildHeaders())
+  getEvent(id, limit=messageLimit) {
+    // TODO: refactor with groupApi getGroup
+    let filter = {
+      include: [
+        {
+          relation: "chat",
+          scope: {
+            include: {
+              relation: "messages",
+              scope: {
+                limit: limit,
+                order:"creationDate DESC",
+                include: {
+                  relation: "creator"
+                }
+              }
+            }
+          }
+        },
+        {
+          relation: "attendees",
+          scope: {
+            include: {
+              relation: "chatter",
+            }
+          }
+        }
+      ]
+    };
+
+    return axios.get(`${this.baseUri}/${id}?filter=${JSON.stringify(filter)}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

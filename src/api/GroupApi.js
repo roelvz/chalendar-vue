@@ -1,5 +1,6 @@
 import BaseApi from "./BaseApi";
 import {getAccessToken} from "@/utils/auth";
+import {messageLimit} from "@/utils/constants";
 const axios = require('axios');
 
 class GroupApi extends BaseApi {
@@ -13,9 +14,31 @@ class GroupApi extends BaseApi {
       .then(result => result.data);
   }
 
-  getGroup(id) {
-    // TODO: also include messages
-    return axios.get(`${this.baseUri}/${id}?filter={"include":"members"}`, BaseApi.buildHeaders())
+  getGroup(id, limit=messageLimit) {
+    let filter = {
+      include: [
+        {
+          relation: "chat",
+          scope: {
+            include: {
+              relation: "messages",
+              scope: {
+                limit: limit,
+                order:"creationDate DESC",
+                include: {
+                  relation: "creator"
+                }
+              }
+            }
+          }
+        },
+        {
+          relation: "members",
+        }
+      ]
+    };
+
+    return axios.get(`${this.baseUri}/${id}?filter=${JSON.stringify(filter)}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

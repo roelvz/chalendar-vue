@@ -1,5 +1,6 @@
 const axios = require('axios');
 import {getAccessToken} from "@/utils/auth";
+import {messageLimit} from "@/utils/constants";
 import BaseApi from "./BaseApi";
 
 class ChatApi extends BaseApi {
@@ -8,7 +9,7 @@ class ChatApi extends BaseApi {
     this.baseUri += "Chats";
   }
 
-  getMessages(chatId, limit = 20) {
+  getMessages(chatId, limit = messageLimit) {
     return axios.get(`${this.baseUri}/${chatId}/messages?filter={"limit": ${limit}, "order":"creationDate DESC"}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }

@@ -18,9 +18,10 @@ const state = {
     events: [],
   },
   loadedEvent: {
-    chatId: undefined,
-    messageCount: 0,
-    messages: [],
+    chat: {
+      messageCount: 0,
+      messages:[],
+    },
     attendees: [],
   },
 };
@@ -91,32 +92,16 @@ const actions = {
     let loadedEvent = {};
     let promises = [];
 
-    return eventApi.getEvent(id)
+    return eventApi.getEvent(id, limit)
       .then(event => {
         loadedEvent = event;
-        return eventApi.getChat(event.id);
-      })
-      .then(chat => {
-        loadedEvent.chatId = chat.id;
 
-        promises.push(chatApi.getMessageCount(chat.id)
+        promises.push(chatApi.getMessageCount(loadedEvent.chat.id)
           .then(count => {
-            loadedEvent.messageCount = count;
+            loadedEvent.chat.messageCount = count;
           }));
-
-        return chatApi.getMessages(chat.id, limit);
       })
-      .then(messages => {
-        // Fill in creator name and picture for each message
-        for(let i = 0; i < messages.length; i++) {
-          let message = messages[i];
-          promises.push(initMessage(message));
-        }
-
-        loadedEvent.messages = messages;
-      })
-      .then(result => {
-        // Save loaded event, including its messages.
+      .then(() => {
         Promise.all(promises).then(() => {
           commit('setLoadedEvent', loadedEvent);
         });
@@ -130,7 +115,7 @@ const actions = {
     if (state.loadedCalendar) {
       calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
         .then(event => {
-          // TODO: bakcend should create chat automatically
+          // TODO: backend should create chat automatically
           eventApi.postChat(event.id);
 
           commit('addEvent', event);
@@ -212,18 +197,9 @@ const actions = {
 function initMessage(message) {
   return chatterApi.getChatter(message.creatorId)
     .then(chatter => {
-      message.creatorName = chatter.firstName;
-      message.creatorPicture = chatter.picture;
+      message.creator = chatter;
     });
 }
-
-// function initEvent(event) {
-//   return chatterApi.getChatter(event.creatorId)
-//     .then(chatter => {
-//       message.creatorName = chatter.firstName;
-//       message.creatorPicture = chatter.picture;
-//     });
-// }
 
 const mutations = {
   setAllCalendars(state, calendars) {
@@ -248,8 +224,8 @@ const mutations = {
 
   addMessage(state, message) {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
-    state.loadedEvent.messages.unshift(message);
-    state.loadedEvent.messageCount++;
+    state.loadedEvent.chat.messages.unshift(message);
+    state.loadedEvent.chat.messageCount++;
   },
 
   updateEventAttendance(state, attendee) {
@@ -268,9 +244,10 @@ const mutations = {
       events: [],
     };
     state.loadedEvent = {
-      chatId: undefined,
-      messageCount: 0,
-      messages: [],
+      chat: {
+        messageCount: 0,
+        messages:[],
+      },
       attendees: [],
     };
   },
