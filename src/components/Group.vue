@@ -14,6 +14,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import Chat from "@/components/Chat";
+import {scrollToBottom} from "@/utils/utils";
 
 export default {
   name: "Group",
@@ -23,14 +24,12 @@ export default {
     if (this.chatter) {
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
-          return this.initGroups(this.chatter);
+          this.initGroups(this.chatter)
+            .then(() => {
+              scrollToBottom();
+            })
         });
     }
-  },
-
-  mounted() {
-    // TODO: what would be a good value to scroll to?
-    window.scrollTo({"top":10000});
   },
 
   methods: {
@@ -49,7 +48,10 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
-        this.loadGroup({id: this.$route.params.id});
+        this.loadGroup({id: this.$route.params.id})
+          .then(() => {
+            scrollToBottom();
+          })
       }
     },
 

@@ -60,6 +60,8 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {messageLimit} from "@/utils/constants";
+import {scrollToBottom} from "@/utils/utils";
+
 import NotificationApi from "../api/NotificationApi";
 const notificationApi = new NotificationApi();
 
@@ -82,8 +84,7 @@ export default {
         .then(() => {
           notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
           this.inputMessage = "";
-          console.log("scrolling to bottom");
-          window.scrollTo({"top":10000});
+          scrollToBottom();
         });
     },
 
