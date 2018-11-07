@@ -17,8 +17,7 @@
           :members="loadedCalendar.members"
           :initFunc="initCalendars"
           :loadFunc="loadEvent"
-          :postFunc="postMessage"
-          :scroll-to-bottom="false"></chat>
+          :postFunc="postMessage"></chat>
 
   </v-container>
 </template>

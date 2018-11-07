@@ -6,8 +6,7 @@
           :members="loadedGroup.members"
           :initFunc="initGroups"
           :loadFunc="loadGroup"
-          :postFunc="postMessage"
-          :scroll-to-bottom="true"></chat>
+          :postFunc="postMessage"></chat>
 
   </v-container>
 </template>

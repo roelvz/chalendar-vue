@@ -68,7 +68,7 @@ import LinkPrevue from 'link-prevue'
 export default {
   name: "Chat",
   components: {LinkPrevue},
-  props: ['entity', 'members', 'initFunc', 'loadFunc', 'postFunc', 'scrollToBottom'],
+  props: ['entity', 'members', 'initFunc', 'loadFunc', 'postFunc'],
 
   data() {
     return {
@@ -82,9 +82,8 @@ export default {
         .then(() => {
           notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
           this.inputMessage = "";
-          if (this.scrollToBottom) {
-            window.scrollTo({"top":10000});
-          }
+          console.log("scrolling to bottom");
+          window.scrollTo({"top":10000});
         });
     },
 
