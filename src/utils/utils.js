@@ -7,3 +7,8 @@ export function roundDate(timeStamp){
 export function isDateOlderThanToday(date) {
   return date < roundDate(Date.now());
 }
+
+export function scrollToBottom() {
+  // TODO: what would be a good value to scroll to?
+  window.scrollTo({"top":10000});
+}
