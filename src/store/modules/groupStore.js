@@ -67,9 +67,9 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedGroup) {
-      chatApi.postMessage(state.loadedGroup.chat.id, text)
+      return chatApi.postMessage(state.loadedGroup.chat.id, text)
         .then(message => {
-          initMessage(message)
+          return initMessage(message)
             .then(() => commit('addMessage', message))
         })
         .catch(error => {

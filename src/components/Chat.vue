@@ -4,39 +4,40 @@
       <v-btn small v-if="entity.chat.messageCount > entity.chat.messages.length" @click="loadOlderMessages">Older</v-btn>
     </v-layout>
 
-    <!--TODO: refactor with event-->
-    <template v-for="message in entity.chat.messages.slice().reverse()">
-      <v-card>
-        <v-layout row class="">
-          <v-flex>
-            <v-avatar>
-              <img :src="message.creator.picture">
-            </v-avatar>
-          </v-flex>
-          <v-flex xs12>
-            <v-layout column>
-              <v-flex v-if="!isLink(message.text)">{{message.text}}</v-flex>
-              <v-flex v-else>
-                <link-prevue :url="getUrl(message.text)">
-                  <template slot-scope="props">
-                    <div class="card" style="width: 20rem;">
-                      <img v-if=""props.img height="100"  class="card-img-top" :src="props.img" :alt="props.title">
-                      <div class="card-block">
-                        <h4 class="card-title">{{props.title}}</h4>
-                        <p class="card-text">{{props.description}}</p>
-                        <a v-bind:href="props.url" class="btn btn-primary">More</a>
+    <div id="chatbox" :style="getChatStyle()">
+      <template v-for="message in entity.chat.messages.slice().reverse()">
+        <v-card>
+          <v-layout row class="">
+            <v-flex>
+              <v-avatar>
+                <img :src="message.creator.picture">
+              </v-avatar>
+            </v-flex>
+            <v-flex xs12>
+              <v-layout column>
+                <v-flex v-if="!isLink(message.text)">{{message.text}}</v-flex>
+                <v-flex v-else>
+                  <link-prevue :url="getUrl(message.text)">
+                    <template slot-scope="props">
+                      <div class="card" style="width: 20rem;">
+                        <img v-if="props.img" height="100"  class="card-img-top" :src="props.img" :alt="props.title">
+                        <div class="card-block">
+                          <h4 class="card-title">{{props.title}}</h4>
+                          <p class="card-text">{{props.description}}</p>
+                          <a v-bind:href="props.url" class="btn btn-primary">More</a>
+                        </div>
                       </div>
-                    </div>
-                    <div v-if="message.text !== getUrl(message.text)" v-linkified>{{message.text}}</div>
-                  </template>
-                </link-prevue>
-              </v-flex>
-              <v-flex><span class="grey--text"><timeago :datetime="message.creationDate"></timeago> by {{message.creator.firstName}}</span></v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </template>
+                      <div v-if="message.text !== getUrl(message.text)" v-linkified>{{message.text}}</div>
+                    </template>
+                  </link-prevue>
+                </v-flex>
+                <v-flex><span class="grey--text"><timeago :datetime="message.creationDate"></timeago> by {{message.creator.firstName}}</span></v-flex>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </template>
+    </div>
 
     <v-form class="pt-3" @submit="">
       <v-layout column>
@@ -115,6 +116,10 @@ export default {
       } else {
         return "";
       }
+    },
+
+    getChatStyle() {
+      return `height:${screen.availHeight*0.6}px;overflow:scroll`;
     },
   },
 
