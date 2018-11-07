@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div id="container">
+    <v-btn @click="test()">Test</v-btn>
+
     <v-layout row justify-space-around>
       <v-btn small v-if="entity.chat.messageCount > entity.chat.messages.length" @click="loadOlderMessages">Older</v-btn>
     </v-layout>
@@ -66,7 +68,7 @@ import LinkPrevue from 'link-prevue'
 export default {
   name: "Chat",
   components: {LinkPrevue},
-  props: ['entity', 'members', 'initFunc', 'loadFunc', 'postFunc'],
+  props: ['entity', 'members', 'initFunc', 'loadFunc', 'postFunc', 'scrollToBottom'],
 
   data() {
     return {
@@ -80,6 +82,9 @@ export default {
         .then(() => {
           notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
           this.inputMessage = "";
+          if (this.scrollToBottom) {
+            window.scrollTo({"top":10000});
+          }
         });
     },
 

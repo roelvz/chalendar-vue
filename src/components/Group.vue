@@ -1,13 +1,13 @@
 <template>
   <v-container fluid grid-list-md>
     <h1>{{loadedGroup.name}}</h1>
-    <h1 v-if="this.chatter && (this.chatter.id === 'facebook|10217066011620498' || this.chatter.id === 'facebook|10217386796239913')">{{new Date().toJSON()}}</h1>
 
     <chat :entity="loadedGroup"
           :members="loadedGroup.members"
           :initFunc="initGroups"
           :loadFunc="loadGroup"
-          :postFunc="postMessage"></chat>
+          :postFunc="postMessage"
+          :scroll-to-bottom="true"></chat>
 
   </v-container>
 </template>
@@ -27,6 +27,11 @@ export default {
           return this.initGroups(this.chatter);
         });
     }
+  },
+
+  mounted() {
+    // TODO: what would be a good value to scroll to?
+    window.scrollTo({"top":10000});
   },
 
   methods: {
