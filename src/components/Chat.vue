@@ -119,7 +119,7 @@ export default {
     },
 
     getChatStyle() {
-      return `height:${screen.availHeight*0.6}px;overflow:scroll`;
+      return `height:${screen.availHeight*0.4}px;overflow:scroll`;
     },
   },
 
