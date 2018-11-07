@@ -1,7 +1,5 @@
 <template>
-  <div id="container">
-    <v-btn @click="test()">Test</v-btn>
-
+  <div>
     <v-layout row justify-space-around>
       <v-btn small v-if="entity.chat.messageCount > entity.chat.messages.length" @click="loadOlderMessages">Older</v-btn>
     </v-layout>
