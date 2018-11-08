@@ -81,7 +81,7 @@ const actions = {
         // Save loaded calendar, including its events.
         Promise.all(promises).then(() => {
           commit('setLoadedCalendar', loadedCalendar);
-          commit('userStore/setTitle', loadedCalendar.name);
+          commit('userStore/setTitle', loadedCalendar.name, {root: true});
         });
       })
       .catch(error => {
@@ -105,7 +105,7 @@ const actions = {
       .then(() => {
         Promise.all(promises).then(() => {
           commit('setLoadedEvent', loadedEvent);
-          commit('userStore/setTitle', `${new Date(loadedEvent.date).toLocaleDateString()}: ${loadedEvent.name}`)
+          commit('userStore/setTitle', `${new Date(loadedEvent.date).toLocaleDateString()}: ${loadedEvent.name}`, {root: true})
         });
       })
       .catch(error => {

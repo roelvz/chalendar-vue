@@ -5,7 +5,7 @@ const chatterApi = new ChatterApi();
 const state = {
   allChatters: [],
   chatter: undefined,
-  title: '',
+  title: 'Chalendar',
 };
 
 const actions = {
@@ -36,7 +36,7 @@ const mutations = {
   reset(state) {
     state.allChatters = [];
     state.chatter = undefined;
-    state.title = '';
+    state.title = 'Chalendar';
   },
 };
 

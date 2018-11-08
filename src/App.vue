@@ -69,15 +69,10 @@
     <v-toolbar app
                :clipped-left="$vuetify.breakpoint.mdAndUp"
                fixed>
-      <v-toolbar-title>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span><a href="/">Chalendar</a></span>
-      </v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-toolbar-title v-if="shouldLogin()">
         <v-btn @click="handleLogin()">Login</v-btn>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-title>{{title}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-toolbar-title v-if="!shouldLogin()">

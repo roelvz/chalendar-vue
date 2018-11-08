@@ -58,7 +58,7 @@ const actions = {
       .then(result => {
         return Promise.all(promises).then(() => {
           commit('setLoadedGroup', loadedGroup);
-          commit('userStore/setTitle', loadedGroup.name, { root: true })
+          commit('userStore/setTitle', loadedGroup.name, {root: true})
         });
       })
       .catch(error => {
