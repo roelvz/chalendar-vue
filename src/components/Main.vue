@@ -22,8 +22,8 @@
     <v-checkbox v-model="checked" label="Make the ENTER key send the message by default" readonly></v-checkbox>
     <v-checkbox label="Make the ENTER key send the message by default, but not on mobile devices" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
-    <v-checkbox label="Scroll to bottom message after loading the page" readonly></v-checkbox>
-    <v-checkbox label="Scroll to bottom after posting a message" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Scroll to bottom message after loading the page" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Scroll to bottom after posting a message" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per chat" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Show # of unread items per event" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="User rights: people should be invited to a chat/calendar before they can read/write" readonly></v-checkbox>

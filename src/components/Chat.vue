@@ -10,7 +10,7 @@
           <v-layout row class="">
             <v-flex>
               <v-avatar>
-                <img :src="message.creator.picture">
+                <img :src="message.creator.picture" style="height:40px;width:40px">
               </v-avatar>
             </v-flex>
             <v-flex xs12>
@@ -20,7 +20,7 @@
                   <link-prevue :url="getUrl(message.text)">
                     <template slot-scope="props">
                       <div class="card" style="width: 20rem;">
-                        <img v-if="props.img" height="100"  class="card-img-top" :src="props.img" :alt="props.title">
+                        <img v-if="props.img" height="100" class="card-img-top" :src="props.img" :alt="props.title">
                         <div class="card-block">
                           <h4 class="card-title">{{props.title}}</h4>
                           <p class="card-text">{{props.description}}</p>

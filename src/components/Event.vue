@@ -1,23 +1,26 @@
 <template>
-  <v-container fluid v-if="loadedEvent" grid-list-md>
-    <h2>Attendance</h2>
-    <v-radio-group v-model="attendance">
-      <!--TODO: constants-->
-      <v-radio :label="goingString()" value="going"></v-radio>
-      <v-radio :label="maybeString()" value="maybe"></v-radio>
-      <v-radio :label="cannotGoString()" value="cannot_go"></v-radio>
-      <v-radio :label="notGoingString()" value="not_going"></v-radio>
-    </v-radio-group>
+  <v-layout>
+    <v-flex xs12>
+      <v-container fluid>
+        <h2>{{new Date(loadedEvent.date).toLocaleDateString()}}</h2>
+        <v-radio-group v-model="attendance">
+          <!--TODO: constants-->
+          <v-radio :label="goingString()" value="going"></v-radio>
+          <v-radio :label="maybeString()" value="maybe"></v-radio>
+          <v-radio :label="cannotGoString()" value="cannot_go"></v-radio>
+          <v-radio :label="notGoingString()" value="not_going"></v-radio>
+        </v-radio-group>
 
-    <h2>Messages</h2>
+        <h2>Messages</h2>
+      </v-container>
 
-    <chat :entity="loadedEvent"
-          :members="loadedCalendar.members"
-          :initFunc="initCalendars"
-          :loadFunc="loadEvent"
-          :postFunc="postMessage"></chat>
-
-  </v-container>
+      <chat :entity="loadedEvent"
+            :members="loadedCalendar.members"
+            :initFunc="initCalendars"
+            :loadFunc="loadEvent"
+            :postFunc="postMessage"></chat>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

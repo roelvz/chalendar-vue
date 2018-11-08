@@ -105,7 +105,7 @@ const actions = {
       .then(() => {
         Promise.all(promises).then(() => {
           commit('setLoadedEvent', loadedEvent);
-          commit('userStore/setTitle', `${new Date(loadedEvent.date).toLocaleDateString()}: ${loadedEvent.name}`, {root: true})
+          commit('userStore/setTitle', loadedEvent.name, {root: true})
         });
       })
       .catch(error => {

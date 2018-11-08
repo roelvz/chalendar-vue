@@ -1,12 +1,13 @@
 <template>
-  <v-container fluid grid-list-md>
-    <chat :entity="loadedGroup"
-          :members="loadedGroup.members"
-          :initFunc="initGroups"
-          :loadFunc="loadGroup"
-          :postFunc="postMessage"></chat>
-
-  </v-container>
+  <v-layout>
+    <v-flex xs12>
+      <chat :entity="loadedGroup"
+            :members="loadedGroup.members"
+            :initFunc="initGroups"
+            :loadFunc="loadGroup"
+            :postFunc="postMessage"></chat>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
