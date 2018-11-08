@@ -1,7 +1,5 @@
 <template>
   <v-container fluid grid-list-md>
-    <h1>{{loadedGroup.name}}</h1>
-
     <chat :entity="loadedGroup"
           :members="loadedGroup.members"
           :initFunc="initGroups"
@@ -26,7 +24,7 @@ export default {
         .then(result => {
           this.initGroups(this.chatter)
             .then(() => {
-              scrollToBottom();
+              scrollToBottom(this);
             })
         });
     }
@@ -50,7 +48,7 @@ export default {
       if (from.path !== to.path) {
         this.loadGroup({id: this.$route.params.id})
           .then(() => {
-            scrollToBottom();
+            scrollToBottom(this);
           })
       }
     },

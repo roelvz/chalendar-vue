@@ -1,7 +1,5 @@
 <template>
   <v-container fluid v-if="loadedEvent" grid-list-md>
-    <h1>{{new Date(loadedEvent.date).toLocaleDateString()}}: {{loadedEvent.name}}</h1>
-
     <h2>Attendance</h2>
     <v-radio-group v-model="attendance">
       <!--TODO: constants-->

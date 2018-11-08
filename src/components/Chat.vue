@@ -4,7 +4,7 @@
       <v-btn small v-if="entity.chat.messageCount > entity.chat.messages.length" @click="loadOlderMessages">Older</v-btn>
     </v-layout>
 
-    <div id="chatbox" :style="getChatStyle()">
+    <!--<div id="chatbox" :style="getChatStyle()">-->
       <template v-for="message in entity.chat.messages.slice().reverse()">
         <v-card>
           <v-layout row class="">
@@ -37,7 +37,7 @@
           </v-layout>
         </v-card>
       </template>
-    </div>
+    <!--</div>-->
 
     <v-form class="pt-3" @submit="">
       <v-layout column>
@@ -83,7 +83,7 @@ export default {
         .then(() => {
           notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
           this.inputMessage = "";
-          scrollToBottom();
+          scrollToBottom(this);
         });
     },
 

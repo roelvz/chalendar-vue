@@ -56,8 +56,9 @@ const actions = {
           }));
       })
       .then(result => {
-        Promise.all(promises).then(() => {
+        return Promise.all(promises).then(() => {
           commit('setLoadedGroup', loadedGroup);
+          commit('userStore/setTitle', loadedGroup.name, { root: true })
         });
       })
       .catch(error => {

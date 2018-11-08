@@ -76,6 +76,8 @@
       <v-toolbar-title v-if="shouldLogin()">
         <v-btn @click="handleLogin()">Login</v-btn>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-toolbar-title v-if="!shouldLogin()">
@@ -160,6 +162,7 @@ export default {
     chatter: state => state.userStore.chatter,
     groups: state => state.groupStore.groups,
     calendars: state => state.calendarStore.calendars,
+    title: state => state.userStore.title,
   }),
 
   watch: {

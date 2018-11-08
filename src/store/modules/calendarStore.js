@@ -81,6 +81,7 @@ const actions = {
         // Save loaded calendar, including its events.
         Promise.all(promises).then(() => {
           commit('setLoadedCalendar', loadedCalendar);
+          commit('userStore/setTitle', loadedCalendar.name);
         });
       })
       .catch(error => {
@@ -104,6 +105,7 @@ const actions = {
       .then(() => {
         Promise.all(promises).then(() => {
           commit('setLoadedEvent', loadedEvent);
+          commit('userStore/setTitle', `${new Date(loadedEvent.date).toLocaleDateString()}: ${loadedEvent.name}`)
         });
       })
       .catch(error => {
@@ -113,7 +115,7 @@ const actions = {
 
   postEvent({commit, state, rootState}, [name, description, date]) {
     if (state.loadedCalendar) {
-      calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
+      return calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
         .then(event => {
           // TODO: backend should create chat automatically
           eventApi.postChat(event.id);
@@ -170,9 +172,9 @@ const actions = {
 
   postMessage({commit, state, rootState}, text) {
     if (state.loadedEvent) {
-      chatApi.postMessage(state.loadedEvent.chat.id, text)
+      return chatApi.postMessage(state.loadedEvent.chat.id, text)
         .then(message => {
-          initMessage(message)
+          return initMessage(message)
             .then(() => commit('addMessage', message))
         })
         .catch(error => {

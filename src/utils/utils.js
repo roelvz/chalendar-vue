@@ -8,7 +8,11 @@ export function isDateOlderThanToday(date) {
   return date < roundDate(Date.now());
 }
 
-export function scrollToBottom() {
-  var objDiv = document.getElementById("chatbox");
-  objDiv.scrollTop = objDiv.scrollHeight;
+export function scrollToBottom(Vue) {
+  Vue.$nextTick(() => {
+    // TODO: what would be a good value to scroll to?
+    window.scrollTo({"top":10000});
+    // var objDiv = document.getElementById("chatbox");
+    // objDiv.scrollTop = objDiv.scrollHeight;
+  });
 }

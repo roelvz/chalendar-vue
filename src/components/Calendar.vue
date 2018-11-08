@@ -1,7 +1,5 @@
 <template>
   <v-container fluid>
-    <h1>{{loadedCalendar.name}}</h1>
-
     <v-btn :to="toAddEvent()">Add event</v-btn>
 
     <v-layout row justify-space-around>
