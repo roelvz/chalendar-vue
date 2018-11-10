@@ -24,14 +24,18 @@ class ChatterApi extends BaseApi {
   }
 
   getGroups(chatterId) {
-    return axios.get(`${this.baseUri}/${chatterId}/groups`, BaseApi.buildHeaders())
+    return axios.get(`${this.baseUri}/${chatterId}/groups?filter={"include":"chat"}`, BaseApi.buildHeaders())
       .then(result => {
         return result.data
       });
   }
 
   getCalendars(chatterId) {
-    return axios.get(`${this.baseUri}/${chatterId}/calendars`, BaseApi.buildHeaders())
+    // TODO: could potentially get very large if there are a lot of events. On the other side, there can be new messages
+    // on older events (and the reason we ask for the chat id of all events is that the server can calculate the # of
+    // new messages. Ideally, it should be possible to retrieve the # of new messages for a calendar without having to
+    // retrieve all events.
+    return axios.get(`${this.baseUri}/${chatterId}/calendars?filter={"include":{"events":"chat"}}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 

@@ -10,7 +10,7 @@ class GroupApi extends BaseApi {
   }
 
   getGroups() {
-    return axios.get(this.baseUri, BaseApi.buildHeaders())
+    return axios.get(`${this.baseUri}?filter={"include":chat}`, BaseApi.buildHeaders())
       .then(result => result.data);
   }
 
