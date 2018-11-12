@@ -17,7 +17,7 @@
     <v-checkbox label="Chat: show if someone is typing" readonly></v-checkbox>
     <v-checkbox label="Edit messages" readonly></v-checkbox>
     <v-checkbox label="Edit events" readonly></v-checkbox>
-    <v-checkbox label="Going to an event through a notification always opens a new tab" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Going to an event through a notification always opens a new tab" readonly></v-checkbox>
     <v-checkbox label="Add creation info to events in the list of events in the calendar" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Notifications" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Keep users logged in for a longer period" readonly></v-checkbox>
