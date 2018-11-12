@@ -78,16 +78,23 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
+
       <v-toolbar-title v-if="!shouldLogin()">
-        <v-avatar v-if="chatter" :tile="false" size="56px" color="grey lighten-4">
-          <img :src="chatter.picture" alt="avatar">
-        </v-avatar>
+        <v-menu v-if="chatter" >
+          <v-avatar slot="activator" :tile="false" size="56px" color="grey lighten-4">
+            <img :src="chatter.picture" alt="avatar">
+          </v-avatar>
+          <v-list>
+            <v-list-tile v-for="(item, index) in profileMenuItems" :key="index" @click="item.onClick()">
+              <v-list-tile-title>{{item.title}}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
         <div v-else>
           <span>Logging in ...</span>
           <v-progress-circular :size="20" color="primary" indeterminate></v-progress-circular>
         </div>
       </v-toolbar-title>
-      <v-btn v-if="!shouldLogin()" @click="handleLogout()">Logout</v-btn>
     </v-toolbar>
 
     <v-content>
@@ -114,6 +121,13 @@ export default {
       loadingGroups: false,
       loadingCalendars: false,
       drawer: null,
+      profileMenuItems: [
+        // { title: 'Profile' },
+        {
+          title: 'Logout',
+          onClick: this.handleLogout,
+        },
+      ]
     }
   },
 
