@@ -3,12 +3,14 @@ import EventApi from "@/api/EventApi";
 import ChatterApi from "@/api/ChatterApi";
 import ChatApi from "@/api/ChatApi";
 import AttendeeApi from "@/api/AttendeeApi";
+import MessageApi from "@/api/MessageApi";
 
 const calendarApi = new CalendarApi();
 const eventApi = new EventApi();
 const chatterApi = new ChatterApi();
 const chatApi = new ChatApi();
 const attendeeApi = new AttendeeApi();
+const messageApi = new MessageApi();
 
 const state = {
   allCalendars: [],
@@ -185,6 +187,21 @@ const actions = {
     }
   },
 
+  // TODO: refactor with groupStore
+  postLike({commit}, {message, chatter}) {
+    return messageApi.postLike(message.id, chatter.id)
+      .then(like => {
+        commit('addLike', {message, like, chatter});
+      });
+  },
+
+  deleteLike({commit}, {message, like}) {
+    return messageApi.deleteLike(message.id, like.id)
+      .then(() => {
+        commit('deleteLike', {message, like});
+      })
+  },
+
   addChatterToCalendar({commit}, [calendarId, chatterId]) {
     if (calendarId && chatterId) {
       calendarApi.addMember(calendarId, chatterId)
@@ -200,6 +217,7 @@ function initMessage(message) {
   return chatterApi.getChatter(message.creatorId)
     .then(chatter => {
       message.creator = chatter;
+      message.likes = [];
     });
 }
 
@@ -237,6 +255,15 @@ const mutations = {
     } else {
       state.loadedEvent.attendees.push(attendee);
     }
+  },
+
+  addLike(state, {message, like, chatter}) {
+    like.chatter = chatter;
+    message.likes.push(like);
+  },
+
+  deleteLike(state, {message, like}) {
+    message.likes.splice(message.likes.indexOf(like));
   },
 
   reset(state) {

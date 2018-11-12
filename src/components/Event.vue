@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex xs12>
+    <v-flex xs12 v-if="loadedEvent">
       <v-container fluid>
         <h2>{{new Date(loadedEvent.date).toLocaleDateString()}}</h2>
         <v-radio-group v-model="attendance">
@@ -18,7 +18,9 @@
             :members="loadedCalendar.members"
             :initFunc="initCalendars"
             :loadFunc="loadEvent"
-            :postFunc="postMessage"></chat>
+            :postFunc="postMessage"
+            :postLikeFunc="postLike"
+            :deleteLikeFunc="deleteLike"></chat>
     </v-flex>
   </v-layout>
 </template>
@@ -97,6 +99,8 @@ export default {
       'loadEvent',
       'setAttendance',
       'postMessage',
+      'postLike',
+      'deleteLike',
     ]),
 
     ...mapMutations('calendarStore', [

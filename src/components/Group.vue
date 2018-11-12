@@ -5,7 +5,9 @@
             :members="loadedGroup.members"
             :initFunc="initGroups"
             :loadFunc="loadGroup"
-            :postFunc="postMessage"></chat>
+            :postMessageFunc="postMessage"
+            :postLikeFunc="postLike"
+            :deleteLikeFunc="deleteLike"></chat>
     </v-flex>
   </v-layout>
 </template>
@@ -36,6 +38,8 @@ export default {
       'initGroups',
       'loadGroup',
       'postMessage',
+      'postLike',
+      'deleteLike',
     ]),
   },
 

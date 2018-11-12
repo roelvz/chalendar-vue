@@ -21,9 +21,19 @@ class EventApi extends BaseApi {
               scope: {
                 limit: limit,
                 order:"creationDate DESC",
-                include: {
-                  relation: "creator"
-                }
+                include: [
+                  {
+                    relation: "creator",
+                  },
+                  {
+                    relation: "likes",
+                    scope: {
+                      include: {
+                        relation: "chatter"
+                      }
+                    }
+                  }
+                ]
               }
             }
           }

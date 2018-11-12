@@ -1,10 +1,12 @@
 import GroupApi from "../../api/GroupApi";
 import ChatterApi from "../../api/ChatterApi";
 import ChatApi from "../../api/ChatApi";
+import MessageApi from "../../api/MessageApi";
 
 const groupApi = new GroupApi();
 const chatterApi = new ChatterApi();
 const chatApi = new ChatApi();
+const messageApi = new MessageApi();
 
 const state = {
   allGroups: [],
@@ -81,6 +83,20 @@ const actions = {
     }
   },
 
+  postLike({commit}, {message, chatter}) {
+    return messageApi.postLike(message.id, chatter.id)
+      .then(like => {
+        commit('addLike', {message, like, chatter});
+      });
+  },
+
+  deleteLike({commit}, {message, like}) {
+    return messageApi.deleteLike(message.id, like.id)
+      .then(() => {
+        commit('deleteLike', {message, like});
+      })
+  },
+
   addChatterToGroup({commit}, [groupId, chatterId]) {
     if (groupId && chatterId) {
       groupApi.addMember(groupId, chatterId)
@@ -95,6 +111,7 @@ function initMessage(message) {
   return chatterApi.getChatter(message.creatorId)
     .then(chatter => {
       message.creator = chatter;
+      message.likes = [];
     });
 }
 
@@ -115,6 +132,15 @@ const mutations = {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
     state.loadedGroup.chat.messages.unshift(message);
     state.loadedGroup.chat.messageCount++;
+  },
+
+  addLike(state, {message, like, chatter}) {
+    like.chatter = chatter;
+    message.likes.push(like);
+  },
+
+  deleteLike(state, {message, like}) {
+    message.likes.splice(message.likes.indexOf(like));
   },
 
   reset(state) {
