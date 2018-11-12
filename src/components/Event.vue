@@ -18,7 +18,7 @@
             :members="loadedCalendar.members"
             :initFunc="initCalendars"
             :loadFunc="loadEvent"
-            :postFunc="postMessage"
+            :postMessageFunc="postMessage"
             :postLikeFunc="postLike"
             :deleteLikeFunc="deleteLike"></chat>
     </v-flex>
@@ -41,9 +41,11 @@ export default {
   },
 
   created() {
-    this.setLoadedEvent(undefined);
-    this.loadEvent({id: this.$route.params.id})
-      .then(result => this.initCalendars(this.chatter));
+    if (this.chatter) {
+      this.setLoadedEvent(undefined);
+      this.loadEvent({id: this.$route.params.id})
+        .then(result => this.initCalendars(this.chatter));
+    }
   },
 
   methods: {
@@ -137,6 +139,12 @@ export default {
         if (attendee) {
           this.attendanceLocal = attendee.attendance;
         }
+      }
+    },
+
+    chatter(val) {
+      if (val) {
+        this.loadEvent({id: this.$route.params.id});
       }
     },
   }
