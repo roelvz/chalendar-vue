@@ -3,9 +3,9 @@
     <h1>Checklist</h1>
 
     <v-checkbox label="On mobile, keyboard sometimes appears in front of message box when typing" readonly></v-checkbox>
-    <v-checkbox label="Bug: going to an event from a notification doesn't load the correct page" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Bug: going to an event from a notification doesn't load the correct page" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Likes" readonly></v-checkbox>
-    <v-checkbox label="When a message is liked, send a notification to the creator of the message" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="When a message is liked, send a notification to the creator of the message" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
     <v-checkbox v-model="checked" label="Bug: it should not be possible to enter an empty message" readonly></v-checkbox>
     <v-checkbox label="User profile management" readonly></v-checkbox>

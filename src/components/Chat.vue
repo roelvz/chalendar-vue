@@ -78,39 +78,6 @@ export default {
   },
 
   methods: {
-    like(message) {
-      // TODO: the logic for choosing between like and unlike should be in the backend
-      let like = message.likes.find(l => l.chatterId === this.chatter.id);
-      if (like) {
-        this.deleteLikeFunc({message, like});
-      } else {
-        this.postLikeFunc({
-          message: message,
-          chatter: this.chatter,
-        });
-      }
-    },
-
-    getLikeStyle(message) {
-      return (message.likes.length > 0) ? "" : "color:darkgrey";
-    },
-
-    getLikeNames(message) {
-      let result = '';
-      if (message.likes.length > 0) {
-        result += `(${message.likes.length}): `;
-
-        for (let i = 0; i < message.likes.length; i++) {
-          let like = message.likes[i];
-          if (i > 0) {
-            result += ', ';
-          }
-          result += like.chatter.firstName;
-        }
-      }
-      return result;
-    },
-
     sendMessage() {
       if (this.inputMessage.trim().length > 0) {
         this.postMessageFunc(this.inputMessage)
@@ -153,8 +120,40 @@ export default {
       }
     },
 
-    getChatStyle() {
-      return `height:${screen.availHeight*0.5}px;overflow:scroll`;
+    like(message) {
+      // TODO: the logic for choosing between like and unlike should be in the backend
+      let like = message.likes.find(l => l.chatterId === this.chatter.id);
+      if (like) {
+        this.deleteLikeFunc({message, like});
+      } else {
+        this.postLikeFunc({
+          message: message,
+          chatter: this.chatter,
+        })
+          .then(() => {
+            notificationApi.sendNotification(`${this.chatter.firstName} liked your message`, [message.creator], this.chatter, this.$route.path);
+          });
+      }
+    },
+
+    getLikeStyle(message) {
+      return (message.likes.length > 0) ? "" : "color:darkgrey";
+    },
+
+    getLikeNames(message) {
+      let result = '';
+      if (message.likes.length > 0) {
+        result += `(${message.likes.length}): `;
+
+        for (let i = 0; i < message.likes.length; i++) {
+          let like = message.likes[i];
+          if (i > 0) {
+            result += ', ';
+          }
+          result += like.chatter.firstName;
+        }
+      }
+      return result;
     },
   },
 

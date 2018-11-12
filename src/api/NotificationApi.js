@@ -7,6 +7,7 @@ class NotificationApi {
 
   sendNotification(message, members, chatter, pageUrl = './') {
     let filters = [];
+    let chatterId = chatter.id;
 
     // Send messages only to members
     // TODO: Use OneSignal segments
@@ -15,7 +16,7 @@ class NotificationApi {
       let member = members[i];
 
       // Exclude the user sending the message
-      if (member.id !== chatter.id) {
+      if (member.id !== chatterId) {
         if (includeOperator) {
           filters.push({"operator": "OR"});
         }
