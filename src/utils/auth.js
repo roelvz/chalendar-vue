@@ -123,13 +123,19 @@ export function setUserInfo(js) {
       renewToken();
     } else {
       if (user) {
-        chatterApi.putChatter(user)
+        chatterApi.getChatter(user.sub)
           .then(chatter => {
             js.$store.commit('userStore/setChatter', chatter);
           })
           .catch(error => {
-            console.error(error.response ? error.response : error);
-          })
+            chatterApi.putChatter(user)
+              .then(chatter => {
+                js.$store.commit('userStore/setChatter', chatter);
+              })
+              .catch(error => {
+                console.error(error.response ? error.response : error);
+              })
+          });
       }
     }
   });

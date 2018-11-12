@@ -18,6 +18,20 @@ const actions = {
         console.error(error.response ? error.response : error);
       });
   },
+
+  updateChatter({commit, state}, {firstName, lastName, email}) {
+    return chatterApi.putChatter({
+      sub: state.chatter.id,
+      email: email,
+      given_name: firstName,
+      family_name: lastName,
+      picture: state.chatter.picture,
+    })
+      .then(chatter => commit('setChatter', chatter))
+      .catch(error => {
+        console.error(error.response ? error.response : error);
+      });
+  }
 };
 
 const mutations = {

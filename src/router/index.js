@@ -7,6 +7,7 @@ import Event from '@/components/Event'
 import AddEvent from '@/components/AddEvent'
 import Admin from '@/components/Admin'
 import Callback from '@/components/callback'
+import Profile from '@/components/profile'
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/calendar/:calendarId/event/:id',
       name: 'Event',
       component: Event,
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
     },
     {
       path: '/admin',

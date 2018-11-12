@@ -39,23 +39,6 @@ class ChatterApi extends BaseApi {
       .then(result => result.data);
   }
 
-  postChatter({sub, email, given_name, family_name, picture}) {
-    return axios({
-      method: "post",
-      url: `${this.baseUri}`,
-      headers: {
-        authorization: `Bearer ${getAccessToken()}`,
-      },
-      data: {
-        "id": sub,
-        "email": email,
-        "firstName": given_name,
-        "lastName": family_name,
-        "picture": picture,
-      }
-    }).then(result => result.data);
-  }
-
   putChatter({sub, email, given_name, family_name, picture}) {
     if (!given_name) {
       if (family_name) {

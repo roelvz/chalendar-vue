@@ -85,7 +85,7 @@
             <img :src="chatter.picture" alt="avatar">
           </v-avatar>
           <v-list>
-            <v-list-tile v-for="(item, index) in profileMenuItems" :key="index" @click="item.onClick()">
+            <v-list-tile v-for="(item, index) in profileMenuItems" :key="index" :to="item.to" @click="item.onClick()">
               <v-list-tile-title>{{item.title}}</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -122,9 +122,14 @@ export default {
       loadingCalendars: false,
       drawer: null,
       profileMenuItems: [
-        // { title: 'Profile' },
+        {
+          title: 'Profile',
+          to: '/profile',
+          onClick(){},
+        },
         {
           title: 'Logout',
+          to: '',
           onClick: this.handleLogout,
         },
       ]
