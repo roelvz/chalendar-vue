@@ -7,7 +7,7 @@ import Event from '@/components/Event'
 import AddEvent from '@/components/AddEvent'
 import Admin from '@/components/Admin'
 import Callback from '@/components/callback'
-import Profile from '@/components/profile'
+import Profile from '@/components/Profile'
 
 Vue.use(Router);
 
