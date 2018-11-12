@@ -7,7 +7,7 @@
     <v-checkbox v-model="checked" label="Likes" readonly></v-checkbox>
     <v-checkbox label="When a message is liked, send a notification to the creator of the message" readonly></v-checkbox>
     <v-checkbox label="Bug: cannot enter enters in messages" readonly></v-checkbox>
-    <v-checkbox label="Bug: it should not be possible to enter an empty message" readonly></v-checkbox>
+    <v-checkbox v-model="checked" label="Bug: it should not be possible to enter an empty message" readonly></v-checkbox>
     <v-checkbox label="User profile management" readonly></v-checkbox>
     <v-checkbox label="Show who created an event" readonly></v-checkbox>
     <v-checkbox label="Bug: does not scroll completely to bottom if link is included" readonly></v-checkbox>

@@ -112,12 +112,14 @@ export default {
     },
 
     sendMessage() {
-      this.postMessageFunc(this.inputMessage)
-        .then(() => {
-          notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
-          this.inputMessage = "";
-          scrollToBottom(this);
-        });
+      if (this.inputMessage.trim().length > 0) {
+        this.postMessageFunc(this.inputMessage)
+          .then(() => {
+            notificationApi.sendNotification(`${this.chatter.firstName}: ${this.inputMessage}`, this.members, this.chatter, this.$route.path);
+            this.inputMessage = "";
+            scrollToBottom(this);
+          });
+      }
     },
 
     loadOlderMessages() {
