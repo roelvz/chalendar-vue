@@ -37,7 +37,7 @@ class NotificationApi {
         data: {
           app_id: process.env.ONESIGNAL_APP_ID,
           contents: {"en": message,},
-          url: pageUrl,
+          url: 'https://chalendar-ui.herokuapp.com' + pageUrl,
           "filters": filters,
         },
       }).then(result => result.data);
