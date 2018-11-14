@@ -22,9 +22,8 @@ export default {
   components: {Chat},
 
   created() {
-    console.log("CREATED GROUP");
-
     if (this.chatter) {
+      console.log("LOADGROUP CREATED");
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
           this.initGroups(this.chatter)
@@ -36,7 +35,6 @@ export default {
   },
 
   mounted() {
-    console.log("MOUNTED GROUP");
   },
 
   methods: {
@@ -57,6 +55,7 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
+        console.log("LOADGROUP ROUTE");
         this.loadGroup({id: this.$route.params.id})
           .then(() => {
             scrollToBottom(this);
@@ -66,6 +65,7 @@ export default {
 
     chatter(val) {
       if (val) {
+        console.log("LOADGROUP CHATTER");
         this.loadGroup({id: this.$route.params.id});
       }
     },

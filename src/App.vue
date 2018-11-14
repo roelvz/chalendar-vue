@@ -137,12 +137,9 @@ export default {
   },
 
   created() {
-    console.log("CREARTED APP");
   },
 
   mounted() {
-    console.log("MOUNTED APP");
-
     this.$cookies.config('30d');
     setVue(this);
     if (isLoggedIn()) {
