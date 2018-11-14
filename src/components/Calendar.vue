@@ -49,6 +49,25 @@ export default {
     }
   },
 
+  mounted() {
+    let temp = this;
+
+    this.$nextTick(function() {
+      // Make sure calendar is loaded when tab receives input
+      window.onfocus = function () {
+        console.log("onfocus calendar");
+        if (temp.loadedCalendar) {
+          // TODO: should not be a full refresh, only the new events
+          temp.loadCalendar([temp.loadedCalendar.id, this.loadOldEvents]);
+        }
+      };
+
+      window.onblur = function () {
+        console.log("onBlur calendar");
+      }
+    });
+  },
+
   created() {
     if (this.chatter) {
       this.reloadCalendar();

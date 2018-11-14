@@ -23,7 +23,6 @@ export default {
 
   created() {
     if (this.chatter) {
-      console.log("LOADGROUP CREATED");
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
           this.initGroups(this.chatter)
@@ -33,6 +32,23 @@ export default {
   },
 
   mounted() {
+    let temp = this;
+
+    this.$nextTick(function() {
+      // Make sure group is loaded when tab receives input
+      window.onfocus = function () {
+        console.log("onfocus");
+        if (temp.loadedGroup) {
+          // TODO: should not be a full refresh, only the messages
+          temp.loadGroup({id: temp.loadedGroup.id})
+            .then(() => scrollToBottom(temp));
+        }
+      };
+
+      window.onblur = function () {
+        console.log("onBlur");
+      }
+    });
   },
 
   methods: {
@@ -53,7 +69,6 @@ export default {
   watch:{
     $route (to, from){
       if (from.path !== to.path) {
-        console.log("LOADGROUP ROUTE");
         this.loadGroup({id: this.$route.params.id})
           .then(() => scrollToBottom(this));
       }
@@ -61,7 +76,6 @@ export default {
 
     chatter(val) {
       if (val) {
-        console.log("LOADGROUP CHATTER");
         this.loadGroup({id: this.$route.params.id})
           .then(() => scrollToBottom(this));
       }

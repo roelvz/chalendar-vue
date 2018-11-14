@@ -48,6 +48,25 @@ export default {
     }
   },
 
+  mounted() {
+    let temp = this;
+
+    this.$nextTick(function() {
+      // Make sure event is loaded when tab receives input
+      window.onfocus = function () {
+        console.log("onfocus event");
+        if (temp.loadedEvent) {
+          // TODO: should not be a full refresh, only the messages
+          temp.loadEvent({id: temp.loadedEvent.id});
+        }
+      };
+
+      window.onblur = function () {
+        console.log("onBlur event");
+      }
+    });
+  },
+
   methods: {
     goingString() {
       let result = 'Going: ';
