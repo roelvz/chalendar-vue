@@ -22,6 +22,8 @@ export default {
   components: {Chat},
 
   created() {
+    console.log("CREATED GROUP");
+
     if (this.chatter) {
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
@@ -31,6 +33,10 @@ export default {
             })
         });
     }
+  },
+
+  mounted() {
+    console.log("MOUNTED GROUP");
   },
 
   methods: {
