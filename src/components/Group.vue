@@ -27,9 +27,7 @@ export default {
       this.loadGroup({id: this.$route.params.id})
         .then(result => {
           this.initGroups(this.chatter)
-            .then(() => {
-              scrollToBottom(this);
-            })
+            .then(() => scrollToBottom(this));
         });
     }
   },
@@ -57,16 +55,15 @@ export default {
       if (from.path !== to.path) {
         console.log("LOADGROUP ROUTE");
         this.loadGroup({id: this.$route.params.id})
-          .then(() => {
-            scrollToBottom(this);
-          })
+          .then(() => scrollToBottom(this));
       }
     },
 
     chatter(val) {
       if (val) {
         console.log("LOADGROUP CHATTER");
-        this.loadGroup({id: this.$route.params.id});
+        this.loadGroup({id: this.$route.params.id})
+          .then(() => scrollToBottom(this));
       }
     },
   }
