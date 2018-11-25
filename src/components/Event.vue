@@ -1,7 +1,8 @@
 <template>
   <v-layout>
     <v-flex xs12 v-if="loadedEvent">
-      <v-container fluid>       
+      <v-container fluid>
+        <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
