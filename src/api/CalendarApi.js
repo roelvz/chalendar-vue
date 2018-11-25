@@ -31,7 +31,7 @@ class CalendarApi extends BaseApi {
     }
   }
 
-  postEvent(calendarId, [name, description, date, creatorId ]) {
+  postEvent(calendarId, [name, description, date]) {
     return axios({
       method: 'post',
       url: `${this.baseUri}/${calendarId}/events`,
@@ -42,8 +42,6 @@ class CalendarApi extends BaseApi {
         name: name,
         description: description,
         date: date,
-        creatorId : creatorId,
-        creationDate: Date.now()
       }
     })
       .then(result => result.data);

@@ -115,9 +115,9 @@ const actions = {
       });
   },
 
-  postEvent({commit, state, rootState}, [name, description, date, creatorId ]) {
+  postEvent({commit, state, rootState}, [name, description, date]) {
     if (state.loadedCalendar) {
-      return calendarApi.postEvent(state.loadedCalendar.id, [name, description, date, creatorId ])
+      return calendarApi.postEvent(state.loadedCalendar.id, [name, description, date])
         .then(event => {
           // TODO: backend should create chat automatically
           eventApi.postChat(event.id);
