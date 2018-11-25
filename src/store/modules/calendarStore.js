@@ -134,6 +134,16 @@ const actions = {
     }
   },
 
+  deleteEvent({commit}, [eventId]) {
+    //TODO check if user is creator
+      if (eventId) {
+        eventApi.deleteEvent(eventId)
+          .catch(error => {
+            console.error(error.response ? error.response : error);
+          });
+        }
+  },  
+
   setAttendance({commit}, [chatterId, attendance]) {
     if (state.loadedEvent) {
       let newAttendee;

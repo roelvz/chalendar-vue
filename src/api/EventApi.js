@@ -101,6 +101,11 @@ class EventApi extends BaseApi {
       data: {attendance},
     }).then(result => result.data);
   }
+
+  deleteEvent(eventId) {   
+    return axios.delete(`${this.baseUri}/${eventId}`, BaseApi.buildHeaders())
+    .then(result => result.data);
+  }
 }
 
 export default EventApi;

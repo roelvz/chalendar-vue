@@ -1,7 +1,9 @@
 <template>
   <v-layout>
     <v-flex xs12 v-if="loadedEvent">
+      <v-btn  v-if="isCreator()" @click="deleteEventMethod()" style="float:right">Delete</v-btn>
       <v-container fluid>
+      
         <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
         <h5>{{addedInformationString()}}</h5>
@@ -23,8 +25,10 @@
             :postMessageFunc="postMessage"
             :postLikeFunc="postLike"
             :deleteLikeFunc="deleteLike"></chat>
-    </v-flex>
+    
+    </v-flex>     
   </v-layout>
+ 
 </template>
 
 <script>
@@ -70,6 +74,14 @@ export default {
   },
 
   methods: {
+     isCreator() {
+      return this.loadedEvent.creator == this.chatter;
+    },    
+
+    deleteEventMethod() {
+      this.deleteEvent([this.loadedEvent.id]);
+    },
+
     goingString() {
       let result = 'Going: ';
       for (let i = 0; i < this.going().length; i++) {
@@ -141,6 +153,7 @@ export default {
       'postMessage',
       'postLike',
       'deleteLike',
+      'deleteEvent',
     ]),
 
     ...mapMutations('calendarStore', [
