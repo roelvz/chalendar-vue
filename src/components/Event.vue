@@ -1,8 +1,8 @@
 <template>
   <v-layout>
     <v-flex xs12 v-if="loadedEvent">
-      <v-container fluid>
-        <h2>{{new Date(loadedEvent.date).toLocaleDateString()}}</h2>
+      <v-container fluid>       
+        <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
           <v-radio :label="goingString()" value="going"></v-radio>
