@@ -1,6 +1,7 @@
 <template>
   <v-container fluid grid-list-xl>
     <v-form>
+      
       <v-text-field label="name" v-model="name"></v-text-field>
       <v-textarea label="description" v-model="description"></v-textarea>
       <v-date-picker label="date" v-model="date"></v-date-picker>
@@ -30,7 +31,7 @@ export default {
   methods: {
     addEvent() {
       // TODO: check if required fields are filled in
-      this.postEvent([this.name, this.description, this.date])
+      this.postEvent([this.name, this.description, this.date, this.chatter.id])
         .then(() => {
           notificationApi.sendNotification(`New event: ${this.name}`, this.loadedCalendar.members, this.chatter, this.toCalendar());
 
