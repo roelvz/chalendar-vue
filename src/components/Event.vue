@@ -4,6 +4,7 @@
       <v-container fluid>
         <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
+        <h5>{{addedInformationString()}}</h5>
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
           <v-radio :label="goingString()" value="going"></v-radio>
@@ -106,6 +107,23 @@ export default {
         if (i > 0) { result += ", "; }
         result += name;
       }
+      return result;
+    },
+
+    addedInformationString() {
+      let result = "";
+
+      /*
+      @Roel this.loadedEvent.creator is alijd null, ook wanneer this.loadedEvent.creatorId is ingevuld. (Ik vul creator_id nu in "Calendar.Api" bij het aanmaken van een nieuw event)
+      creator zou moeten bestaan om dat creatorId is gelinked aan Chatter in model "event.json", of zo begrijjp ik het allesins. 
+      Klopt het niet wat ik doe? Of moet ik nog iets extra doen?      
+      */
+      if (this.loadedEvent.creator != null) 
+        result += " Added by " + this.loadedEvent.creator.firstName;
+
+      if (this.loadedEvent.creationDate != null) 
+        result += " Added on " + new Date(this.loadedEvent.creationDate).toDateString() ;
+
       return result;
     },
 
