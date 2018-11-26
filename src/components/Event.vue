@@ -9,7 +9,7 @@
       
         <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
-        <h5>{{addedInformationString()}}</h5>     
+        <h6>{{addedInformationString()}}</h6>     
         <h3>{{loadedEvent.description}}</h3>    
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
