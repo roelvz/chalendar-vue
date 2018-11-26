@@ -1,12 +1,15 @@
 <template>
   <v-layout>
     <v-flex xs12 v-if="loadedEvent">
+      
+      <!--TODO change css style to vue layout. -->
       <v-btn  v-if="isCreator()" @click="deleteEventMethod()" style="float:right">Delete</v-btn>
+       <v-btn  v-if="isCreator()" :to="toEditEvent()" style="float:right">Edit</v-btn>
       <v-container fluid>
       
         <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
-        <h5>{{addedInformationString()}}</h5>
+        <h5>{{addedInformationString()}}</h5>         
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
           <v-radio :label="goingString()" value="going"></v-radio>
@@ -45,6 +48,7 @@ export default {
       attendanceLocal: "",
     }
   },
+  
 
   created() {
     if (this.chatter) {
@@ -75,11 +79,20 @@ export default {
 
   methods: {
      isCreator() {
+       return true;
       return this.loadedEvent.creator == this.chatter;
     },    
 
     deleteEventMethod() {
       this.deleteEvent([this.loadedEvent.id]);
+    },
+
+    editEventMethod() {
+      this.deleteEvent([this.loadedEvent.id]);
+    },
+
+    toEditEvent() {
+      return `/calendar/${this.loadedCalendar.id}/event/edit/${this.loadedEvent.id}`;
     },
 
     goingString() {

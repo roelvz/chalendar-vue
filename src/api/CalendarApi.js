@@ -47,6 +47,22 @@ class CalendarApi extends BaseApi {
       .then(result => result.data);
   }
 
+  putEvent(calendarId, [eventId, name, description, date]) {
+    return axios({
+      method: 'put',
+      url: `${this.baseUri}/${calendarId}/events/${eventId}`,
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+      },
+      data: {
+        name: name,
+        description: description,
+        date: date,
+      }
+    })
+      .then(result => result.data);
+  }
+
   addMember(calendarId, chatterId) {
     return axios({
       method: "put",

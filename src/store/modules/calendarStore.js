@@ -134,6 +134,20 @@ const actions = {
     }
   },
 
+  putEvent({commit, state, rootState}, [calendarId, eventId, name, description, date]) {
+    if (calendarId) {
+      return calendarApi.putEvent(calendarId, [eventId, name, description, date])
+        .then(event => {        
+          commit('updateEvent', event);
+        })
+        .catch(error => {
+          console.error(error.response ? error.response : error);
+        });
+    } else {
+      console.error("Could not post event: no calendar loaded");
+    }
+  },
+
   deleteEvent({commit}, [eventId]) {
     //TODO check if user is creator
       if (eventId) {
@@ -249,6 +263,10 @@ const mutations = {
   },
 
   addEvent(state, event) {
+    state.loadedCalendar.events.push(event);
+  },
+
+  editEvent(state, event) {
     state.loadedCalendar.events.push(event);
   },
 

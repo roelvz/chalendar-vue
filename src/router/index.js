@@ -5,6 +5,7 @@ import Group from '@/components/Group'
 import Calendar from '@/components/Calendar'
 import Event from '@/components/Event'
 import AddEvent from '@/components/AddEvent'
+import EditEvent from '@/components/EditEvent'
 import Admin from '@/components/Admin'
 import Callback from '@/components/callback'
 import Profile from '@/components/Profile'
@@ -38,6 +39,11 @@ export default new Router({
       path: '/calendar/:calendarId/event/add',
       name: 'AddEvent',
       component: AddEvent,
+    },
+    {
+      path: '/calendar/:calendarId/event/edit/:id',
+      name: 'EditEvent',
+      component: EditEvent,
     },
     {
       path: '/calendar/:calendarId/event/:id',
