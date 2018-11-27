@@ -137,7 +137,7 @@ const actions = {
   putEvent({commit, state, rootState}, [calendarId, eventId, name, description, date]) {
     if (calendarId) {
       return calendarApi.putEvent(calendarId, [eventId, name, description, date])
-        .then(event => {        
+        .then(event => {
           commit('updateEvent', event);
         })
         .catch(error => {
@@ -156,7 +156,7 @@ const actions = {
             console.error(error.response ? error.response : error);
           });
         }
-  },  
+  },
 
   setAttendance({commit}, [chatterId, attendance]) {
     if (state.loadedEvent) {
@@ -274,6 +274,10 @@ const mutations = {
     // Messages are stored in reverse order (order by creationDate DESC), so add it to the front (using unshift).
     state.loadedEvent.chat.messages.unshift(message);
     state.loadedEvent.chat.messageCount++;
+  },
+
+  updateEvent(event) {
+    this.loadedEvent = event;
   },
 
   updateEventAttendance(state, attendee) {

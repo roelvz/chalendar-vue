@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-xl  v-if="isCreator()">
     <v-form>
-      <h1>Edit event</h1>    
+      <h1>Edit event</h1>
       <v-text-field label="name" v-model="name" ></v-text-field>
       <v-textarea label="description" v-model="description"></v-textarea>
       <v-date-picker label="date" v-model="date"></v-date-picker>
@@ -21,23 +21,23 @@ const notificationApi = new NotificationApi();
 export default {
   name: "EditEvent",
 
-  //TODO how to set data to default value of loadedEvent? 
+  //TODO how to set data to default value of loadedEvent?
   data() {
     return {
       name: "",
       description: "",
-      date: ""
+      date: "",
     }
   },
 
   created() {
     if (this.chatter) {
       this.setLoadedEvent(undefined);
-      this.loadEvent({id: this.$route.params.id});
+        this.loadEvent({id: this.$route.params.id});
     }
   },
 
-mounted() {
+  mounted() {
     let temp = this;
 
     this.$nextTick(function() {
@@ -60,33 +60,29 @@ mounted() {
    isCreator() {
      //TODO remove line
        return true;
-      return this.loadedEvent.creator == this.chatter;
-    },    
+      return this.loadedEvent.creator === this.chatter;
+    },
 
-    saveEvent() {        
+    saveEvent() {
       // TODO: check if required fields are filled in
       this.putEvent([this.loadedCalendar.id, this.loadedEvent.id, this.name, this.description, this.date])
         .then(() => {
           //TODO not sure why but with this line event is not updated and $router doesnt work
           //notificationApi.sendNotification(`Event updated: ${this.name}`, this.loadedCalendar.members, this.chatter, this.toEvent());
            this.$router.push({path: this.toEvent()})
-      
         });
-
-            
-        
     },
 
     toEvent() {
-      return `/calendar/${this.loadedCalendar.id}/event/${this.loadedEvent.id}`
+      return (this.loadedCalendar && this.loadedEvent) ? `/calendar/${this.loadedCalendar.id}/event/${this.loadedEvent.id}` : '';
     },
 
     ...mapActions('calendarStore', [
       'initCalendars',
-      'putEvent', 
+      'putEvent',
       'loadEvent',
     ]),
-    
+
     ...mapMutations('calendarStore', [
       'setLoadedEvent',
     ]),
@@ -100,7 +96,30 @@ mounted() {
       loadedCalendar: state => state.calendarStore.loadedCalendar,
     }),
   },
-  
+
+  watch: {
+    $route(to, from) {
+      if (from.path !== to.path) {
+        this.loadEvent({id: this.$route.params.id});
+      }
+    },
+
+    loadedEvent(event) {
+      if (event) {
+        this.name = event.name;
+        this.description = event.description;
+        this.date = new Date(event.date).toISOString().substr(0, 10);
+        //this.date.date = new Date(event.date).toJSON();
+        //this.date.time = new Date(event.date).toJSON();
+      }
+    },
+
+    chatter(val) {
+      if (val) {
+        this.loadEvent({id: this.$route.params.id});
+      }
+    },
+  }
 }
 </script>
 
