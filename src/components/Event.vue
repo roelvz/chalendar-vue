@@ -1,16 +1,16 @@
 <template>
   <v-layout>
     <v-flex xs12 v-if="loadedEvent">
-      
+
       <!--TODO change css style to vue layout. -->
       <v-btn  v-if="isCreator()" @click="deleteEventMethod()" style="float:right">Delete</v-btn>
-       <v-btn  v-if="isCreator()" :to="toEditEvent()" style="float:right">Edit</v-btn>
+      <v-btn  v-if="isCreator()" :to="toEditEvent()" style="float:right">Edit</v-btn>
       <v-container fluid>
-      
+
         <h1> {{loadedEvent.name}}  </h1>
         <h2>{{new Date(loadedEvent.date).toDateString()}}</h2>
-        <h6>{{addedInformationString()}}</h6>     
-        <h3>{{loadedEvent.description}}</h3>    
+        <h6>{{addedInformationString()}}</h6>
+        <h3>{{loadedEvent.description}}</h3>
         <v-radio-group v-model="attendance">
           <!--TODO: constants-->
           <v-radio :label="goingString()" value="going"></v-radio>
@@ -29,10 +29,10 @@
             :postMessageFunc="postMessage"
             :postLikeFunc="postLike"
             :deleteLikeFunc="deleteLike"></chat>
-    
-    </v-flex>     
+
+    </v-flex>
   </v-layout>
- 
+
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
       attendanceLocal: "",
     }
   },
-  
+
 
   created() {
     if (this.chatter) {
@@ -80,9 +80,8 @@ export default {
 
   methods: {
      isCreator() {
-       return true;
-      return this.loadedEvent.creator == this.chatter;
-    },    
+      return this.loadedEvent.creatorId && this.loadedEvent.creatorId === this.chatter.id;
+    },
 
     deleteEventMethod() {
       this.deleteEvent([this.loadedEvent.id]);
@@ -141,13 +140,13 @@ export default {
 
       /*
       @Roel this.loadedEvent.creator is alijd null, ook wanneer this.loadedEvent.creatorId is ingevuld. (Ik vul creator_id nu in "Calendar.Api" bij het aanmaken van een nieuw event)
-      creator zou moeten bestaan om dat creatorId is gelinked aan Chatter in model "event.json", of zo begrijjp ik het allesins. 
-      Klopt het niet wat ik doe? Of moet ik nog iets extra doen?      
+      creator zou moeten bestaan om dat creatorId is gelinked aan Chatter in model "event.json", of zo begrijjp ik het allesins.
+      Klopt het niet wat ik doe? Of moet ik nog iets extra doen?
       */
-      if (this.loadedEvent.creator != null) 
+      if (this.loadedEvent.creator != null)
         result += " Added by " + this.loadedEvent.creator.firstName;
 
-      if (this.loadedEvent.creationDate != null) 
+      if (this.loadedEvent.creationDate != null)
         result += " Added on " + new Date(this.loadedEvent.creationDate).toDateString() ;
 
       return result;
