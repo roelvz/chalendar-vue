@@ -137,7 +137,7 @@ export default {
     },
 
     getLikeStyle(message) {
-      return (message.likes.length > 0) ? "" : "color:darkgrey";
+      return (message.likes.length > 0) ? "color:green" : "color:darkgrey";
     },
 
     getLikeNames(message) {
