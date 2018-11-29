@@ -87,14 +87,11 @@ export default {
       this.deleteEvent([this.loadedEvent.id]);
     },
 
-    editEventMethod() {
-      this.deleteEvent([this.loadedEvent.id]);
-    },
-
     toEditEvent() {
       return `/calendar/${this.loadedCalendar.id}/event/edit/${this.loadedEvent.id}`;
     },
 
+    // TODO: refactor string construction methods
     goingString() {
       let result = 'Going: ';
       for (let i = 0; i < this.going().length; i++) {
@@ -137,12 +134,6 @@ export default {
 
     addedInformationString() {
       let result = "";
-
-      /*
-      @Roel this.loadedEvent.creator is alijd null, ook wanneer this.loadedEvent.creatorId is ingevuld. (Ik vul creator_id nu in "Calendar.Api" bij het aanmaken van een nieuw event)
-      creator zou moeten bestaan om dat creatorId is gelinked aan Chatter in model "event.json", of zo begrijjp ik het allesins.
-      Klopt het niet wat ik doe? Of moet ik nog iets extra doen?
-      */
       if (this.loadedEvent.creator != null)
         result += " Added by " + this.loadedEvent.creator.firstName;
 
